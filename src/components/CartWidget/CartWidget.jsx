@@ -2,7 +2,7 @@ import { Flex, Text } from "@chakra-ui/react";
 import { CgShoppingCart } from "react-icons/cg";
 
 
-const CartWidget = () => {
+export const CartWidget = () => {
     return (
         <Flex justifyContent={'center'} alignItems={'center'}>
             <CgShoppingCart size={'25px'} />
@@ -10,4 +10,3 @@ const CartWidget = () => {
         </Flex>
     )
 };
-export default CartWidget;

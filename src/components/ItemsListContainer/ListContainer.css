@@ -1,0 +1,17 @@
+.titleContainer {
+    padding: 8rem;
+    background-image: url('../../assets/fondoCalle.jpg');
+    background-attachment:fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+    margin-top: 1rem;
+}
+
+
+.cardsContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}

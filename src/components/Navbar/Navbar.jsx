@@ -1,34 +1,51 @@
 import {
-    Box,
-    Flex,
-    Avatar,
-    Button,
-    Menu,
-    MenuButton,
-    MenuList,
-    MenuItem,
-    MenuDivider,
-    useColorModeValue,
-    Stack,
-    useColorMode,
-    Center,
-  } from '@chakra-ui/react'
-  import { MoonIcon, SunIcon } from '@chakra-ui/icons'
-  import CartWidget from '../CartWidget/CartWidget'
-  import logoBeReal from '../../assets/logo-BeReal.png'
+  Box,
+  Flex,
+  Avatar,
+  Button,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+  useColorModeValue,
+  Stack,
+  useColorMode,
+  Center,
+} from "@chakra-ui/react";
+  import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+  import {CartWidget} from '../../components';
+  import logoBeReal from '../../assets/logo-BeReal.png';
+  import { Link } from "react-router-dom";
+  import { useCategory } from "../../hooks";
 
 
+export const Navbar = () => {
+    const { colorMode, toggleColorMode } = useColorMode();
 
-const Navbar = () => {
-    const { colorMode, toggleColorMode } = useColorMode()
+    const { category } = useCategory();
 
     return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box>
+            <Link to='/'>
             <img width={'70px'} height={'70px'} src={logoBeReal} alt="Logo principal" />
+            </Link>
           </Box>
+            <Menu>
+              <MenuButton as={Link} cursor="pointer" style={{ marginLeft: 30 }}>
+                Categorias
+              </MenuButton>
+              <MenuList height={"300px"} overflowY={"scroll"}>
+                {category.map((category) => (
+                  <MenuItem key={category.slug}>
+                    <Link to={`/category/${category.slug}`}>{category.name}</Link>
+                  </MenuItem>
+                ))}
+              </MenuList>
+          </Menu>
           <Flex alignItems={'center'} justifyContent={'space-between'}> 
             <Stack direction={'row'} spacing={7}>
               <CartWidget /> 
@@ -74,5 +91,3 @@ const Navbar = () => {
     </>
     )
 };
-
-export default Navbar;
