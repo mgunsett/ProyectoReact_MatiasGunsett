@@ -8,7 +8,7 @@ export async function getProductById(id) {
   return await axios.get(`https://dummyjson.com/product/${id}`);
 }
 
-export async function getProductByCategorys() {
+export async function getProductByCategorys(id) {
   return await axios.get(`https://dummyjson.com/products/category/${id}`);
 }
 

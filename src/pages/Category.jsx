@@ -6,8 +6,8 @@ import { useProductByCategory } from "../hooks";
 
 export const Category = () => {
 
-  const { categoryId } = useParams();
-  const { productsData, loading } = useProductByCategory(categoryId);
+  const { id } = useParams();
+  const { productsData, loading } = useProductByCategory(id);
 
   return loading ? (
     <Flex
