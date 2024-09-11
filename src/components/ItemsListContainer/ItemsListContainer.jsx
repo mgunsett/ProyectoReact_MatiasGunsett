@@ -54,7 +54,7 @@ export const ItemsListContainer = ({title , products}) => {
           <Divider />
           <CardFooter>
             <ButtonGroup spacing="2">
-              <Link to={`./item/${product.id}`}>
+              <Link to={`/item/${product.id}`}>
                 Ir a Detalle
               </Link>
             </ButtonGroup>

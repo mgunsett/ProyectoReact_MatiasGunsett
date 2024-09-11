@@ -34,9 +34,11 @@ export const Navbar = () => {
             <img width={'70px'} height={'70px'} src={logoBeReal} alt="Logo principal" />
             </Link>
           </Box>
+          <Box>
             <Menu>
-              <MenuButton as={Link} cursor="pointer" style={{ marginLeft: 30 }}>
-                Categorias
+              <Link to= '/events' style={{marginRight: 30}}>Eventos</Link>
+              <MenuButton as={Link} cursor="pointer">
+                Categorias  
               </MenuButton>
               <MenuList height={"300px"} overflowY={"scroll"}>
                 {category.map((category) => (
@@ -46,6 +48,7 @@ export const Navbar = () => {
                 ))}
               </MenuList>
           </Menu>
+          </Box>
           <Flex alignItems={'center'} justifyContent={'space-between'}> 
             <Stack direction={'row'} spacing={7}>
               <CartWidget /> 
