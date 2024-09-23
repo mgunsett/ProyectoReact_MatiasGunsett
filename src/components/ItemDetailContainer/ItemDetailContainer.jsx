@@ -16,6 +16,7 @@ import {
 import { CartContext } from "../../context/CartContext";
 
 export const ItemDetailContainer = ({ product }) => {
+
   const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(0);
 

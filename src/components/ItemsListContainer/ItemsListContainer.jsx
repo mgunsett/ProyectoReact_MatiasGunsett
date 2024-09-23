@@ -17,13 +17,16 @@ import { Link } from "react-router-dom";
 
 
 export const ItemsListContainer = ({title , products}) => {
+
+  // const categories = products.map((product) => product.category);
+  // Set es una estructura de datos que no permite duplicados
+  // const uniqueCategories = [...new Set(categories)];
+  // console.log(uniqueCategories)
+
     return (
       <Container maxW={'100%'} textAlign={'center'}  margin={0}>
         <Box className='titleContainer'>
           <Heading fontFamily={'Bowlby One, sans-serif'} size={'lg'} fontSize={'130px'}>{title}</Heading>
-          <Button size='lg' colorScheme='blue' mt='24px'>
-            Comenzar!
-          </Button>
         </Box>
 
         <Divider orientation={'horizontal'} margin={'auto'} maxW={'90%'} padding={'3'}/>
@@ -55,7 +58,8 @@ export const ItemsListContainer = ({title , products}) => {
           <CardFooter>
             <ButtonGroup spacing="2">
               <Link to={`/item/${product.id}`}>
-                Ir a Detalle
+                {" "}
+                Ir a Detalle{""}
               </Link>
             </ButtonGroup>
           </CardFooter>

@@ -17,13 +17,13 @@ import {
   import {CartWidget} from '../../components';
   import logoBeReal from '../../assets/logo-BeReal.png';
   import { Link } from "react-router-dom";
-  import { useCategory } from "../../hooks";
+  import { useItemsCollection } from "../../hooks";
 
 
 export const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
 
-    const { category } = useCategory();
+    const { items } = useItemsCollection("categories");
 
     return (
     <>
@@ -36,18 +36,21 @@ export const Navbar = () => {
           </Box>
           <Box>
             <Menu>
-              <Link to= '/events' style={{marginRight: 30}}>Eventos</Link>
+              <Link to= {'/events'} style={{marginRight: 30}}>Eventos</Link>
               <MenuButton as={Link} cursor="pointer">
                 Categorias  
               </MenuButton>
               <MenuList height={"300px"} overflowY={"scroll"}>
-                {category.map((category) => (
+                {items.map((category) => (
                   <MenuItem key={category.slug}>
                     <Link to={`/category/${category.slug}`}>{category.name}</Link>
                   </MenuItem>
                 ))}
               </MenuList>
           </Menu>
+          {/* <Button onClick={() => createProductsFirestore("products")}>
+            Crear productos
+          </Button> */}
           </Box>
           <Flex alignItems={'center'} justifyContent={'space-between'}> 
             <Stack direction={'row'} spacing={7}>

@@ -1,24 +1,16 @@
-import { Flex, Spinner } from '@chakra-ui/react'
 import { ItemsListContainer } from "../components";
 import { useParams } from "react-router-dom";
-import { useProductByCategory } from "../hooks";
-
+import { useProductsByCategory } from "../hooks";
+import { SkeletonLoading } from "../components/SkeletonLoading";
 
 export const Category = () => {
 
   const { id } = useParams();
-  const { productsData, loading } = useProductByCategory(id);
+  const { productsData  , loading } = useProductsByCategory(id);
 
   return loading ? (
-    <Flex
-      width={"100%"}
-      height={"90vh"}
-      alignItems={"center"}
-      justifyContent={"center"}
-    >
-      <Spinner size="xl" />
-    </Flex>
+    <SkeletonLoading />
   ) : (
-    <ItemsListContainer title={'Be Real'} products={productsData}/>
+    <ItemsListContainer title={id}  products={productsData}/>
   );
 };

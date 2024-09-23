@@ -1,5 +1,5 @@
   import { ChakraProvider} from '@chakra-ui/react'
-  import MainLayout from './layout/MainLayout';
+  // import MainLayout from './layout/MainLayout';
   import { MainRouter } from "./routes";
   import './App.css'
   import { CartProvider } from './context/CartContext';

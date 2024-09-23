@@ -1,23 +1,27 @@
 import { useState, useEffect } from "react";
-import { getProductByCategorys } from "../service/products.service";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { db } from "../firebase";
 
-export const useProductByCategory = (id) => {
+export const useProductsByCategory = (id) => {
   
-  const [productsData, setProductsData] = useState([]);
+  const [productsData, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getProductByCategorys(id)
-      .then((res) => {
-        setProductsData(res.data.products);
+    const customQuery = query(  // query significa "consulta" a firebase a travez del where y el "==", es el operador de comparacion.//
+      collection(db, "products"), 
+      where("category", "==", id)
+    );
+
+    getDocs(customQuery)
+      .then((snapshot) => {
+        setProducts(
+          snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        );
       })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch(() => setError(true))
+      .finally(() => setLoading(false));
   }, [id]);
 
   return { productsData, loading };
-}
+};

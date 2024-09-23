@@ -1,28 +1,28 @@
-import {
-    Button,
-    Box,
-  } from '@chakra-ui/react'
-import { useRef } from "react";
+// import {
+//     Button,
+//     Box,
+//   } from '@chakra-ui/react'
+// import { useRef } from "react";
 
 
-const MainLayout = ({children}) => {
-    const footerDivRef = useRef ();
+// const MainLayout = ({children}) => {
+//     const footerDivRef = useRef ();
 
-    const handleClick = () => {
-        footerDivRef.current.innerHTML = "Footer Contain Reference";
-        footerDivRef.current.setAttribute("class", "footerNew")
-    }
+//     const handleClick = () => {
+//         footerDivRef.current.innerHTML = "Footer Contain Reference";
+//         footerDivRef.current.setAttribute("class", "footerNew")
+//     }
 
-    return (
-        <Box>
-            {children}
-            <div ref={footerDivRef}>Footer</div>
-            <Button onClick={handleClick} colorScheme={'blue'}>Click</Button>
-        </Box>
-    )
-
-
+//     return (
+//         <Box>
+//             {children}
+//             <div ref={footerDivRef}>Footer</div>
+//             <Button onClick={handleClick} colorScheme={'blue'}>Click</Button>
+//         </Box>
+//     )
 
 
-};
- export default MainLayout;
+
+
+// };
+//  export default MainLayout;
