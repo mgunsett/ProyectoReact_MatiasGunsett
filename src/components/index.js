@@ -4,3 +4,4 @@ export * from "./Navbar";
 export * from "./ItemDetailContainer";
 export * from "./ItemsListContainer";
 export * from "./SkeletonLoading";
+export * from "./Footer";

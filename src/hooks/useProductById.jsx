@@ -15,7 +15,7 @@ export const useProductById = (id) => {
       .then((snapshot) => {
         setProductData({ id: snapshot.id, ...snapshot.data() });
         //si, usamos (snapshot) pero ya no el .map para recorrer el objeto snapshot.data()//
-        //ya que ahora solo vamos a traer un solo proucto segun el "id"  //
+        //ya que ahora solo vamos a traer un solo producto segun el "id"  //
       })
       .catch((error) => {
         console.log(error);

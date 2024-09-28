@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/react';
 import './ListContainer.css';
 import { Link } from "react-router-dom";
+import banner from '../../assets/banner.png'
 
 
 export const ItemsListContainer = ({title , products}) => {
@@ -24,32 +25,42 @@ export const ItemsListContainer = ({title , products}) => {
   // console.log(uniqueCategories)
 
     return (
-      <Container maxW={'100%'} textAlign={'center'}  margin={0}>
+      <Container maxW={'100%'} textAlign={'center'} margin={0}>
         <Box className='titleContainer'>
-          <Heading fontFamily={'Bowlby One, sans-serif'} size={'lg'} fontSize={'130px'}>{title}</Heading>
+          <Image
+            src={banner}
+            alt='Banner'
+            objectFit='cover'
+            opacity={0.8}
+            maxW={'60%'}
+            margin={'auto'}  
+          />
+          <Heading fontFamily={'Bowlby One, sans-serif'} size={'lg'} fontSize={'30px'}>{title}</Heading>
         </Box>
 
-        <Divider orientation={'horizontal'} margin={'auto'} maxW={'90%'} padding={'3'}/>
+        <Divider orientation={'horizontal'} margin={'auto'} maxW={'90%'} padding={'5'}/>
         
         <Box className='cardsContainer'>
           {products.map((product) => (
-        // <Card key={index} maxW="sm" marginTop={"1rem"}> // Podria usar 'index' en caso de que no hubiera ID --
+        // <Card key={index} maxW="sm" marginTop={"1rem"}> // Podria usar 'index' en caso de que no hubiera ID -- 
         <Card key={product.id} maxW="md" margin={"1rem"} >
           <CardBody>
-            <Image 
-              src={product.thumbnail} 
-              alt={product.name} 
-              borderRadius="md" 
-              boxSize='320px'
-              objectFit='cover' 
-              maxW={'20rem'}
-            />
-            <Stack mt="6" spacing="3">
-              <Heading size="md">{product.title}</Heading>
-              <Text textAlign={'left'}>
+            <Link to={`/item/${product.id}`}>
+              <Image 
+                src={product.imageUrl} 
+                alt={product.title} 
+                borderRadius="md" 
+                boxSize='250px'
+                objectFit='cover' 
+                maxW={'20rem'}
+              />
+            </Link>
+            <Stack textAlign={'left'} mt="6" spacing="2">
+              <Heading size="sm">{product.title}</Heading>
+              <Text maxW={'16rem'}>
                 {product.description}
               </Text>
-              <Text color="blue.600" fontSize="2xl" fontFamily={'fantasy'}>
+              <Text color="blue.500" fontSize="2xl" fontFamily={'fantasy'} fontWeight={'100'}>
                 ${product.price}
               </Text>
             </Stack>
@@ -57,7 +68,9 @@ export const ItemsListContainer = ({title , products}) => {
           <Divider />
           <CardFooter>
             <ButtonGroup spacing="2">
-              <Link to={`/item/${product.id}`}>
+              <Link 
+              to={`/item/${product.id}`}
+              >
                 {" "}
                 Ir a Detalle{""}
               </Link>

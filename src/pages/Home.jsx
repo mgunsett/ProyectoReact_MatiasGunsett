@@ -9,7 +9,7 @@ export const Home = () => {
   //y aca le pasamos como parametro a la hooks que customizamos el nombre de la "Coleccion" //
 
   return loading ? (
-    <Flex justifyContent={"center"} alignItems={"center"} h={"90vh"}>
+    <Flex justifyContent= {"center"} alignItems={"center"} h={"90vh"}>
       <Spinner />
     </Flex>
   ) : error ? (

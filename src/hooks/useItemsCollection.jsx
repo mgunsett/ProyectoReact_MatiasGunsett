@@ -4,7 +4,8 @@ import { db } from "../firebase";
 
 export const useItemsCollection = (categoryName) => {
 
-  //!Customizamos el hook por "ItemsCollection" para que sea mas abarcativo respecto a las colecciones q tengamos en Firebase y podemos reutilzarlo para cualquier caso, solo cambiando el parametro que recibe.//
+  //!Customizamos el hook por "ItemsCollection" para que sea mas abarcativo respecto a las colecciones q tengamos en Firebase
+  //!  y podemos reutilzarlo para cualquier caso, solo cambiando el parametro que recibe.//
   
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -18,7 +19,7 @@ export const useItemsCollection = (categoryName) => {
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
-  }, []);
+  }, [categoryName]);
 
   return { items, loading, error };
 };

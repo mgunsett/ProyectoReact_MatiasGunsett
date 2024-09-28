@@ -43,7 +43,7 @@ export const ItemDetailContainer = ({ product }) => {
   };
 
   return (
-    <Container maxW={"7xl"}>
+    <Container maxW={"50%"}>
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
@@ -52,20 +52,20 @@ export const ItemDetailContainer = ({ product }) => {
         <Flex>
           <Image
             rounded={"md"}
-            alt={"product image"}
-            src={product.thumbnail}
+            alt={product.title}
+            src={product.imageUrl}
             fit={"cover"}
             align={"center"}
             w={"100%"}
             h={{ base: "100%", sm: "400px", lg: "500px" }}
           />
         </Flex>
-        <Stack spacing={{ base: 6, md: 10 }}>
+        <Stack align={'left'} spacing={{ base: 6, md: 10 }}>
           <Box as={"header"}>
             <Heading
               lineHeight={1.1}
               fontWeight={600}
-              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+              fontSize={{ base: "2xl", sm: "3xl", lg: "4.5xl" }}
             >
               {product.title}
             </Heading>
@@ -74,7 +74,7 @@ export const ItemDetailContainer = ({ product }) => {
               fontWeight={300}
               fontSize={"2xl"}
             >
-              ${product.price} USD
+              {product.description}
             </Text>
           </Box>
 
@@ -92,15 +92,26 @@ export const ItemDetailContainer = ({ product }) => {
                 color={useColorModeValue("gray.500", "gray.400")}
                 fontSize={"2xl"}
                 fontWeight={"300"}
+                alignSelf={'flex-start'}
               >
-                {product.description}
+                Cantidad disponible: {product.stock}
+              </Text>
+              <Text
+                color={useColorModeValue("gray.900", "gray.400")}
+                fontSize={"2xl"}
+                fontWeight={"300"}
+                alignSelf={'flex-start'}
+                fontFamily={'fantasy'}
+                mb={5}
+              >
+                ${product.price}
               </Text>
             </VStack>
           </Stack>
 
           <Button
             rounded={"none"}
-            w={"full"}
+            maxW={"80%"}
             mt={8}
             size={"lg"}
             py={"7"}
@@ -112,11 +123,12 @@ export const ItemDetailContainer = ({ product }) => {
               boxShadow: "lg",
             }}
             onClick={handleShowCount}
+            fontSize={'15px'}
           >
             Agregar al carrito
           </Button>
           {showCount && (
-            <Stack direction="row" spacing={4} align="center" mt={4}>
+            <Stack direction="row" spacing={4} align="center" mt={1}>
               <Button onClick={handleDecrement}>-</Button>
               <Text fontSize="lg">{count}</Text>
               <Button onClick={handleIncrement}>+</Button>

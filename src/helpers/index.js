@@ -1,34 +1,34 @@
-import { db } from "../firebase";
-import { collection, addDoc } from "../firebase";
+// import { db } from "../firebase";
+// import { collection, addDoc } from "firebase/firestore";
+// import { productsDate } from "../data/productsDate";
 
-export async function addProductsLocalStorage(collectionName) {
-  try {
-    // 1. Obtener la lista de productos desde localStorage
-    const fetchedProducts = JSON.parse(localStorage.getItem("products"));
+// export async function addProductsDate(collectionName) {
+//   try {
+//     const fetchedProducts = productsDate;
 
-    // Verificar si hay productos almacenados
-    if (!fetchedProducts || fetchedProducts.length === 0) {
-      throw new Error("No hay productos en localStorage.");
-    }
+//     if (!fetchedProducts || fetchedProducts.length === 0) {
+//       throw new Error("No hay productos en la lista de datos.");
+//     }
 
-    // 2. Referencia a la colección en Firestore
-    const productsCollection = collection(db, collectionName);
+//     // Referencia a la colección en Firestore
+//     const productsCollection = collection(db, collectionName);
 
-    // 3. Añadir los productos a Firestore
-    const addPromises = fetchedProducts.map(async (product) => {
-      return await addDoc(productsCollection, {
-        ...product,
-        createdAt: new Date(),
-      });
-    });
+//     // Añadir los productos a Firestore
+//     const addPromises = fetchedProducts.map(async (product) => {
+//       return await addDoc(productsCollection, {
+//         ...product,
+//         createdAt: new Date(),
+//       });
+//     });
 
-    await Promise.all(addPromises);
-    console.log(`${fetchedProducts.length} productos añadidos a Firestore.`);
-  } catch (err) {
-    console.error("Error al agregar productos desde localStorage:", err);
-  }
-}
+//     await Promise.all(addPromises);
+//     console.log(`${fetchedProducts.length} productos añadidos a Firestore.`);
+//   } catch (err) {
+//     console.error("Error al agregar productos desde la lista de datos:", err);
+//   }
+// }
 
+//! Importacion de la API y addDoc() a Firebase ---------
 // import { getAllProducts } from "../service/products.service";
 
 // import { db } from "./../firebase";
@@ -53,7 +53,7 @@ export async function addProductsLocalStorage(collectionName) {
 //       delete product.id; //Elimina el ID que proviene de la API
 //       return addDoc(productsCollection, {
 //         ...product,
-//         createdAt: new Date(),
+//         ccreatedAt: new Date(),
 //       });
 //     });
 
