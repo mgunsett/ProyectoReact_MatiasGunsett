@@ -43,7 +43,7 @@ export const ItemDetailContainer = ({ product }) => {
   };
 
   return (
-    <Container maxW={"50%"}>
+    <Container maxW={"50%"} margin={'auto'} background={'rgba(255, 99, 71, 0.35)'} >
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}

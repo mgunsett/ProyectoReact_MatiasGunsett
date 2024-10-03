@@ -14,6 +14,7 @@ import {
   Alert,
   AlertIcon,
   IconButton,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
@@ -33,9 +34,9 @@ export const CartDetails = () => {
   };
 
   return (
-    <Box p={6 } maxW="800px" mx="auto">
-      <Heading as="h2" size="lg" mb={6} textAlign="center"> 
-        Detalles del Carrito
+    <Box p={6 } maxW="800px" mx="auto" height={"75vh"}>
+      <Heading as="h2" size="lg" mb={6}> 
+        TU CARRITO
       </Heading>
 
       {cartState.length === 0 ? (
@@ -108,7 +109,24 @@ export const CartDetails = () => {
               Total: ${total.toFixed(2)}
             </Text>
             <Spacer />
-            <Link to="/payment">Continuar al pago</Link>
+            <Link to="/payment">
+            <Button
+            maxW={"100%"}
+            mt={2}
+            size={"lg"}
+            py={"7"}
+            bg={useColorModeValue("gray.900", "gray.50")}
+            color={useColorModeValue("white", "gray.900")}
+            textTransform={"uppercase"}
+            _hover={{
+              transform: "translateY(2px)",
+              boxShadow: "lg",
+            }}
+            fontSize={'15px'}
+          >
+            Continuar Compra
+          </Button>
+            </Link>
           </Flex>
         </VStack>
       )}

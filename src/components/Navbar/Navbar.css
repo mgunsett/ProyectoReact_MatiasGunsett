@@ -1,0 +1,22 @@
+/* @keyframes scroll-navbar {
+   to {
+     background: rgba(229, 223, 223, 0.797);
+     backdrop-filter: blur(5px);
+     -webkit-backdrop-filter: blur(5px);
+   }
+} */
+
+.navbar {
+    transition: background 0.5s ease-in-out, backdrop-filter 0.5s ease-in-out;
+    backdrop-filter: blur(5px) !important;
+    -webkit-backdrop-filter: blur(5px);
+  }
+
+.menuButton {
+    padding-left: 10px;
+    transition: 0.6s;
+}
+.menuButton:hover {
+    transform: scale(1.1);
+    color: rgb(240, 248, 255);
+}

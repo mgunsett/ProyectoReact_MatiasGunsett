@@ -11,6 +11,7 @@ export const Category = () => {
   return loading ? (
     <SkeletonLoading />
   ) : (
-    <ItemsListContainer title={id}  products={productsData}/>
+    <ItemsListContainer  title={id} products={productsData}/>
+    
   );
 };

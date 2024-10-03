@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Category, Home, Item, Checkout } from "../pages";
+import { Category, Home, Item, Checkout, Contacto } from "../pages";
 import { Navbar, Footer } from "../components";
+
 
 export const MainRouter = () => {
 
@@ -14,6 +15,7 @@ export const MainRouter = () => {
         <Route path="/item/:id" element={<Item />} />
         <Route path="/category/:id" element={<Category />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/contacto" element={<Contacto />} />
       </Routes>
       <Footer />
     </BrowserRouter>

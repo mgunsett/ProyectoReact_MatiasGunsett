@@ -1,7 +1,21 @@
 import React from "react";
 import { ItemsListContainer } from "../components";
 import { useItemsCollection } from "../hooks";
-import { Flex, Spinner, Box } from "@chakra-ui/react";
+import { 
+  Container, 
+  Flex, 
+  Spinner, 
+  Box,
+  Img,
+  Heading,
+  Input,
+  Text, 
+  Button
+} from "@chakra-ui/react";
+import logoAngel from "../assets/logoAngel.png";
+import fotoMain1 from "../assets/fotoMain1.jpg";
+import fotoMain2 from "../assets/fotoMain2.jpg";
+import fotoMain3 from "../assets/fotoMain3.jpg";
 
 export const Home = () => {
 
@@ -18,6 +32,87 @@ export const Home = () => {
       soporte.
     </Box>
   ) : (
-    <ItemsListContainer title={"Be🛸Real"} products={items} />
+    <Container maxW={'100%'}>
+    <ItemsListContainer title={"BeReal"} products={items} />
+    <Flex 
+    justifyContent={'center'} 
+    gap={5}
+    alignItems={'center'}
+    maxW={'100%'}
+    padding={'30px'}
+    background={'rgba(255, 99, 71, 0.37)'}
+    marginTop={'80px'}>
+      <Box 
+      maxWidth={'100%'} 
+      height={'400px'}
+      width={'450px'}
+      overflow={'hidden'}
+      >
+        <Img 
+        src={fotoMain1} 
+        objectFit={'cover'}  
+        height={'500px'}
+        width={'450px'}
+        alt="Logo principal"
+        />
+      </Box>
+      <Box 
+      maxWidth={'100%'} 
+      height={'620px'}
+      width={'450px'}
+      overflow={'hidden'}
+      >
+        <Img 
+        src={fotoMain3}
+         objectFit={'cover'} 
+         height={'620px'} 
+         alt="Logo principal"
+         />
+      </Box>
+      <Box
+      maxWidth={'100%'} 
+      height={'400px'}
+      overflow={'hidden'}
+      width={'450px'}
+      >
+        <Img 
+        src={fotoMain2} 
+        objectFit={'cover'}
+        height={'400px'} 
+        width={'450px'}
+        alt="Logo principal"/>
+      </Box>
+    </Flex>
+    <Flex 
+    justifyContent={'center'} 
+    alignItems={'center'} 
+    paddingTop={'30px'}
+    paddingBottom={'90px'}
+    marginTop={'90px'} 
+    marginBottom={'90px'}
+    gap={5} 
+    maxW={'100wh'}
+    background={'rgb(45, 45, 119)'}
+    opacity={0.9}
+    >
+      <Box>
+        <Img src={logoAngel} alt="Logo principal" width={"80px"} height={"80px"}/>
+      </Box>
+      <Box maxW={'35%'} textAlign={'left'} pl={5}> 
+        <Heading as='h2' size='lg'>15% DE DESCUENTO EN TU PRIMERA COMPRA ONLINE!</Heading>
+        <Text>Suscríbete ahora para recibir las ultimas informaciones y ofertas exclusivas.</Text>
+      </Box>
+      <Flex 
+      justifyContent={'center'} 
+      alignItems={'center'} 
+      gap={5}
+      paddingLeft={'40px'}
+      >
+        <Text>Dejanos tu email para suscribirte </Text>
+        <Input variant='filled' placeholder='Introducir E-mail' />
+        <Button variant='solid' colorScheme='teal' size='lg'>Suscribirme</Button>
+      </Flex>
+    </Flex>
+    </Container>
   );
 };

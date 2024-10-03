@@ -15,36 +15,46 @@ import {
   import logoBeReal from '../../assets/logo-BeReal.png';
   import { Link } from "react-router-dom";
   import { useItemsCollection } from "../../hooks";
-
+  import './Navbar.css';
 
 export const Navbar = () => {
-    const { colorMode, toggleColorMode } = useColorMode();
 
+    const { colorMode, toggleColorMode } = useColorMode();
     const { items } = useItemsCollection("categories");
 
     return (
     <>
-      <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4} position='sticky' top={0}  zIndex={1}>
+      <Box 
+       className="navbar"
+       bg={useColorModeValue('gray.100', 'gray.900')} 
+       px={4} 
+       position='sticky' 
+       top={0}  
+       zIndex={1}
+       opacity={0.9}
+       >
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Box>
+          <Box display={'flex'} alignItems={'center'} gap={4}>
             <Link to='/'>
             <img width={'70px'} height={'70px'} src={logoBeReal} alt="Logo principal" />
             </Link>
-          </Box>
-          <Box>
             <Menu>
-              {/* <Link to= {'/events'} style={{marginRight: 30}}>Eventos</Link> */}
-              <MenuButton as={Link} cursor="pointer">
-                Productos    
+              <MenuButton className="menuButton"
+              as={Link} 
+              cursor="pointer"
+              > Productos 
               </MenuButton>
-              <MenuList height={"300px"} overflowY={"scroll"}>
+              <MenuList overflow={'visible'}>
                 {items.map((category) => (
                   <MenuItem key={category.slug}>
                     <Link to={`/category/${category.slug}`}>{category.name}</Link>
                   </MenuItem>
                 ))}
-              </MenuList>
+              </MenuList>   
           </Menu>
+          <Link to='/contacto' className="menuButton">
+            Contacto
+          </Link> 
           {/* <Button onClick={() => createProductsFirestore("products")}>
             Crear productos
           </Button> */}
