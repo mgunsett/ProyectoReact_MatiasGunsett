@@ -6,14 +6,27 @@
     background-repeat: no-repeat;
     background-position:center;
     margin-top: 1rem;
+    
+    /* animation: entrada .7s both; */
+
 }
 
+.spray {
+    animation: pintada 3s ease-in-out;
+    animation-delay: 1s;
+    left: 200px;
+    top: 200px;
+    opacity: 0;
+}
 
-/* .cardsContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-
-} */
+@keyframes pintada {
+    0% {left: 950px; top: 200px; rotate: 20deg; opacity: 1;}
+    10% {left: 850px; top: 60px; rotate: 0deg;  opacity: 1;}
+    20% {left: 750px; top: 200px; rotate: -20deg; opacity: 1;}
+    30% {left: 650px;  top: 60px; rotate: 0deg; opacity: 1;}
+    40% {left: 550px; top: 200px; rotate: 20deg; opacity: 1;}
+    50% {left: 450px; top: 60px; rotate: 0deg; opacity: 1;}
+    60% {left: 350px; top: 200px; rotate: -20deg; opacity: 1;}
+    80% {left: 250px; top: 60px; rotate: 0deg; opacity: 1;}
+    100% {left: 200px; top: 200px; opacity: 1; opacity: 0.5;}
+}

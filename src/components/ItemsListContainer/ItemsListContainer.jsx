@@ -7,13 +7,15 @@ import {
 } from '@chakra-ui/react';
 import './ListContainer.css';
 import banner from '../../assets/banner.png'
+import spray  from '../../assets/spray.svg'
 import { SlidersCards } from '../SliderCards';
+
 
 export const ItemsListContainer = ({ title, products }) => {
 
   return (
     <Container maxW={'100%'} textAlign={'center'} margin={0}>
-      <Box className='titleContainer'>
+      <Box className='titleContainer' position={'relative'}>
         <Image
           src={banner}
           alt='Banner'
@@ -22,13 +24,20 @@ export const ItemsListContainer = ({ title, products }) => {
           maxW={'60%'}
           margin={'auto'}
         />
+        <Image 
+        className='spray'
+        src={spray}
+        alt='spray'
+        width={'300px'}
+        position={'absolute'}
+        />
         <Heading
           fontFamily={'Whisper, cursive'}
           size={'lg'}
           fontSize={'60px'}
           style={{ color: 'rgba(0, 0, 0, 0.641)' }}
           position={'absolute'}
-          top={'19%'}
+          top={'60%'}
           left={'45%'}
         >
           {title}

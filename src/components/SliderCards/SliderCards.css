@@ -1,0 +1,14 @@
+.sliders-fotos {
+    animation: entradaCards .7s both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 90%;
+}
+
+@keyframes entradaCards {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

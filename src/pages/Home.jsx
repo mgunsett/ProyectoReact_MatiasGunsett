@@ -16,6 +16,7 @@ import logoAngel from "../assets/logoAngel.png";
 import fotoMain1 from "../assets/fotoMain1.jpg";
 import fotoMain2 from "../assets/fotoMain2.jpg";
 import fotoMain3 from "../assets/fotoMain3.jpg";
+import './Styles/Home.css';
 
 export const Home = () => {
 
@@ -49,6 +50,7 @@ export const Home = () => {
       overflow={'hidden'}
       >
         <Img 
+        className="home-fotos"
         src={fotoMain1} 
         objectFit={'cover'}  
         height={'500px'}
@@ -63,6 +65,7 @@ export const Home = () => {
       overflow={'hidden'}
       >
         <Img 
+        className="home-fotos"
         src={fotoMain3}
          objectFit={'cover'} 
          height={'620px'} 
@@ -76,6 +79,7 @@ export const Home = () => {
       width={'450px'}
       >
         <Img 
+        className="home-fotos"
         src={fotoMain2} 
         objectFit={'cover'}
         height={'400px'} 

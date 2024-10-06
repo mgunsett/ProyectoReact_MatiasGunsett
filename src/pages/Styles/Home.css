@@ -1,0 +1,16 @@
+.home-fotos {
+    animation: entradaFotos 1s both;
+    animation-timeline: scroll(root block);
+    animation-range: 0 90%;
+}
+
+@keyframes entradaFotos {
+    from {
+        opacity: 0;
+        scale: 25%;
+    }
+    to {
+        opacity: 1;
+        scale: 100%;
+    }
+}

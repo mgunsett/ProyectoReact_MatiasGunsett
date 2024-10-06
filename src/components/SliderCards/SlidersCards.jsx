@@ -15,6 +15,7 @@ import {
 import { useState, useEffect } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import './SliderCards.css';
 
 export const SlidersCards = ({ products }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -62,7 +63,12 @@ export const SlidersCards = ({ products }) => {
           maxW="100%"
         >
           {products.map((product) => (
-            <Card key={product.id} maxW="md" minW="250px" flex="0 0 auto">
+            <Card 
+            className='sliders-fotos'
+            key={product.id} 
+            maxW="md" 
+            minW="250px" 
+            flex="0 0 auto">
               <CardBody>
                 <Link to={`/item/${product.id}`}>
                   <Image
