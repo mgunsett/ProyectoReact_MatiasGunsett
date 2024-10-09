@@ -16,6 +16,7 @@ import logoAngel from "../assets/logoAngel.png";
 import fotoMain1 from "../assets/fotoMain1.jpg";
 import fotoMain2 from "../assets/fotoMain2.jpg";
 import fotoMain3 from "../assets/fotoMain3.jpg";
+import fotoFamily from '../assets/fotoFamily.jpg'
 import './Styles/Home.css';
 
 export const Home = () => {
@@ -35,6 +36,19 @@ export const Home = () => {
   ) : (
     <Container maxW={'100%'}>
     <ItemsListContainer title={"BeReal"} products={items} />
+
+    <Box className="quienesSomos" >
+      <Box className="quienesSomos-text">
+        <Heading className="quienesSomos-text-h">Familia BeReal </Heading>
+        <Text className="quienesSomos-text-p">"Somos una grupo de amigos que un día entre risas, asados y play decidimos emprender un camino juntos y en algo que nos apasionara a todos. Asi fue que nacio BeReal, construyendo paso a paso cada estilo, cada diseño y cada detalle para ser de nuestro trabajo la mejor experiencia para todos."  </Text>
+      </Box>
+      <Img
+      className="quienesSomos-img"
+      src={fotoFamily}
+      alt='Logo BeReal' 
+      />
+    </Box>
+
     <Flex 
     justifyContent={'center'} 
     gap={5}

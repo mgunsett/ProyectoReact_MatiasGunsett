@@ -6,7 +6,7 @@ import {
   Image,
 } from '@chakra-ui/react';
 import './ListContainer.css';
-import banner from '../../assets/banner.png'
+import bannerNuevo from '../../assets/bannerNuevo.png'
 import spray  from '../../assets/spray.svg'
 import { SlidersCards } from '../SliderCards';
 
@@ -17,10 +17,11 @@ export const ItemsListContainer = ({ title, products }) => {
     <Container maxW={'100%'} textAlign={'center'} margin={0}>
       <Box className='titleContainer' position={'relative'}>
         <Image
-          src={banner}
+          className='banner'
+          src={bannerNuevo}
           alt='Banner'
           objectFit='cover'
-          opacity={0.8}
+          opacity={0.9}
           maxW={'60%'}
           margin={'auto'}
         />
