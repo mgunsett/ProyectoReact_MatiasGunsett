@@ -21,14 +21,20 @@ export const Footer = () => {
             </Box>
             <Text>© 2024 BeReal. Todos los Derechos Reservados.</Text>
             <Stack direction={'row'} spacing={6}>
-                <Button label={'Twitter'} href={'#'}>
-                    <FaTwitter />
+                <Button label={'Twitter'}>
+                    <Link to={'https://twitter.com/'} target='_blank'>
+                        <FaTwitter />
+                    </Link>
                 </Button>
                 <Button label={'YouTube'} href={'#'}>
-                    <FaYoutube />
+                    <Link to={'https://www.youtube.com/'} target='_blank'>
+                        <FaYoutube />
+                    </Link>
                 </Button>
-                <Button label={'Instagram'} href={'#'}>
-                    <FaInstagram />
+                <Button label={'Instagram'}>
+                    <Link to={'https://www.instagram.com/bereal.sf/'} target='_blank'>
+                        <FaInstagram />
+                    </Link>
                 </Button>
             </Stack>
         </Flex>

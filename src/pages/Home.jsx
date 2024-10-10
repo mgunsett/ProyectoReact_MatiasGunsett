@@ -128,7 +128,9 @@ export const Home = () => {
       >
         <Text>Dejanos tu email para suscribirte </Text>
         <Input variant='filled' placeholder='Introducir E-mail' />
-        <Button variant='solid' colorScheme='teal' size='lg'>Suscribirme</Button>
+        <Button className='home-button-suscribete' variant='solid' colorScheme='teal'>
+          Suscribirme
+        </Button>
       </Flex>
     </Flex>
     </Container>

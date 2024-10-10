@@ -27,21 +27,23 @@ import {
   MdOutlineEmail,
 } from 'react-icons/md'
 import { BsGithub, BsDiscord, BsPerson } from 'react-icons/bs'
+import './Styles/Contacto.css'
 
 export const Contacto = () => {
   return (
     <Container 
+    className='contacto'
     background={'rgba(255, 99, 71, 0.61)'}
     maxW="full" 
     mt={0} 
     centerContent 
     overflow="hidden">
         <Flex
+          className='contacto-container'
           color="white"
           borderRadius="lg"
           m={{ sm: 4, md: 16, lg: 10 }}
-          p={{ sm: 5, md: 5, lg: 16 }}
-          border={'1px solid #DCE2FF'}>
+          p={{ sm: 5, md: 5, lg: 16 }}>
           <Box p={4}>
             <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
               <WrapItem>
@@ -150,7 +152,7 @@ export const Contacto = () => {
                       </FormControl>
                       <FormControl id="name" float="right">
                         <Button variant="solid" bg="#0D74FF" color="white" _hover={{}}>
-                          Send Message
+                          Enviar Mensaje
                         </Button>
                       </FormControl>
                     </VStack>
