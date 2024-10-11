@@ -35,9 +35,9 @@ export const Home = () => {
     </Box>
   ) : (
     <Container maxW={'100%'}>
-    <ItemsListContainer title={"BeReal"} products={items} />
+    <ItemsListContainer title={"Productos"} products={items} />
 
-    <Box className="quienesSomos" >
+    <Box className="quienesSomos">
       <Box className="quienesSomos-text">
         <Heading className="quienesSomos-text-h">Familia BeReal </Heading>
         <Text className="quienesSomos-text-p">"Somos una grupo de amigos que un día entre risas, asados y play decidimos emprender un camino juntos y en algo que nos apasionara a todos. Asi fue que nacio BeReal, construyendo paso a paso cada estilo, cada diseño y cada detalle para ser de nuestro trabajo la mejor experiencia para todos."  </Text>

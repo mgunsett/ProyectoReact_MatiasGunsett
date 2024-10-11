@@ -27,3 +27,14 @@
     90% {left: 450px; top: 60px; rotate: 0deg; opacity: 1;}
     100% {left: 350px; top: 150px; opacity: 0.5;}
 }
+.title2-container {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem;
+    padding: 1rem;
+    backdrop-filter: blur(10px);
+    border-bottom: 10px solid rgba(255, 255, 255, 0.18);
+    width: 300px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
+
+}

@@ -1,0 +1,9 @@
+.container {
+    background-image: url('../../assets/fondoDetail.jpg');
+    background-attachment:local;
+    background-size: cover;
+    background-position:center;
+    max-width: 100%;    
+    max-height: 100%;
+    margin: 0;
+}

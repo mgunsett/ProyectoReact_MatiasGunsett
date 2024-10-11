@@ -12,8 +12,10 @@ import {
   SimpleGrid,
   StackDivider,
   useColorModeValue,
+  Divider,
 } from "@chakra-ui/react";
 import { CartContext } from "../../context/CartContext";
+import './ItemDetailContainer.css'
 
 export const ItemDetailContainer = ({ product }) => {
 
@@ -43,11 +45,19 @@ export const ItemDetailContainer = ({ product }) => {
   };
 
   return (
-    <Container maxW={"50%"} margin={'auto'} background={'rgba(255, 99, 71, 0.35)'} >
+    <Container className="detail-container">
+      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+      <Heading className="title-detail" >Detalle de Producto</Heading>
+      <Divider 
+        borderColor={'black'}
+        orientation="horizontal" 
+        width={"50%"}
+        marginLeft={'20px'}/>
+      </Box>
       <SimpleGrid
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 18, md: 24 }}
+        py={{ base: 10, md: 18 }}
       >
         <Flex>
           <Image
@@ -70,7 +80,7 @@ export const ItemDetailContainer = ({ product }) => {
               {product.title}
             </Heading>
             <Text
-              color={useColorModeValue("gray.900", "gray.400")}
+              color={'white'}
               fontWeight={300}
               fontSize={"2xl"}
             >
@@ -89,7 +99,7 @@ export const ItemDetailContainer = ({ product }) => {
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text
-                color={useColorModeValue("gray.500", "gray.400")}
+                color={'white'}
                 fontSize={"2xl"}
                 fontWeight={"300"}
                 alignSelf={'flex-start'}
@@ -97,7 +107,7 @@ export const ItemDetailContainer = ({ product }) => {
                 Cantidad disponible: {product.stock}
               </Text>
               <Text
-                color={useColorModeValue("gray.900", "gray.400")}
+                color='blue.800'
                 fontSize={"2xl"}
                 fontWeight={"300"}
                 alignSelf={'flex-start'}

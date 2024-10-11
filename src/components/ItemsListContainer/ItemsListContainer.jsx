@@ -41,7 +41,7 @@ export const ItemsListContainer = ({ title, products }) => {
           top={'60%'}
           left={'45%'}
         >
-          {title}
+          Be Real
         </Heading>
       </Box>
 
@@ -50,6 +50,10 @@ export const ItemsListContainer = ({ title, products }) => {
       maxW={'97%'} 
       padding={'5'}
       marginBottom={'40px'} />
+
+      <Heading 
+      className='title2-container'
+      >{title}</Heading>
 
       <SlidersCards products={products}/>
     </Container>
