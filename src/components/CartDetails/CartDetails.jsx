@@ -17,9 +17,9 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
 
-export const CartDetails = () => {
+
+export const CartDetails = ({onContinue}) => {
   const { cartState, addItem, removeItem, deleteItem } =
     useContext(CartContext);
 
@@ -109,7 +109,6 @@ export const CartDetails = () => {
               Total: ${total.toFixed(2)}
             </Text>
             <Spacer />
-            <Link to="/payment">
             <Button
             maxW={"100%"}
             mt={2}
@@ -118,6 +117,7 @@ export const CartDetails = () => {
             bg={useColorModeValue("gray.900", "gray.50")}
             color={useColorModeValue("white", "gray.900")}
             textTransform={"uppercase"}
+            onClick={onContinue}
             _hover={{
               transform: "translateY(2px)",
               boxShadow: "lg",
@@ -126,7 +126,7 @@ export const CartDetails = () => {
           >
             Continuar Compra
           </Button>
-            </Link>
+           
           </Flex>
         </VStack>
       )}

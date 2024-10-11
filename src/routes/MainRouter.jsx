@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Category, Home, Item, Checkout, Contacto } from "../pages";
+import { Category, Home, Item, Checkout, Contacto, Payment } from "../pages";
 import { Navbar, Footer } from "../components";
 
 
@@ -16,6 +16,7 @@ export const MainRouter = () => {
         <Route path="/category/:id" element={<Category />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/contacto" element={<Contacto />} />
+        <Route path="/payment" element={<Payment />} />
       </Routes>
       <Footer />
     </BrowserRouter>
@@ -27,6 +28,6 @@ export const MainRouter = () => {
 
 {/* // <Route path="/memo" element={<Memo />}/> */}
 {/* // <Route path="/events" element={<Events label="Events" />} /> */}
-{/* <Route path="/payment" element={<Payment />} /> */}
+
   //!--- Otra forma de declarar un Evento 👇
 {/* <Route path="/events" element={<Events handleClick={() => alert('Click')} />} /> */}
