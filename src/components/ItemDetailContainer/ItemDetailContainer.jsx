@@ -45,9 +45,9 @@ export const ItemDetailContainer = ({ product }) => {
   };
 
   return (
-    <Container className="detail-container">
-      <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-      <Heading className="title-detail" >Detalle de Producto</Heading>
+    <Box className="detail-container">
+      <Box className="detail-title">
+      <Heading>Detalle de Producto</Heading>
       <Divider 
         borderColor={'black'}
         orientation="horizontal" 
@@ -55,6 +55,7 @@ export const ItemDetailContainer = ({ product }) => {
         marginLeft={'20px'}/>
       </Box>
       <SimpleGrid
+        className="detail-card"
         columns={{ base: 1, lg: 2 }}
         spacing={{ base: 8, md: 10 }}
         py={{ base: 10, md: 18 }}
@@ -146,6 +147,6 @@ export const ItemDetailContainer = ({ product }) => {
           )}
         </Stack>
       </SimpleGrid>
-    </Container>
+    </Box>
   );
 };

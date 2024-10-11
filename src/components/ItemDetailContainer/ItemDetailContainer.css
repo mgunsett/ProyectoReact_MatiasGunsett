@@ -1,11 +1,3 @@
-/* .detail{
-    background-image: url('../../assets/fondoDetail.jpg');
-    background-attachment:fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position:center;
-    
-} */
 .detail-container {
     background: rgba(255, 99, 71, 0.685);
     backdrop-filter: blur(10px);
@@ -16,7 +8,9 @@
     padding: 20px;
     max-width: 50%;
 }
-
-.title-detail {
+.detail-title {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     font-size: 35px;
 }

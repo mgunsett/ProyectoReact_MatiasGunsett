@@ -28,6 +28,7 @@ import {
 } from 'react-icons/md'
 import { BsInstagram, BsWhatsapp, BsPerson } from 'react-icons/bs'
 import './Styles/Contacto.css'
+import { Link } from 'react-router-dom'
 
 export const Contacto = () => {
   return (
@@ -41,6 +42,7 @@ export const Contacto = () => {
           className='contacto-container'
           color="white"
           borderRadius="lg"
+          direction={{ base: 'column', md: 'row' }}
           m={{ sm: 4, md: 16, lg: 10 }}
           p={{ sm: 5, md: 5, lg: 16 }}>
           <Box p={4}>
@@ -85,6 +87,7 @@ export const Contacto = () => {
                     spacing={5}
                     px={5}
                     alignItems="flex-start">
+                      <Link to='https://www.facebook.com/' target='_blank'>
                     <IconButton
                       aria-label="facebook"
                       variant="ghost"
@@ -93,14 +96,18 @@ export const Contacto = () => {
                       _hover={{ bg: '#0D74FF' }}
                       icon={<MdFacebook size="24px" />}
                     />
+                    </Link>
+                    <Link to='https://www.instagram.com/bereal.sf/' target='_blank'>
                     <IconButton
-                      aria-label="github"
+                      aria-label="instagram"
                       variant="ghost"
                       size="lg"
                       isRound={true}
                       _hover={{ bg: 'linear-gradient(40deg, #405DE6 , #5851DB, #833AB4, #C13584,#E1306C, #FD1D1D)' }}
                       icon={<BsInstagram size="24px" />}
                     />
+                    </Link>
+                    <Link to='https://wa.link/oyoj7s' target='_blank'>
                     <IconButton
                       aria-label="discord"
                       variant="ghost"
@@ -109,6 +116,7 @@ export const Contacto = () => {
                       _hover={{ bg: '#25D366'}}
                       icon={<BsWhatsapp size="24px" />}
                     />
+                    </Link>
                   </HStack>
                 </Box>
               </WrapItem>

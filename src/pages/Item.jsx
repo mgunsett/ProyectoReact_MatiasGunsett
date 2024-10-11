@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 import { ItemDetailContainer } from "../components";
 import { useProductById } from "../hooks";
-import { Flex, Spinner, Container } from "@chakra-ui/react";
+import { Flex, Spinner, Box } from "@chakra-ui/react";
 import './Styles/Item.css';
 
 export const Item = () => {
@@ -21,8 +21,8 @@ export const Item = () => {
       <Spinner size="xl" />
     </Flex>
   ) : (
-    <Container className="container">
-    <ItemDetailContainer product={productData}/>
-    </Container>
+    <Box className="container">
+    <ItemDetailContainer  product={productData}/>
+    </Box>
   );
 };
