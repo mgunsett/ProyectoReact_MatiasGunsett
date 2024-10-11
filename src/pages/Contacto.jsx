@@ -26,14 +26,13 @@ import {
   MdFacebook,
   MdOutlineEmail,
 } from 'react-icons/md'
-import { BsGithub, BsDiscord, BsPerson } from 'react-icons/bs'
+import { BsInstagram, BsWhatsapp, BsPerson } from 'react-icons/bs'
 import './Styles/Contacto.css'
 
 export const Contacto = () => {
   return (
     <Container 
     className='contacto'
-    background={'rgba(255, 99, 71, 0.61)'}
     maxW="full" 
     mt={0} 
     centerContent 
@@ -48,44 +47,39 @@ export const Contacto = () => {
             <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
               <WrapItem>
                 <Box>
-                  <Heading>Contacto</Heading>
-                  <Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
+                  <Heading fontSize={{ base: '2xl', sm: '4xl', md: '4xl', lg: '5xl' }}>Contacto</Heading>
+                  <Text mt={{ sm: 3, md: 3, lg: 5 }} color="white">
                     Nuestros medios de Contacto:
                   </Text>
-                  <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }} alignItems={'center'}>
-                    <Flex direction={'column'} gap={5}  marginRight={'90px'}>
+                  <Box className='contacto-info'> 
                       <Button
                         size="md"
-                        height="48px"
-                        width="200px"
                         variant="ghost"
                         color="#DCE2FF"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<MdPhone color="#1970F1" size="20px" />}>
+                        leftIcon={<MdPhone color="rgb(240, 240, 42)" size="20px" />}>
                         +54-342-111-1111
                       </Button>
                       <Button
                         size="md"
-                        height="48px"
-                        width="200px"
+                       
                         variant="ghost"
                         color="#DCE2FF"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<MdEmail color="#1970F1" size="20px" />}>
+                        leftIcon={<MdEmail color="rgb(240, 240, 42)" size="20px" />}>
                         be-realclothes@gmail.com
                       </Button>
                       <Button
                         size="md"
-                        height="48px"
-                        width="200px"
+                       
                         variant="ghost"
                         color="#DCE2FF"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<MdLocationOn color="#1970F1" size="20px" />}>
+                        leftIcon={<MdLocationOn color="rgb(240, 240, 42)" size="20px" />}>
                         Santa Fe, Argentina
                       </Button>
-                    </Flex>
                   </Box>
+
                   <HStack
                     mt={{ lg: 10, md: 10 }}
                     spacing={5}
@@ -97,23 +91,23 @@ export const Contacto = () => {
                       size="lg"
                       isRound={true}
                       _hover={{ bg: '#0D74FF' }}
-                      icon={<MdFacebook size="28px" />}
+                      icon={<MdFacebook size="24px" />}
                     />
                     <IconButton
                       aria-label="github"
                       variant="ghost"
                       size="lg"
                       isRound={true}
-                      _hover={{ bg: '#0D74FF' }}
-                      icon={<BsGithub size="28px" />}
+                      _hover={{ bg: 'linear-gradient(40deg, #405DE6 , #5851DB, #833AB4, #C13584,#E1306C, #FD1D1D)' }}
+                      icon={<BsInstagram size="24px" />}
                     />
                     <IconButton
                       aria-label="discord"
                       variant="ghost"
                       size="lg"
                       isRound={true}
-                      _hover={{ bg: '#0D74FF' }}
-                      icon={<BsDiscord size="28px" />}
+                      _hover={{ bg: '#25D366'}}
+                      icon={<BsWhatsapp size="24px" />}
                     />
                   </HStack>
                 </Box>
