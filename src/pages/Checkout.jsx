@@ -1,31 +1,28 @@
 import React, { useState } from "react";
 import { CartDetails } from "../components/CartDetails";
-import { Payment } from "./Payment"; // Importamos el componente de Payment
+import { Payment } from "./Payment";
 import { Box } from "@chakra-ui/react";
 import './Styles/Checkout.css';
 
 export const Checkout = () => {
 
   const [showPayment, setShowPayment] = useState(false);
-   // Estado para mostrar/ocultar el componente Payment
 
   const handleContinuePurchase = () => {
-    setShowPayment(true); // Mostramos el Payment al hacer click en "Continuar Compra"
+    setShowPayment(true);
   };
   const handleBackToCheckout = () => {
-    setShowPayment(false); // Oculta Payment y muestra Checkout
+    setShowPayment(false);
   };
 
   return (
     <Box position="relative" height="100vh">
-      {/* Difuminamos el contenido de CartDetails cuando se muestre Payment */}
       <Box
         opacity={showPayment ? 0.2 : 1}
         transition="opacity 0.5s ease"
       >
-        <CartDetails onContinue={handleContinuePurchase} /> {/* Pasamos la función como prop */}
+        <CartDetails onContinue={handleContinuePurchase} />
       </Box>
-
       {showPayment && (
         <Box 
         className="payment-box"

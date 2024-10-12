@@ -11,23 +11,21 @@ import {
     Spacer,
     Alert,
     AlertIcon,
+    useToast,
   } from "@chakra-ui/react";
-
 import React, { useState, useContext } from "react";
 import { CartContext } from "../context";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
-import { Link } from "react-router-dom";
 import './Styles/Payment.css';
 
 export const Payment = ({ onBack }) => {
 
-    // const toast = useToast()
-    // const statuses = ['success', 'error', 'warning', 'info']
-
     const [name, setName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
+
+    const toast = useToast();
 
     const { cartState } = useContext(CartContext);
     const total = cartState.reduce(
@@ -52,26 +50,25 @@ export const Payment = ({ onBack }) => {
     };
 
     const ordersCollection = collection(db, "orders");
-    addDoc(ordersCollection, orderObj).then(({ id }) => {
-      alert("Se creó la orden con id: " + id);
-    });
-//     <Wrap>
-//     {statuses.map((status, i) => (
-//       <WrapItem >
-//         <Button
-//           onClick={() =>
-//             toast({
-//               title: `Orden creada con exito!`,
-//               status: status,
-//               isClosable: true,
-//             })
-//           }
-//         >
-//           Show {status} toast
-//         </Button>
-//       </WrapItem>
-//     ))}
-//   </Wrap>
+    addDoc(ordersCollection, orderObj)
+      .then(({ id }) => {
+        toast({
+          title: 'Pedido creado con éxito!',
+          description: `Su número de orden es: ${id}`,
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+      })
+      .catch((error) => {
+        toast({
+          title: 'Error al crear el pedido.',
+          description: `Hubo un problema: ${error.message}`,
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+      });
   };
 
   return (

@@ -20,6 +20,7 @@ import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
 
 
 export const CartDetails = ({onContinue}) => {
+
   const { cartState, addItem, removeItem, deleteItem } =
     useContext(CartContext);
 
@@ -27,8 +28,7 @@ export const CartDetails = ({onContinue}) => {
     (acc, item) => acc + item.price * item.qtyItem,
     0
   );
-  //Metodo para sumar items del array, en este caso precio de los productos del carrito//
-
+  
   const handleDeleteItem = (item) => {
     deleteItem(item);
   };
