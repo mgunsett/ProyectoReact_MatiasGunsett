@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Container,
   Flex,
@@ -29,6 +27,7 @@ import {
 import { BsInstagram, BsWhatsapp, BsPerson } from 'react-icons/bs'
 import './Styles/Contacto.css'
 import { Link } from 'react-router-dom'
+import './Styles/Mediaquerys.css'
 
 export const Contacto = () => {
   return (
@@ -40,13 +39,11 @@ export const Contacto = () => {
     overflow="hidden">
         <Flex
           className='contacto-container'
-          color="white"
-          borderRadius="lg"
-          direction={{ base: 'column', md: 'row' }}
-          m={{ sm: 4, md: 16, lg: 10 }}
-          p={{ sm: 5, md: 5, lg: 16 }}>
+          >
           <Box p={4}>
-            <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
+            <Wrap 
+            spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}
+            >
               <WrapItem>
                 <Box>
                   <Heading fontSize={{ base: '2xl', sm: '4xl', md: '4xl', lg: '5xl' }}>Contacto</Heading>
@@ -83,7 +80,7 @@ export const Contacto = () => {
                   </Box>
 
                   <HStack
-                    mt={{ lg: 10, md: 10 }}
+                    mt={{ lg: 10, md: 8, sm: 6 }}
                     spacing={5}
                     px={5}
                     alignItems="flex-start">

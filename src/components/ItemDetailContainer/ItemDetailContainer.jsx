@@ -19,6 +19,24 @@ import './ItemDetailContainer.css'
 
 export const ItemDetailContainer = ({ product }) => {
 
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  // // Función para cerrar el modal cuando se presiona la tecla ESC
+  // const handleKeyDown = (e) => {
+  //   if (e.key === "Escape") {
+  //     setIsModalOpen(false);
+  //   }
+  // };
+  //  // Efecto para escuchar el evento del teclado
+  //  useEffect(() => {
+  //   if (isModalOpen) {
+  //     window.addEventListener("keydown", handleKeyDown);
+  //   } else {
+  //     window.removeEventListener("keydown", handleKeyDown);
+  //   }
+  //   // Cleanup
+  //   return () => window.removeEventListener("keydown", handleKeyDown);
+  // }, [isModalOpen]);
+
   const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(0);
 

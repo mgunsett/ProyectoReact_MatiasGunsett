@@ -12,12 +12,14 @@ import {
     Flex,
     IconButton,
   } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useRef } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import './SliderCards.css';
 
 export const SlidersCards = ({ products }) => {
+
+  const containerRef = useRef(null); 
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollAmount = 300;
 
@@ -32,9 +34,8 @@ export const SlidersCards = ({ products }) => {
   };
 
   useEffect(() => {
-    const container = document.querySelector('.cardsContainer');
-    if (container) {
-      container.scrollTo({
+    if (containerRef.current) {  // Acceder al contenedor de forma directa
+      containerRef.current.scrollTo({
         left: scrollPosition,
         behavior: 'smooth',
       });
@@ -56,6 +57,7 @@ export const SlidersCards = ({ products }) => {
         />
 
         <Flex
+          ref={containerRef}
           className="cardsContainer"
           overflowX="hidden" // Oculta el overflow
           gap="1rem"
@@ -78,6 +80,8 @@ export const SlidersCards = ({ products }) => {
                     boxSize="250px"
                     objectFit="cover"
                     maxW={"20rem"}
+                    transition={"transform 0.3s ease"}
+                    _hover={{ transform: "scale(1.1)" }}
                   />
                 </Link>
                 <Stack textAlign={"left"} mt="6" spacing="2">
@@ -85,7 +89,7 @@ export const SlidersCards = ({ products }) => {
                   <Text maxW={"16rem"}>{product.description}</Text>
                   <Text
                     color="blue.500"
-                    fontSize="2xl"
+                    fontSize="18px"
                     fontFamily={"fantasy"}
                     fontWeight={"100"}
                   >

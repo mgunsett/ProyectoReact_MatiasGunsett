@@ -15,6 +15,7 @@ import {
   import logoBeReal from '../../assets/logo-BeReal.png';
   import { Link } from "react-router-dom";
   import { useItemsCollection } from "../../hooks";
+  import { useEffect, useState } from "react";
   import './Navbar.css';
 
 export const Navbar = () => {
@@ -22,16 +23,30 @@ export const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode();
     const { items } = useItemsCollection("categories");
 
+    const [navClass, setNavClass] = useState("navbar");
+
+    useEffect(() => {
+      const handleScroll = () => {
+        if (window.scrollY > 50) {
+          setNavClass("navbar scrolled");
+        } else {
+          setNavClass("navbar");
+        }
+      };
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }, []);
+
     return (
     <>
       <Box 
-       className="navbar"
-       bg={useColorModeValue('gray.100', 'gray.900')} 
+       className={navClass}
        px={4} 
        position='sticky' 
        top={0}  
        zIndex={1}
-       opacity={0.9}
        >
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Box display={'flex'} alignItems={'center'} gap={4}>
@@ -60,12 +75,7 @@ export const Navbar = () => {
           </Button> */}
           </Box>
           <Flex alignItems={'center'} justifyContent={'space-between'}> 
-            <Stack direction={'row'} spacing={7}>
-              <CartWidget /> 
-              <Button onClick={toggleColorMode}>
-                {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-              </Button>
-            </Stack>
+              <CartWidget />
           </Flex>
         </Flex>
       </Box>

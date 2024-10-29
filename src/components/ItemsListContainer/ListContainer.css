@@ -1,14 +1,11 @@
 .titleContainer {
-    padding: 9rem;
+    padding: 10rem;
     background-image: url('../../assets/fondoCalle.jpg');
     background-attachment:fixed;
     background-size: cover;
     background-repeat: no-repeat;
     background-position:center;
-    margin-top: 1rem;
-    
-    /* animation: entrada .7s both; */
-
+    margin-top: -65px;
 }
 
 .spray {

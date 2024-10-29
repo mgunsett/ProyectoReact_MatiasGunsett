@@ -2,7 +2,7 @@
     background-image: url('../../assets/foto-contact-fondo.jpg');
     background-attachment:local;
     background-size:contain;
-    background-repeat:repeat-x;
+    background-repeat:repeat;
 }
 
 .contacto-container {
@@ -16,6 +16,8 @@
     align-items: center;
     gap: 20px;
     width: 57%;
+    margin: 60px auto;
+    flex-wrap: wrap;
 }
 .contacto-info {
     color: white;
@@ -24,6 +26,5 @@
     justify-content: space-evenly;
     align-items:flex-start;
     gap: 20px;
-    padding-top: 20px;
-    
+    padding-top: 20px; 
 }

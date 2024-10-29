@@ -1,9 +1,9 @@
 import {
   Heading,
-  Container,
   Box,
   Divider,
   Image,
+  Flex
 } from '@chakra-ui/react';
 import './ListContainer.css';
 import bannerNuevo from '../../assets/bannerNuevo.png'
@@ -13,8 +13,12 @@ import { SlidersCards } from '../SliderCards';
 
 export const ItemsListContainer = ({ title, products }) => {
 
+  function primeraMayuscula(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
   return (
-    <Container maxW={'100%'} textAlign={'center'} margin={0}>
+    <Flex  margin={'auto'} flexDirection={'column'} gap={'20px'}>
       <Box className='titleContainer' position={'relative'}>
         <Image
           className='banner'
@@ -53,9 +57,9 @@ export const ItemsListContainer = ({ title, products }) => {
 
       <Heading 
       className='title2-container'
-      >{title}</Heading>
+      >{primeraMayuscula(title)}</Heading>
 
       <SlidersCards products={products}/>
-    </Container>
+    </Flex>
   );
 };
