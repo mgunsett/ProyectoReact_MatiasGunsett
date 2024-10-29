@@ -6,11 +6,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  useColorModeValue,
   Stack,
-  useColorMode,
 } from "@chakra-ui/react";
-  import { MoonIcon, SunIcon } from '@chakra-ui/icons';
   import {CartWidget} from '../../components';
   import logoBeReal from '../../assets/logo-BeReal.png';
   import { Link } from "react-router-dom";
@@ -19,8 +16,7 @@ import {
   import './Navbar.css';
 
 export const Navbar = () => {
-
-    const { colorMode, toggleColorMode } = useColorMode();
+  
     const { items } = useItemsCollection("categories");
 
     const [navClass, setNavClass] = useState("navbar");
