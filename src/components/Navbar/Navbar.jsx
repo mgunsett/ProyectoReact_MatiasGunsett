@@ -5,6 +5,10 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+<<<<<<< HEAD
+=======
+  Stack,
+>>>>>>> 67b1d58237a80c5cef91f79bac5bc0f45b46977d
 } from "@chakra-ui/react";
   import {CartWidget} from '../../components';
   import logoBeReal from '../../assets/logo-BeReal.png';
@@ -14,7 +18,11 @@ import {
   import './Navbar.css';
 
 export const Navbar = () => {
+<<<<<<< HEAD
 
+=======
+  
+>>>>>>> 67b1d58237a80c5cef91f79bac5bc0f45b46977d
     const { items } = useItemsCollection("categories");
 
     const [navClass, setNavClass] = useState("navbar");
