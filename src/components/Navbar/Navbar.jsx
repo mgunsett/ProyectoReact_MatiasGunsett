@@ -1,16 +1,11 @@
 import {
   Box,
   Flex,
-  Button,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  useColorModeValue,
-  Stack,
-  useColorMode,
 } from "@chakra-ui/react";
-  import { MoonIcon, SunIcon } from '@chakra-ui/icons';
   import {CartWidget} from '../../components';
   import logoBeReal from '../../assets/logo-BeReal.png';
   import { Link } from "react-router-dom";
@@ -20,7 +15,6 @@ import {
 
 export const Navbar = () => {
 
-    const { colorMode, toggleColorMode } = useColorMode();
     const { items } = useItemsCollection("categories");
 
     const [navClass, setNavClass] = useState("navbar");
@@ -58,7 +52,7 @@ export const Navbar = () => {
               as={Link} 
               cursor="pointer"
               > Productos 
-              </MenuButton>
+                </MenuButton>
               <MenuList overflow={'visible'}>
                 {items.map((category) => (
                   <MenuItem key={category.slug}>
@@ -66,13 +60,10 @@ export const Navbar = () => {
                   </MenuItem>
                 ))}
               </MenuList>   
-          </Menu>
-          <Link to='/contacto' className="menuButton">
-            Contacto
-          </Link> 
-          {/* <Button onClick={() => createProductsFirestore("products")}>
-            Crear productos
-          </Button> */}
+            </Menu>
+            <Link to='/contacto' className="menuButton">
+              Contacto
+            </Link> 
           </Box>
           <Flex alignItems={'center'} justifyContent={'space-between'}> 
               <CartWidget />
