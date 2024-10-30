@@ -14,15 +14,13 @@ import {
   Alert,
   AlertIcon,
   IconButton,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
 
 
 export const CartDetails = ({onContinue}) => {
 
-  const { cartState, addItem, removeItem, deleteItem } =
-    useContext(CartContext);
+  const { cartState, addItem, removeItem, deleteItem } = useContext(CartContext);
 
   const total = cartState.reduce(
     (acc, item) => acc + item.price * item.qtyItem,
@@ -114,8 +112,6 @@ export const CartDetails = ({onContinue}) => {
             mt={2}
             size={"lg"}
             py={"7"}
-            bg={useColorModeValue("gray.900", "gray.50")}
-            color={useColorModeValue("white", "gray.900")}
             textTransform={"uppercase"}
             onClick={onContinue}
             _hover={{
