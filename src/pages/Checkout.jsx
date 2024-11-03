@@ -13,23 +13,19 @@ export const Checkout = () => {
   };
   const handleBackToCheckout = () => {
     setShowPayment(false);
-  };
+  }; 
 
   return (
     <Box position="relative" height="100vh">
       <Box
-        opacity={showPayment ? 0.2 : 1}
+        opacity={showPayment ? 0.5 : 1}
         transition="opacity 0.5s ease"
+        flex="1"
       >
         <CartDetails onContinue={handleContinuePurchase} />
       </Box>
       {showPayment && (
-        <Box 
-        className="payment-box"
-        transition="opacity 0.5s ease, transform 0.5s ease"
-        transform={showPayment ? "translateY(0)" : "translateY(100%)"}
-        opacity={showPayment ? 1 : 0}
-        >
+        <Box className="payment-box animated">
           <Payment onBack={handleBackToCheckout} />
         </Box>
       )}

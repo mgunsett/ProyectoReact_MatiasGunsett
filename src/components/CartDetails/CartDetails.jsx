@@ -13,7 +13,7 @@ import {
   Spacer,
   Alert,
   AlertIcon,
-  IconButton,
+  IconButton,   
 } from "@chakra-ui/react";
 import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
 
@@ -32,7 +32,8 @@ export const CartDetails = ({onContinue}) => {
   };
 
   return (
-    <Box p={6 } maxW="800px" mx="auto" height={"75vh"}>
+    <>
+    <Box p={6 } maxW="800px" mx="auto" mb={6}  h="70vh" overflowY="auto">
       <Heading as="h2" size="lg" mb={6}> 
         TU CARRITO
       </Heading>
@@ -101,31 +102,40 @@ export const CartDetails = ({onContinue}) => {
               </HStack>
             </Flex>
           ))}
-          <Divider />
-          <Flex alignItems="center">
-            <Text fontSize="2xl" fontWeight="bold">
-              Total: ${total.toFixed(2)}
-            </Text>
-            <Spacer />
-            <Button
-            maxW={"100%"}
-            mt={2}
-            size={"lg"}
-            py={"7"}
-            textTransform={"uppercase"}
-            onClick={onContinue}
-            _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
-            }}
-            fontSize={'15px'}
-          >
-            Continuar Compra
-          </Button>
-           
-          </Flex>
         </VStack>
       )}
-    </Box>
+  </Box>
+  <Divider />
+  <Flex 
+  p={6}
+  w="50%"
+  alignItems="center"
+  justifyContent="space-between"
+  borderTop="1px"
+  borderColor="gray.200"
+  borderTopColor="gray.200"
+  margin={"0 auto"}
+  >
+    <Text fontSize="2xl" fontWeight="bold">
+      Total: <Text color={"rgba(237, 237, 78, 0.737)"}>${total.toFixed(2)}</Text>
+    </Text>
+    <Spacer />
+    <Button
+    maxW={"100%"}
+    mt={2}
+    size={"lg"}
+    py={"7"}
+    textTransform={"uppercase"}
+    onClick={onContinue}
+    _hover={{
+      transform: "translateY(2px)",
+      boxShadow: "lg",
+    }}
+    ontSize={'15px'}
+    >
+      Continuar Compra
+    </Button>  
+  </Flex>
+  </>
   );
 };
