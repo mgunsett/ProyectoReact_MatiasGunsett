@@ -1,4 +1,4 @@
-import { ItemsListContainer } from "../components";
+import { ProductsList } from "../components";
 import { useParams } from "react-router-dom";
 import { useProductsByCategory } from "../hooks";
 import { SkeletonLoading } from "../components/SkeletonLoading";
@@ -11,7 +11,7 @@ export const Category = () => {
   return loading ? (
     <SkeletonLoading />
   ) : (
-    <ItemsListContainer  title={id} products={productsData}/>
+    <ProductsList title={id} products={productsData}/>
     
   );
 };

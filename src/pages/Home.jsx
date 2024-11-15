@@ -13,8 +13,6 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import logoAngel from "../assets/logoAngel.png";
-import fotoMain1 from "../assets/fotoMain1.jpg";
-import fotoMain2 from "../assets/fotoMain2.jpg";
 import fotoMain3 from "../assets/fotoMain3.jpg";
 import fotoFamily from '../assets/fotoFamily.jpg'
 import './Styles/Home.css';
@@ -27,9 +25,9 @@ export const Home = () => {
   //y aca le pasamos como parametro a la hooks que customizamos el nombre de la "Coleccion" //
 
   return loading ? (
-    <SkeletonLoading />
+    <SkeletonLoading />   
   ) : (
-    <>
+    <Box backgroundColor={('gray.200', 'gray.700')} height={'100%'}>
     <ItemsListContainer title={"Productos"} products={items} />
     <Flex className="promociones">
       <Box>
@@ -62,15 +60,15 @@ export const Home = () => {
     </Flex>
     <Grid
       w={'100%'}
-      h='580px'
-      templateRows='repeat(2, 1fr)'
+      h='700px'
+      templateRows='repeat(3, 1fr)'
       templateColumns='repeat(5, 1fr)'
-      gap={5}
-      padding={5}
-      margin='130px 0'
+      gap={4}
+      p
     >
       <GridItem rowSpan={2} colSpan={2}>
-        <Img 
+        <Img
+        className="fotoMain1" 
         src={fotoMain3}
         objectFit={'cover'} 
         height={'575px'}
@@ -80,6 +78,7 @@ export const Home = () => {
       </GridItem>
       <GridItem rowSpan={2} colSpan={1}>
         <Img 
+        className="fotoMain1"
         src={fotoMain3}
         objectFit={'cover'} 
         height={'575px'}
@@ -89,6 +88,7 @@ export const Home = () => {
       </GridItem>
       <GridItem  rowSpan={1} colSpan={2} >
         <Img 
+        className="fotoMain1"
         src={fotoMain3} 
         objectFit={'cover'}  
         height={'275px'}
@@ -98,13 +98,14 @@ export const Home = () => {
       </GridItem>
       <GridItem rowSpan={1} colSpan={2}>
         <Img 
+        className="fotoMain1"
         src={fotoMain3} 
         objectFit={'cover'}
-        height={'275px'} 
+        height={'285px'} 
         width={'650px'}
         alt="Logo principal"/>  
       </GridItem>
     </Grid>
-    </>
+    </Box>
   );
 };

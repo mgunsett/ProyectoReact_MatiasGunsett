@@ -6,3 +6,4 @@ export * from "./ItemsListContainer";
 export * from "./SkeletonLoading";
 export * from "./Footer";
 export * from "./SliderCards";
+export * from "./ProductsList";

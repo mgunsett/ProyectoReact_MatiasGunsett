@@ -50,11 +50,12 @@ export const Navbar = () => {
               <MenuButton className="menuButton"
               as={Link} 
               cursor="pointer"
+              color={'white'}
               > Productos 
                 </MenuButton>
-              <MenuList overflow={'visible'}>
+              <MenuList overflow={'visible'} backgroundColor={('gray.200', 'gray.700')}>
                 {items.map((category) => (
-                  <MenuItem key={category.slug}>
+                  <MenuItem key={category.slug} backgroundColor={('gray.200', 'gray.700')}>
                     <Link to={`/category/${category.slug}`}>{category.name}</Link>
                   </MenuItem>
                 ))}

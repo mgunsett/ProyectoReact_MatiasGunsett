@@ -54,7 +54,7 @@ export const CartProvider = ({ children }) => {
     setCartState(cartState.filter((item) => item.id !== product.id));
   };
 
-//Context Hell: es un término que se utiliza para describir la situación en la que un componente necesita acceder a muchos contextos diferentes.
+//Context Hell: es un término que se utiliza para describir la situación en la qzue un componente necesita acceder a muchos contextos diferentes.
   return (
     <CartContext.Provider value={{ cartState, addItem, removeItem, deleteItem }}>
       {children}

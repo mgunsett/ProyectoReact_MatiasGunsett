@@ -1,9 +1,8 @@
 import {
   Heading,
   Box,
-  Divider,
   Image,
-  Flex
+  Flex,
 } from '@chakra-ui/react';
 import './ListContainer.css';
 import bannerNuevo from '../../assets/bannerNuevo.png'
@@ -18,7 +17,7 @@ export const ItemsListContainer = ({ title, products }) => {
   }
 
   return (
-    <Flex  margin={'auto'} flexDirection={'column'} gap={'20px'}>
+    <Flex  margin={'auto'} flexDirection={'column'} gap={'20px'} backgroundColor={('gray.200', 'gray.700')}>
       <Box className='titleContainer' position={'relative'}>
         <Image
           className='banner'
@@ -48,13 +47,6 @@ export const ItemsListContainer = ({ title, products }) => {
           Be Real
         </Heading>
       </Box>
-
-      <Divider 
-      orientation={'horizontal'} 
-      maxW={'97%'} 
-      padding={'5'}
-      marginBottom={'40px'} />
-
       <Heading 
       className='title2-container'
       >{primeraMayuscula(title)}</Heading>

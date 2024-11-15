@@ -1,7 +1,6 @@
 import { useState, useContext } from "react";
 import {
   Box,
-  Container,
   Stack,
   Text,
   Image,
@@ -10,32 +9,13 @@ import {
   Button,
   Heading,
   SimpleGrid,
-  StackDivider,
   useColorModeValue,
-  Divider,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { CartContext } from "../../context/CartContext";
 import './ItemDetailContainer.css'
 
 export const ItemDetailContainer = ({ product }) => {
-
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // // Función para cerrar el modal cuando se presiona la tecla ESC
-  // const handleKeyDown = (e) => {
-  //   if (e.key === "Escape") {
-  //     setIsModalOpen(false);
-  //   }
-  // };
-  //  // Efecto para escuchar el evento del teclado
-  //  useEffect(() => {
-  //   if (isModalOpen) {
-  //     window.addEventListener("keydown", handleKeyDown);
-  //   } else {
-  //     window.removeEventListener("keydown", handleKeyDown);
-  //   }
-  //   // Cleanup
-  //   return () => window.removeEventListener("keydown", handleKeyDown);
-  // }, [isModalOpen]);
 
   const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(0);
@@ -64,32 +44,33 @@ export const ItemDetailContainer = ({ product }) => {
 
   return (
     <Box className="detail-container">
-      <Box className="detail-title">
-      <Heading>Detalle de Producto</Heading>
-      <Divider 
-        borderColor={'black'}
-        orientation="horizontal" 
-        width={"50%"}
-        marginLeft={'20px'}/>
+      <Box className="detail-guia">
+        <Link className="guia-hover" to="/">Inico</Link> /
+        <Link className="guia-hover" to={`/category/${product.category}`}> {product.category} </Link> /
+        <Link className="guia-hover" to={`/item/${product.id}`}> {product.title}</Link>
       </Box>
       <SimpleGrid
         className="detail-card"
-        columns={{ base: 1, lg: 2 }}
-        spacing={{ base: 8, md: 10 }}
-        py={{ base: 10, md: 18 }}
-      >
-        <Flex>
+        columns={{ sm: 1, md: 2 }}
+        spacing={2} 
+        p={2} 
+      > 
+        <Flex
+          justifyContent={"center"}
+          alignItems={"center"}
+          >
           <Image
             rounded={"md"}
             alt={product.title}
             src={product.imageUrl}
-            fit={"cover"}
-            align={"center"}
-            w={"100%"}
-            h={{ base: "100%", sm: "400px", lg: "500px" }}
+            fit={'cover'}
+            w={"80%"}
+            h={{ base: "100%", sm: "400px", lg: "600px" }}
           />
         </Flex>
-        <Stack align={'left'} spacing={{ base: 6, md: 10 }}>
+        <Stack 
+          alignSelf={'start'}
+          p={2} >
           <Box as={"header"}>
             <Heading
               lineHeight={1.1}
@@ -109,12 +90,8 @@ export const ItemDetailContainer = ({ product }) => {
 
           <Stack
             spacing={{ base: 4, sm: 6 }}
-            direction={"column"}
-            divider={
-              <StackDivider
-                borderColor={useColorModeValue("gray.200", "gray.600")}
-              />
-            }
+            direction={["column", "row"]}
+            alignItems={["center", "flex-start"]}
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text

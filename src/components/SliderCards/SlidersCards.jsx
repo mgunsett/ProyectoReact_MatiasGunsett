@@ -70,7 +70,8 @@ export const SlidersCards = ({ products }) => {
             key={product.id} 
             maxW="md" 
             minW="250px" 
-            flex="0 0 auto">
+            flex="0 0 auto"
+            backgroundColor={('rgba(0, 0, 0, 0.381)')}>
               <CardBody>
                 <Link to={`/item/${product.id}`}>
                   <Image
@@ -85,8 +86,8 @@ export const SlidersCards = ({ products }) => {
                   />
                 </Link>
                 <Stack textAlign={"left"} mt="6" spacing="2">
-                  <Heading size="sm">{product.title}</Heading>
-                  <Text maxW={"16rem"}>{product.description}</Text>
+                  <Heading size="sm" color={'white'}>{product.title}</Heading>
+                  <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
                   <Text
                     color="blue.500"
                     fontSize="18px"
@@ -97,9 +98,9 @@ export const SlidersCards = ({ products }) => {
                   </Text>
                 </Stack>
               </CardBody>
-              <Divider />
+              <Divider color={'white'}/>
               <CardFooter>
-                <ButtonGroup spacing="3" _hover={{
+                <ButtonGroup spacing="3" color={'white'} _hover={{
                     backgroundColor: "rgba(237, 237, 78, 0.737)",
                     transform: "scale(1.1)",
                     borderRadius: "2px",

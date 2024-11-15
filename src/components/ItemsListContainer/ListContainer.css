@@ -27,11 +27,10 @@
 .title2-container {
     display: flex;
     gap: 1rem;
-    margin: 1rem;
-    padding: 1rem;
+    margin: 2rem 0 0 1rem; 
     backdrop-filter: blur(10px);
     border-bottom: 10px solid rgba(255, 255, 255, 0.18);
-    width: 300px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif !important;
-
+    width: 250px;
+    font-family:Georgia, 'Times New Roman', Times, serif !important;
+    font-weight: 100;
 }
