@@ -13,7 +13,8 @@ import {
   Spacer,
   Alert,
   AlertIcon,
-  IconButton,   
+  IconButton,
+  background,   
 } from "@chakra-ui/react";
 import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
 
@@ -33,8 +34,8 @@ export const CartDetails = ({onContinue}) => {
 
   return (
     <>
-    <Box p={6 } maxW="800px" mx="auto" mb={6}  h="70vh" overflowY="auto">
-      <Heading as="h2" size="lg" mb={6}> 
+    <Box p={6 } maxW="800px" mx="auto" mb={6}  h="70vh" overflowY="auto" >
+      <Heading as="h2" size="lg" mb={6} color={'white'}> 
         TU CARRITO
       </Heading>
 
@@ -63,11 +64,11 @@ export const CartDetails = ({onContinue}) => {
                 mr={4}
               />
               <Box flex="1">
-                <Text fontSize="xl" fontWeight="bold">
+                <Text fontSize="xl" fontWeight="bold" color={'white'}>
                   {item.title}
                 </Text>
                 <HStack spacing={4} mt={2}>
-                  <Text>Precio: ${item.price.toFixed(2)}</Text>
+                  <Text color={'white'}>Precio: ${item.price.toFixed(2)}</Text>
                   <HStack>
                     <IconButton
                       aria-label="Disminuir cantidad"
@@ -76,7 +77,7 @@ export const CartDetails = ({onContinue}) => {
                       onClick={() => removeItem(item)}
                       isDisabled={item.qtyItem === 1}
                     />
-                    <Text>{item.qtyItem}</Text>
+                    <Text color={'white'}>{item.qtyItem}</Text>
                     <IconButton
                       aria-label="Aumentar cantidad"
                       icon={<AddIcon />}
@@ -89,7 +90,7 @@ export const CartDetails = ({onContinue}) => {
               </Box>
               <Spacer />
               <HStack>
-                <Text fontWeight="bold">
+                <Text fontWeight="bold" color={'white'}>
                   Subtotal: ${(item.price * item.qtyItem).toFixed(2)}
                 </Text>
                 <IconButton
@@ -98,6 +99,7 @@ export const CartDetails = ({onContinue}) => {
                   colorScheme="red"
                   variant="outline"
                   onClick={() => handleDeleteItem(item)}
+                  _hover={{background: 'red.200'}}
                 />
               </HStack>
             </Flex>
@@ -116,7 +118,7 @@ export const CartDetails = ({onContinue}) => {
   borderTopColor="gray.200"
   margin={"0 auto"}
   >
-    <Text fontSize="2xl" fontWeight="bold">
+    <Text fontSize="2xl" fontWeight="bold" color={'white'}>
       Total: <Text color={"rgba(237, 237, 78, 0.737)"}>${total.toFixed(2)}</Text>
     </Text>
     <Spacer />

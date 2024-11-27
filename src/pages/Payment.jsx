@@ -82,12 +82,13 @@ export const Payment = ({ onBack }) => {
   };
 
   return (
-    <Box className ="container-payment">
+    <Box className ="container-payment" marginTop={16}>
       <Box className="header-payment">
         <Text  className="title">Realizar Pedido</Text>
         <Icon 
           as={CloseIcon} 
           onClick={onBack} 
+          color={'white'}
           _hover={{ 
             cursor: "pointer", 
             color: "red.500"
@@ -118,18 +119,18 @@ export const Payment = ({ onBack }) => {
                 mr={4}
               />
               <Box maxW="sm" className="item-info-payment">
-                <Text fontSize="lg" fontWeight="bold">
+                <Text fontSize="lg" fontWeight="bold" color={'white'}>
                   {item.title}
                 </Text>
                 <HStack spacing={4} mt={2}>
-                  <Text>Precio: ${item.price.toFixed(2)}</Text>
+                  <Text color={'white'}>Precio: ${item.price.toFixed(2)}</Text>
                 </HStack>
               </Box>
               <Spacer />
             </Flex>
           ))}
           <Flex m={'20px 0'} justifyContent="space-between" alignItems="center">
-            <Text fontSize="2xl" fontWeight="bold">
+            <Text fontSize="2xl" fontWeight="bold" color={'white'}>
               Total:
             </Text>
             <Text fontSize="xl" fontWeight="bold" color={"rgba(237, 237, 78, 0.737)"}>

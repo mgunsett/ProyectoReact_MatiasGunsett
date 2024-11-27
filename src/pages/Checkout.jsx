@@ -16,7 +16,13 @@ export const Checkout = () => {
   }; 
 
   return (
-    <Box position="relative" height="100vh">
+    <Box 
+      position="relative" 
+      height="100vh" 
+      paddingTop={20}
+      marginTop={-16}
+      backgroundColor={('gray.200', 'gray.700')}
+    >
       <Box
         opacity={showPayment ? 0.5 : 1}
         transition="opacity 0.5s ease"

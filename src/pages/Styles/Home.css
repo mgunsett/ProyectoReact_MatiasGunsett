@@ -76,8 +76,12 @@
 strong {
     font-size: 90px !important;
 }
+.fotoMain1 {
+    transition: all 0.7s;
+}
 .fotoMain1:hover {
     box-shadow: 3px 1px 22px 3px rgba(0,0,0,0.49);
     -webkit-box-shadow: 3px 1px 22px 3px rgba(0,0,0,0.49);
     -moz-box-shadow: 3px 1px 22px 3px rgba(0,0,0,0.49);
+    scale: 1.1;
 }

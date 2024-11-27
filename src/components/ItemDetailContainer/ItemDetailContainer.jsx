@@ -111,7 +111,8 @@ export const ItemDetailContainer = ({ product }) => {
             <Heading
               lineHeight={1.1}
               fontWeight={600}
-              fontSize={{ base: "2xl", sm: "3xl", lg: "4.5xl" }}
+              fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
+              fontFamily={'"Lacquer", system-ui'}
             >
               {product.title}
             </Heading>
@@ -119,6 +120,7 @@ export const ItemDetailContainer = ({ product }) => {
               color={'white'}
               fontWeight={300}
               fontSize={"2xl"}
+              marginBottom={12}
             >
               {product.description}
             </Text>

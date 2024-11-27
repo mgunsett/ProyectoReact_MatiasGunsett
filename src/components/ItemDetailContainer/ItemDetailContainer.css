@@ -12,6 +12,7 @@
     font-size: 15px;
     margin-bottom: 30px;
     gap: 10px;  
+    color: white;
 }
 .guia-hover:hover {
     cursor: pointer;
