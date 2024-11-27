@@ -11,7 +11,6 @@ export const Category = () => {
   return loading ? (
     <SkeletonLoading />
   ) : (
-    <ProductsList title={id} products={productsData}/>
-    
+    <ProductsList title={id} products={productsData}/>  
   );
 };

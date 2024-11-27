@@ -9,6 +9,7 @@ import {
   import {CartWidget} from '../../components';
   import logoBeReal from '../../assets/logo-BeReal.png';
   import { Link } from "react-router-dom";
+  import { ChevronDownIcon } from '@chakra-ui/icons';
   import { useItemsCollection } from "../../hooks";
   import { useEffect, useState } from "react";
   import './Navbar.css';
@@ -52,11 +53,25 @@ export const Navbar = () => {
               cursor="pointer"
               color={'white'}
               > Productos 
-                </MenuButton>
-              <MenuList overflow={'visible'} backgroundColor={('gray.200', 'gray.700')}>
+                <ChevronDownIcon/>
+              </MenuButton>
+              <MenuList 
+                overflow={'visible'} 
+                backgroundColor={('gray.200', 'gray.700')} 
+                border={'1px solid white'}
+                boxShadow={'lg'}
+                transition={'all 0.3s'}
+              >
                 {items.map((category) => (
-                  <MenuItem key={category.slug} backgroundColor={('gray.200', 'gray.700')}>
-                    <Link to={`/category/${category.slug}`}>{category.name}</Link>
+                  <MenuItem 
+                    key={category.slug} 
+                    backgroundColor={('gray.200', 'gray.700')}
+                  >
+                    <Link 
+                      to={`/category/${category.slug}`}
+                      className="menuButton2"
+                    >{category.name}
+                    </Link>
                   </MenuItem>
                 ))}
               </MenuList>   

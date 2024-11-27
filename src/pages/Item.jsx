@@ -21,7 +21,12 @@ export const Item = () => {
       <Spinner size="xl" />
     </Flex>
   ) : (
-    <Box className="container">
+    <Box 
+      className="container" 
+      backgroundColor={('gray.200', 'gray.700')}
+      paddingTop={20}
+      marginTop={-16}
+    >
     <ItemDetailContainer  product={productData}/>
     </Box>
   );

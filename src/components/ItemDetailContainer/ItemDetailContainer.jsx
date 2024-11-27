@@ -58,14 +58,50 @@ export const ItemDetailContainer = ({ product }) => {
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
+          gap={6}
+        >
+          <Flex 
+            flexDirection={'column'} 
+            justifyContent={'space-between'} 
+            alignItems={'center'}
+            gap={4}
           >
+            <Image 
+            rounded={"md"}
+            alt={product.title}
+            src={product.imageUrl}
+            fit={'cover'}
+            w={'150px'}
+            h={'150px'}/>
+            <Image
+            rounded={"md"}
+            alt={product.title}
+            src={product.imageUrl}
+            fit={'cover'}
+            w={'150px'}
+            h={'150px'}/>
+            <Image
+            rounded={"md"}
+            alt={product.title}
+            src={product.imageUrl}
+            fit={'cover'}
+            w={'150px'}
+            h={'150px'}/>
+            <Image
+            rounded={"md"}
+            alt={product.title}
+            src={product.imageUrl}
+            fit={'cover'}
+            w={'150px'}
+            h={'150px'}/>
+          </Flex>
           <Image
             rounded={"md"}
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
-            w={"80%"}
-            h={{ base: "100%", sm: "400px", lg: "600px" }}
+            w={"70%"}
+            h={{ base: "100%", sm: "400px", lg: "650px" }}
           />
         </Flex>
         <Stack 

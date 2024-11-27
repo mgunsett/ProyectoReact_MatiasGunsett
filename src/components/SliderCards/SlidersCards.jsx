@@ -63,6 +63,7 @@ export const SlidersCards = ({ products }) => {
           gap="1rem"
           padding="1rem"
           maxW="100%"
+          minW="100%"
         >
           {products.map((product) => (
             <Card 
@@ -109,7 +110,7 @@ export const SlidersCards = ({ products }) => {
                     color: "black",
                     paddingLeft: "10px",
                   }}>
-                  <Link to={`/item/${product.id}`}>Ir a Detalle</Link>
+                  <Link to={`/item/${product.id}`}>+ Ir a Detalle</Link>
                 </ButtonGroup>
               </CardFooter>
             </Card>

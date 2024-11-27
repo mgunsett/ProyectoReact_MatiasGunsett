@@ -47,7 +47,7 @@ export const Home = () => {
     </Flex>
     <Flex className="quienesSomos"  >
       <Box className="quienesSomos-text">
-        <Heading as={"h2"} fontSize={{sm:'40px',lg:'50px', xl:'60px' }} className="quienesSomos-text-h">BeReal <strong>Family</strong></Heading>
+        <Heading as={"h2"} fontSize={{sm:'30px',lg:'40px', xl:'50px' }} className="quienesSomos-text-h">BeReal <strong>Family</strong></Heading>
         <Text className="quienesSomos-text-p">"Somos una grupo de amigos que un día entre risas, asados y play decidimos emprender un camino juntos y en algo que nos apasionara a todos. Asi fue que nacio BeReal, construyendo paso a paso cada estilo, cada diseño y cada detalle para ser de nuestro trabajo la mejor experiencia para todos."  </Text>
       </Box>
       <Box className="quienesSomos-imgs">
