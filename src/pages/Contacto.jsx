@@ -31,11 +31,15 @@ import './Styles/Mediaquerys.css'
 
 export const Contacto = () => {
   return (
-    <Container 
+    <Box 
+    maxW="full" 
+    paddingTop={16}
+    marginTop={-16}
+    backgroundColor={('gray.200', 'gray.700')}
+    >
+    <Box 
     className='contacto'
     maxW="full" 
-    mt={0} 
-    centerContent 
     overflow="hidden">
         <Flex
           className='contacto-container'
@@ -46,7 +50,12 @@ export const Contacto = () => {
             >
               <WrapItem>
                 <Box>
-                  <Heading fontSize={{ base: '2xl', sm: '4xl', md: '4xl', lg: '5xl' }}>Contacto</Heading>
+                  <Heading 
+                    fontSize={{ base: '2xl', sm: '4xl', md: '4xl', lg: '5xl' }}
+                    color="white"
+                    fontFamily={'"Lacquer", system-ui, sans-serif'}
+                  >Contacto
+                  </Heading>
                   <Text mt={{ sm: 3, md: 3, lg: 5 }} color="white">
                     Nuestros medios de Contacto:
                   </Text>
@@ -86,6 +95,7 @@ export const Contacto = () => {
                     alignItems="flex-start">
                       <Link to='https://www.facebook.com/' target='_blank'>
                     <IconButton
+                      color='white'
                       aria-label="facebook"
                       variant="ghost"
                       size="lg"
@@ -96,6 +106,7 @@ export const Contacto = () => {
                     </Link>
                     <Link to='https://www.instagram.com/bereal.sf/' target='_blank'>
                     <IconButton
+                      color='white'
                       aria-label="instagram"
                       variant="ghost"
                       size="lg"
@@ -106,6 +117,7 @@ export const Contacto = () => {
                     </Link>
                     <Link to='https://wa.link/oyoj7s' target='_blank'>
                     <IconButton
+                      color='white'
                       aria-label="discord"
                       variant="ghost"
                       size="lg"
@@ -161,6 +173,7 @@ export const Contacto = () => {
             </Wrap>
           </Box>
         </Flex>
-    </Container>
+    </Box>
+    </Box>
   )
 }
