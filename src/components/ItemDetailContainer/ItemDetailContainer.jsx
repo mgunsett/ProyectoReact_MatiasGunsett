@@ -17,6 +17,9 @@ import './ItemDetailContainer.css'
 
 export const ItemDetailContainer = ({ product }) => {
 
+  const [isClicked, setIsClicked] = useState(false);
+  const [selectedSize, setSelectedSize] = useState(null); // Estado para guardar el talle seleccionado
+
   const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -41,6 +44,16 @@ export const ItemDetailContainer = ({ product }) => {
       removeItem(product);
     }
   };
+
+  const handleSizeClick = (size) => {
+    if (selectedSize === size) {
+      setSelectedSize(null); // Si el talle ya está seleccionado, deseleccionarlo
+    }else {
+      setSelectedSize(size); // Actualizar el talle seleccionado
+    }
+  };
+
+  const sizes = ["SM", "ME", "LA", "XL"]; // Array de talles
 
   return (
     <Box className="detail-container">
@@ -71,43 +84,44 @@ export const ItemDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
-            w={'150px'}
-            h={'150px'}/>
+            boxSize={{ base: '70px', sm: '90px', md: '120px', lg: '150px' }}
+            />
             <Image
             rounded={"md"}
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
-            w={'150px'}
-            h={'150px'}/>
+            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            />
             <Image
             rounded={"md"}
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
-            w={'150px'}
-            h={'150px'}/>
+            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            />
             <Image
             rounded={"md"}
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
-            w={'150px'}
-            h={'150px'}/>
+            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            />
           </Flex>
           <Image
+          alignSelf={'start'}
             rounded={"md"}
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
             w={"70%"}
             h={{ base: "100%", sm: "400px", lg: "650px" }}
-          />
+          />    
         </Flex>
         <Stack 
           alignSelf={'start'}
           p={2} >
-          <Box as={"header"}>
+          <Box as={"header"} marginBottom={16}>
             <Heading
               lineHeight={1.1}
               fontWeight={600}
@@ -120,9 +134,17 @@ export const ItemDetailContainer = ({ product }) => {
               color={'white'}
               fontWeight={300}
               fontSize={"2xl"}
-              marginBottom={12}
+              marginBottom={2}
             >
               {product.description}
+            </Text>
+            <Text
+              color={"rgba(237, 237, 78, 0.737)"}
+              fontSize={"2xl"}
+              alignSelf={'flex-start'}
+              fontFamily={'fantasy'}
+            >
+              ${product.price}
             </Text>
           </Box>
 
@@ -140,26 +162,39 @@ export const ItemDetailContainer = ({ product }) => {
               >
                 Cantidad disponible: {product.stock}
               </Text>
-              <Text
-                color='blue.800'
-                fontSize={"2xl"}
+              <Text 
+                color={'white'}
+                fontSize={"20px"}
                 fontWeight={"300"}
                 alignSelf={'flex-start'}
-                fontFamily={'fantasy'}
-                mb={5}
               >
-                ${product.price}
+                Talle :
               </Text>
+              <Flex gap={4}>
+              {sizes.map((size) => (
+                <Button
+                  key={size}
+                  onClick={() => handleSizeClick(size)}
+                  border="3px solid"
+                  borderColor={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "gray.300"}
+                  color={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "white"}
+                  _hover={{
+                    borderColor: "rgba(237, 237, 78, 0.737)",
+                  }}
+                  variant="outline"
+                >
+                  {size}
+                </Button>
+              ))}
+              </Flex>
             </VStack>
           </Stack>
 
           <Button
-            rounded={"none"}
-            maxW={"80%"}
-            mt={8}
+            maxW={"60%"}
             size={"lg"}
             py={"7"}
-            bg={useColorModeValue("gray.900", "gray.50")}
+            backgroundColor={('gray.200', 'gray.700')}
             color={useColorModeValue("white", "gray.900")}
             textTransform={"uppercase"}
             _hover={{
@@ -173,9 +208,23 @@ export const ItemDetailContainer = ({ product }) => {
           </Button>
           {showCount && (
             <Stack direction="row" spacing={4} align="center" mt={1}>
-              <Button onClick={handleDecrement}>-</Button>
-              <Text fontSize="lg">{count}</Text>
-              <Button onClick={handleIncrement}>+</Button>
+              <Button 
+                boxSize={'33px'}
+                onClick={handleDecrement}
+                bg={'transparent'}
+                color={'white'}
+                border={'1px solid white'}
+                _hover={{ bg: 'white', color: 'black' }} 
+              >-</Button>
+              <Text color={'white'} fontSize="lg">{count}</Text>
+              <Button 
+                onClick={handleIncrement}
+                boxSize={'33px'}
+                bg={'transparent'}
+                color={'white'}
+                border={'1px solid white'}
+                _hover={{ bg: 'white', color: 'black' }} 
+              >+</Button>
             </Stack>
           )}
         </Stack>
