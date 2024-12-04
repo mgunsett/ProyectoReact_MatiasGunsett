@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { CartDetails } from "../components/CartDetails";
+import { useState,useEffect } from "react";
+import { CartDetails, SignIn } from "../components"
 import { Payment } from "./Payment";
 import { Box } from "@chakra-ui/react";
 import './Styles/Checkout.css';
@@ -28,6 +28,7 @@ export const Checkout = () => {
         transition="opacity 0.5s ease"
         flex="1"
       >
+        <SignIn />
         <CartDetails onContinue={handleContinuePurchase} />
       </Box>
       {showPayment && (
@@ -36,5 +37,25 @@ export const Checkout = () => {
         </Box>
       )}
     </Box>
-  );
+  );  
 };
+
+// const [isModalOpen, setIsModalOpen] = useState(false);
+//   // Función para cerrar el modal cuando se presiona la tecla ESC
+//   const handleKeyDown = (e) => {
+//     if (e.key === "Escape") {
+//       setIsModalOpen(false);
+//     }
+//   };
+//    // Efecto para escuchar el evento del teclado
+//    useEffect(() => {
+//     if (isModalOpen) {
+//       window.addEventListener("keydown", handleKeyDown);
+//     } else {
+//       window.removeEventListener("keydown", handleKeyDown);
+//     }
+//     // Cleanup
+//     return () => window.removeEventListener("keydown", handleKeyDown);
+//   }, [isModalOpen]);
+  // Función para cerrar el modal cuando se hace click fuera de él
+
