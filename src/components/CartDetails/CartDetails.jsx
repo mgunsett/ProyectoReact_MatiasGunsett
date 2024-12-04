@@ -13,11 +13,9 @@ import {
   Spacer,
   Alert,
   AlertIcon,
-  IconButton,
-  background,   
+  IconButton,   
 } from "@chakra-ui/react";
 import { DeleteIcon, AddIcon, MinusIcon } from "@chakra-ui/icons";
-
 
 export const CartDetails = ({onContinue}) => {
 
@@ -34,7 +32,7 @@ export const CartDetails = ({onContinue}) => {
 
   return (
     <>
-    <Box p={6 } maxW="800px" mx="auto" mb={6}  h="70vh" overflowY="auto" >
+    <Box p={4} maxW="600px" mb={6}  h="70vh" overflowY="auto">
       <Heading as="h2" size="lg" mb={6} color={'white'}> 
         TU CARRITO
       </Heading>
@@ -45,7 +43,7 @@ export const CartDetails = ({onContinue}) => {
           Tu carrito está vacío.
         </Alert>
       ) : (
-        <VStack spacing={4} align="stretch">
+        <VStack spacing={4}>
           {cartState.map((item) => (  
             <Flex
               key={item.id}
@@ -63,13 +61,15 @@ export const CartDetails = ({onContinue}) => {
                 borderRadius="md"
                 mr={4}
               />
-              <Box flex="1">
+              <Box flex="1" w={'390px'} >
                 <Text fontSize="xl" fontWeight="bold" color={'white'}>
                   {item.title}
                 </Text>
-                <HStack spacing={4} mt={2}>
                   <Text color={'white'}>Precio: ${item.price.toFixed(2)}</Text>
-                  <HStack>
+              </Box>
+              <Spacer />
+              <HStack>
+              <HStack>
                     <IconButton
                       aria-label="Disminuir cantidad"
                       icon={<MinusIcon />}
@@ -86,13 +86,6 @@ export const CartDetails = ({onContinue}) => {
                       isDisabled={item.qtyItem >= item.stock}
                     />
                   </HStack>
-                </HStack>
-              </Box>
-              <Spacer />
-              <HStack>
-                <Text fontWeight="bold" color={'white'}>
-                  Subtotal: ${(item.price * item.qtyItem).toFixed(2)}
-                </Text>
                 <IconButton
                   aria-label="Eliminar producto"
                   icon={<DeleteIcon />}
@@ -107,16 +100,15 @@ export const CartDetails = ({onContinue}) => {
         </VStack>
       )}
   </Box>
-  <Divider />
+  
   <Flex 
   p={6}
-  w="50%"
+  w="70%"
   alignItems="center"
   justifyContent="space-between"
-  borderTop="1px"
+  borderTop="2px"
   borderColor="gray.200"
   borderTopColor="gray.200"
-  margin={"0 auto"}
   >
     <Text fontSize="2xl" fontWeight="bold" color={'white'}>
       Total: <Text color={"rgba(237, 237, 78, 0.737)"}>${total.toFixed(2)}</Text>

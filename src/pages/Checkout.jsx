@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import { CartDetails, SignIn } from "../components"
 import { Payment } from "./Payment";
-import { Box } from "@chakra-ui/react";
+import { Box, Flex, Divider, Stack } from "@chakra-ui/react";
 import './Styles/Checkout.css';
 
 export const Checkout = () => {
@@ -23,14 +23,22 @@ export const Checkout = () => {
       marginTop={-16}
       backgroundColor={('gray.200', 'gray.700')}
     >
-      <Box
-        opacity={showPayment ? 0.5 : 1}
-        transition="opacity 0.5s ease"
-        flex="1"
+      <Flex
+        p={2}
+        alignItems={'center'}
       >
         <SignIn />
-        <CartDetails onContinue={handleContinuePurchase} />
-      </Box>
+        <Stack direction='row' h='600px' p={4}>
+        <Divider orientation='vertical' />
+        </Stack>
+        <Box
+        opacity={showPayment ? 0.5 : 1}
+        transition="opacity 0.5s ease"
+        w={'50%'}
+        >
+          <CartDetails onContinue={handleContinuePurchase} />
+        </Box>
+      </Flex>
       {showPayment && (
         <Box className="payment-box animated">
           <Payment onBack={handleBackToCheckout} />

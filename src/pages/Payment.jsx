@@ -4,7 +4,6 @@ import {
     Image,
     Text,
     Button,
-    Divider,
     VStack,
     HStack,
     Spacer,
