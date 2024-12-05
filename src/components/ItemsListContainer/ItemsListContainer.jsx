@@ -49,7 +49,10 @@ export const ItemsListContainer = ({ title, products }) => {
       </Box>
       <Heading 
       className='title2-container'
-      fontSize={'50px'}
+      lineHeight={1.1}
+      fontWeight={600}
+      fontSize= {{ base: "30px", sm: "40px", lg: "50px" }}
+      fontFamily={'"Lacquer", system-ui'}
       >{primeraMayuscula(title)}</Heading>
 
       <SlidersCards products={products}/>

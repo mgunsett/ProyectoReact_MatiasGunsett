@@ -11,6 +11,8 @@ import {
   Button,
   Grid,
   GridItem,
+  Divider,
+  AbsoluteCenter
 } from "@chakra-ui/react";
 import logoAngel from "../assets/logoAngel.png";
 import fotoMain3 from "../assets/fotoMain3.jpg";
@@ -58,6 +60,18 @@ export const Home = () => {
       />
       </Box>
     </Flex>
+    <Box position='relative' padding='10' m={6}>
+      <Divider />
+      <AbsoluteCenter 
+      lineHeight={1.1}
+      fontWeight={600}
+      fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
+      fontFamily={'"Lacquer", system-ui'}
+      color={'white'}
+      >
+        EVENTOS 🏷️
+      </AbsoluteCenter>
+    </Box>
     <Grid
       w={'100%'}
       h='700px'

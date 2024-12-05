@@ -20,9 +20,22 @@ export const SignIn = () => {
         alignItems="center"
         maxWidth="700px" 
         mx="auto"
+        boxSize={'md'}
         color={'white'}
+        background={'rgba(33, 33, 65, 0.621)'}
+        borderRadius={8}
+        backdropFilter={'blur(2px)'}
         >
-            <Heading as="h1" mb={6}>Ingresar</Heading>
+            <Heading 
+            as="h1" 
+            mb={6}
+            lineHeight={1.1}
+            fontWeight={600}
+            fontSize={{ base: "10px", sm: "20px", lg: "30px" }}
+            fontFamily={'"Lacquer", system-ui'}
+            >
+                Ingresar
+            </Heading>
             <form>
                 <FormControl id="email" mb={4}>
                     <FormLabel>Email:</FormLabel>
@@ -49,7 +62,7 @@ export const SignIn = () => {
                     <Image 
                         src={googlrIcon} 
                         alt="Google Icon" 
-                        w={5} h={5} mr={3}
+                        w={5} h={5} mr={3}                        
                     />
                     Iniciar con Google
                 </Button>

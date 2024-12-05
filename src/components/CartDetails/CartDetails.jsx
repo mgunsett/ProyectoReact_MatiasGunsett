@@ -32,8 +32,17 @@ export const CartDetails = ({onContinue}) => {
 
   return (
     <>
-    <Box p={4} maxW="600px" mb={6}  h="70vh" overflowY="auto">
-      <Heading as="h2" size="lg" mb={6} color={'white'}> 
+    <Box p={4} maxW="600px" mb={5}  h="70vh" overflowY="auto">
+      <Heading 
+      as="h2" 
+      size="lg" 
+      mb={6} 
+      color={'white'}
+      lineHeight={1.1}
+      fontWeight={600}
+      fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
+      fontFamily={'"Lacquer", system-ui'}
+      > 
         TU CARRITO
       </Heading>
 
@@ -125,7 +134,7 @@ export const CartDetails = ({onContinue}) => {
       transform: "translateY(2px)",
       boxShadow: "lg",
     }}
-    ontSize={'15px'}
+    fontSize={'15px'}
     >
       Continuar Compra
     </Button>  
