@@ -21,7 +21,7 @@ export const SlidersCards = ({ products }) => {
 
   const containerRef = useRef(null); 
   const [scrollPosition, setScrollPosition] = useState(0);
-  const scrollAmount = 300;
+  const scrollAmount = 600;
 
   // Función para desplazar a la izquierda
   const scrollLeft = () => {
@@ -52,6 +52,7 @@ export const SlidersCards = ({ products }) => {
           left="0"
           zIndex="1"
           fontSize="2xl"
+          color={'white'}
           backgroundColor="rgba(0,0,0,0.3)"
           _hover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
         />
@@ -124,6 +125,7 @@ export const SlidersCards = ({ products }) => {
           right="0"
           zIndex="1"
           fontSize="2xl"
+          color={'white'}
           backgroundColor="rgba(0,0,0,0.3)"
           _hover={{ backgroundColor: "rgba(0,0,0,0.5)" }}
         />
