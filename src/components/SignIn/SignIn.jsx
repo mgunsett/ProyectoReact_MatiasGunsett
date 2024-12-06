@@ -6,11 +6,69 @@ import {
     FormLabel, 
     Input, 
     Heading,
-    Image
+    Image,
+    Box
 } from '@chakra-ui/react';
-import  googlrIcon  from '../../assets/googlrIcon.svg';
+import { useState } from 'react';
+// import { 
+//     getAuth, 
+//     createUserWithEmailAndPassword, 
+//     signInWithPopup, 
+//     GoogleAuthProvider 
+// } from 'firebase/auth';
+import googlrIcon from '../../assets/googlrIcon.svg';
+
 
 export const SignIn = () => {
+    // const [isRegistering, setIsRegistering] = useState(false);
+    // const [email, setEmail] = useState('');
+    // const [password, setPassword] = useState('');
+    // const auth = getAuth();
+
+    // const handleSignIn = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=YOUR_API_KEY', {
+    //             email,
+    //             password,
+    //             returnSecureToken: true
+    //         });
+    //         alert('Inicio de sesión exitoso');
+    //         console.log(response.data);
+    //     } catch (error) {
+    //         alert(error.response.data.error.message);
+    //     }
+    // };
+
+    // const handleRegister = async (e) => {
+    //     e.preventDefault();
+    //     try {
+    //         const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=YOUR_API_KEY', {
+    //             email,
+    //             password,
+    //             returnSecureToken: true
+    //         });
+    //         alert('Registro exitoso');
+    //         console.log(response.data);
+    //     } catch (error) {
+    //         alert(error.response.data.error.message);
+    //     }
+    // };
+
+    // const handleGoogleSignIn = async () => {
+    //     const provider = new GoogleAuthProvider();
+    //     try {
+    //         const result = await signInWithPopup(auth, provider);
+    //         const credential = GoogleAuthProvider.credentialFromResult(result);
+    //         const token = credential.accessToken;
+    //         const user = result.user;
+    //         alert('Inicio de sesión con Google exitoso');
+    //         console.log({ token, user });
+    //     } catch (error) {
+    //         alert(error.message);
+    //     }
+    // };
+
     return (
         <Flex 
         className='signInContainer'
@@ -34,18 +92,21 @@ export const SignIn = () => {
             fontSize={{ base: "10px", sm: "20px", lg: "30px" }}
             fontFamily={'"Lacquer", system-ui'}
             >
-                Ingresar
             </Heading>
-            <form>
+                {/* {isRegistering ? 'Registrarse' : 'Ingresar'}
+            </Heading>
+            <form onSubmit={isRegistering ? handleRegister : handleSignIn}>
                 <FormControl id="email" mb={4}>
                     <FormLabel>Email:</FormLabel>
-                    <Input type="email" name="email" required />
+                    <Input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 </FormControl>
                 <FormControl id="password" mb={6}>
                     <FormLabel>Password:</FormLabel>
-                    <Input type="password" name="password" required />
+                    <Input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
                 </FormControl>
-                <Button type="submit" colorScheme="teal" width="full">Iniciar Sesión</Button>
+                <Button type="submit" colorScheme="teal" width="full">
+                    {isRegistering ? 'Registrarse' : 'Iniciar Sesión'}
+                </Button> */}
                 <Button 
                     type="button" 
                     variant='outline' 
@@ -58,6 +119,7 @@ export const SignIn = () => {
                         borderColor: '#4285F4',
                         boxShadow: '0 0 5px rgba(0, 0, 0, 0.2)'
                     }}
+                    // onClick={handleGoogleSignIn}
                 >
                     <Image 
                         src={googlrIcon} 
@@ -66,7 +128,12 @@ export const SignIn = () => {
                     />
                     Iniciar con Google
                 </Button>
-            </form>
+            {/* </form> */}
+            {/* <Box mt={4}>
+                <Button variant="link" onClick={() => setIsRegistering(!isRegistering)}>
+                    {isRegistering ? '¿Ya tienes una cuenta? Inicia sesión' : '¿No tienes una cuenta? Regístrate'}
+                </Button>
+            </Box> */}
         </Flex>
     );
 };
