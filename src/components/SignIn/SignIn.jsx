@@ -10,8 +10,8 @@ import {
     Box
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { auth } from '../../firebase/config';
 // import { 
-//     getAuth, 
 //     createUserWithEmailAndPassword, 
 //     signInWithPopup, 
 //     GoogleAuthProvider 
@@ -92,8 +92,8 @@ export const SignIn = () => {
             fontSize={{ base: "10px", sm: "20px", lg: "30px" }}
             fontFamily={'"Lacquer", system-ui'}
             >
-            </Heading>
-                {/* {isRegistering ? 'Registrarse' : 'Ingresar'}
+           
+            {/* {isRegistering ? 'Registrarse' : 'Ingresar'} */}
             </Heading>
             <form onSubmit={isRegistering ? handleRegister : handleSignIn}>
                 <FormControl id="email" mb={4}>
@@ -106,7 +106,7 @@ export const SignIn = () => {
                 </FormControl>
                 <Button type="submit" colorScheme="teal" width="full">
                     {isRegistering ? 'Registrarse' : 'Iniciar Sesión'}
-                </Button> */}
+                </Button> 
                 <Button 
                     type="button" 
                     variant='outline' 
@@ -128,7 +128,7 @@ export const SignIn = () => {
                     />
                     Iniciar con Google
                 </Button>
-            {/* </form> */}
+            </form>
             {/* <Box mt={4}>
                 <Button variant="link" onClick={() => setIsRegistering(!isRegistering)}>
                     {isRegistering ? '¿Ya tienes una cuenta? Inicia sesión' : '¿No tienes una cuenta? Regístrate'}
