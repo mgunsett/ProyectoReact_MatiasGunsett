@@ -14,9 +14,7 @@
       </ChakraProvider>
     );
   }
-
   export default App;
-
 
   //! ---------- Ejemplo de uso de una promesa -------------
 

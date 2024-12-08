@@ -16,6 +16,8 @@ export const useItemsCollection = (categoryName) => {
     getDocs(itemsCollection)
       .then((snapshot) => {
         setItems(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+//Usamos '(snapshot)' & "snapshot.docs.map" para recorrer la coleccion y devolver un array de objetos con 
+//la info de cada documento, ya que viene encriptada.
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false));
@@ -24,4 +26,3 @@ export const useItemsCollection = (categoryName) => {
   return { items, loading, error };
 };
 
-//Usamos '(snapshot)' & "snapshot.docs.map" para recorrer la coleccion y devolver un array de objetos con la info de cada documento, ya que viene encriptada. //
