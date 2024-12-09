@@ -8,3 +8,4 @@ export * from "./Footer";
 export * from "./SliderCards";
 export * from "./ProductsList";
 export * from "./SignIn";
+export * from "./InicialLogin";

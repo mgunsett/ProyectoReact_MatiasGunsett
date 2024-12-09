@@ -14,9 +14,12 @@ import { auth } from '../../firebase';
 import { 
     createUserWithEmailAndPassword, 
     signInWithPopup, 
+    signInWithEmailAndPassword,
+    updateProfile,
     GoogleAuthProvider 
 } from 'firebase/auth';
 import googlrIcon from '../../assets/googlrIcon.svg';
+//import { InicialLogin } from '../InicialLogin';
 
 
 export const SignIn = () => {
@@ -24,14 +27,16 @@ export const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
-
+    const [isAuthenticated, setIsAuthenticated] = useState(false); // Nuevo estado
+    const [welcomeMessage, setWelcomeMessage] = useState(''); // Mensaje de bienvenida
 
     const handleSignIn = async (e) => {
         e.preventDefault();
         try {
-            const userCredential = await auth.signInWithEmailAndPassword(email, password);
-            alert('Inicio de sesión exitoso');
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log(userCredential.user);
+            setIsAuthenticated(true);
+            setWelcomeMessage(`Bienvenido, ${userCredential.user.displayName}`);
         } catch (error) {
             alert('Usuario o contraseña incorrectos');   
             console.error(error.message);
@@ -41,9 +46,11 @@ export const SignIn = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password, username);
-            alert(`Registro exitoso ${userCredential.user.email}`);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            await userCredential.user.updateProfile({ displayName: username });
             console.log(userCredential.user);
+            setIsAuthenticated(true);
+            setWelcomeMessage(`Bienvenido, ${userCredential.user.displayName}`);
         } catch (error) {
             alert(error.message);
         }
@@ -56,12 +63,16 @@ export const SignIn = () => {
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
             const user = result.user;
-            alert(`Inicio de sesión con Google exitoso ${user.displayName}`);
             console.log({ token, user });
+            setIsAuthenticated(true);
+            setWelcomeMessage(`Bienvenido, ${user.displayName}`);
         } catch (error) { 
             alert(error.message);
         }
     };
+    if (isAuthenticated) {
+        return <InicialLogin welcomeMessage={welcomeMessage} />;
+    }
 
     return (
         <Flex 
@@ -77,7 +88,7 @@ export const SignIn = () => {
         background={'rgba(33, 33, 65, 0.621)'}
         borderRadius={8}
         backdropFilter={'blur(2px)'}
-        boxShadow={'1px 2px 19px -8px rgba(255,255,255,0.75)'}
+        boxShadow={'1px 2px 19px -8px rgba(0,0,0,0.75)'}
         >
             <Heading 
             as="h1" 
