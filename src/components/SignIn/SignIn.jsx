@@ -15,11 +15,11 @@ import {
     createUserWithEmailAndPassword, 
     signInWithPopup, 
     signInWithEmailAndPassword,
-    updateProfile,
-    GoogleAuthProvider 
+    GoogleAuthProvider, 
+    updateProfile
 } from 'firebase/auth';
 import googlrIcon from '../../assets/googlrIcon.svg';
-//import { InicialLogin } from '../InicialLogin';
+import { InicialLogin } from '../InicialLogin';
 
 
 export const SignIn = () => {
@@ -36,7 +36,7 @@ export const SignIn = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             console.log(userCredential.user);
             setIsAuthenticated(true);
-            setWelcomeMessage(`Bienvenido, ${userCredential.user.displayName}`);
+            setWelcomeMessage(`${userCredential.user.displayName}`);
         } catch (error) {
             alert('Usuario o contraseña incorrectos');   
             console.error(error.message);
@@ -47,10 +47,10 @@ export const SignIn = () => {
         e.preventDefault();
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            await userCredential.user.updateProfile({ displayName: username });
+            await updateProfile(userCredential.user, { displayName: username });
             console.log(userCredential.user);
             setIsAuthenticated(true);
-            setWelcomeMessage(`Bienvenido, ${userCredential.user.displayName}`);
+            setWelcomeMessage(`${userCredential.user.displayName}`);
         } catch (error) {
             alert(error.message);
         }
@@ -65,7 +65,7 @@ export const SignIn = () => {
             const user = result.user;
             console.log({ token, user });
             setIsAuthenticated(true);
-            setWelcomeMessage(`Bienvenido, ${user.displayName}`);
+            setWelcomeMessage(`${user.displayName}`);
         } catch (error) { 
             alert(error.message);
         }
