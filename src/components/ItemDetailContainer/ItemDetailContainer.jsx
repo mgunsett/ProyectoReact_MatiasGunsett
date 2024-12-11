@@ -18,12 +18,14 @@ import './ItemDetailContainer.css'
 export const ItemDetailContainer = ({ product }) => {
 
   const [isClicked, setIsClicked] = useState(false);
-  const [selectedSize, setSelectedSize] = useState(null); // Estado para guardar el talle seleccionado
+  const [selectedSize, setSelectedSize] = useState(null); 
 
   const [showCount, setShowCount] = useState(false);
   const [count, setCount] = useState(0);
 
-  const { addItem, removeItem } = useContext(CartContext); // Traido desde CONTEXT ----
+  const { addItem, removeItem } = useContext(CartContext);
+
+  const [mainImage, setMainImage] = useState(product.imageUrl); // Estado para la imagen principal
 
   const handleShowCount = () => {
     setShowCount(!showCount);
@@ -53,7 +55,11 @@ export const ItemDetailContainer = ({ product }) => {
     }
   };
 
-  const sizes = ["SM", "ME", "LA", "XL"]; // Array de talles
+  const handleImageClick = (imageSrc) => {
+    setMainImage(imageSrc); // Actualizar la imagen principal
+  };
+
+  const sizes = ["SM", "ME", "LA", "XL"]; // Talles disponibles
 
   return (
     <Box className="detail-container">
@@ -85,34 +91,43 @@ export const ItemDetailContainer = ({ product }) => {
             src={product.imageUrl}
             fit={'cover'}
             boxSize={{ base: '70px', sm: '90px', md: '120px', lg: '150px' }}
+            onClick={() => handleImageClick(product.imageUrl)}
+            _hover={{ cursor: "pointer" }}
             />
             <Image
             rounded={"md"}
             alt={product.title}
-            src={product.imageUrl}
+            src={product.imageTwo}
             fit={'cover'}
             boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            onClick={() => handleImageClick(product.imageTwo)}
+            _hover={{ cursor: "pointer" }}
             />
             <Image
             rounded={"md"}
             alt={product.title}
-            src={product.imageUrl}
+            src={product.imageThree}
             fit={'cover'}
             boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            onClick={() => handleImageClick(product.imageThree)} 
+            _hover={{ cursor: "pointer" }}
             />
             <Image
             rounded={"md"}
             alt={product.title}
-            src={product.imageUrl}
+            src={product.imageFour}
             fit={'cover'}
             boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            onClick={() => handleImageClick(product.imageFour)} 
+            _hover={{ cursor: "pointer" }}
             />
           </Flex>
           <Image
-          alignSelf={'start'}
+            id="detail-image"
+            alignSelf={'start'}
             rounded={"md"}
             alt={product.title}
-            src={product.imageUrl}
+            src={mainImage} // Usar el estado mainImage
             fit={'cover'}
             w={"70%"}
             h={{ base: "100%", sm: "400px", lg: "650px" }}
