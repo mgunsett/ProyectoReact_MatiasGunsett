@@ -30,9 +30,9 @@ export const Payment = ({ onBack }) => {
     };
   }, []);
 
-    const [name, setName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
+  // const [name, setName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
 
     const toast = useToast();
 

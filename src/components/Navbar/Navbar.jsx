@@ -5,17 +5,21 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Button,
+  Icon
 } from "@chakra-ui/react";
   import {CartWidget} from '../../components';
   import logoBeReal from '../../assets/logo-BeReal.png';
   import { Link } from "react-router-dom";
-  import { ChevronDownIcon } from '@chakra-ui/icons';
+  import { ChevronDownIcon, CloseIcon } from '@chakra-ui/icons';
   import { useItemsCollection } from "../../hooks";
   import { useEffect, useState } from "react";
+  import { useAuth } from "../../context/AuthContext";
   import './Navbar.css';
 
 export const Navbar = () => {
     const { items } = useItemsCollection("categories");
+    const { user, logout } = useAuth();
 
     const [navClass, setNavClass] = useState("navbar");
 
@@ -80,7 +84,24 @@ export const Navbar = () => {
               Contacto
             </Link> 
           </Box>
-          <Flex alignItems={'center'} justifyContent={'space-between'}> 
+          <Flex alignItems={'center'} justifyContent={'space-between'} gap={4}> 
+            {user && (
+              <Flex alignItems={'center'} justifyContent={'center'} gap={1}>
+                <Box color="white" mr={4}>
+                  {user.displayName}
+                </Box>  
+                <Icon 
+                  boxSize={3}
+                  as={CloseIcon} 
+                  onClick={logout}
+                  color={'white'}
+                  _hover={{ 
+                    cursor: "pointer", 
+                    color: "red.500"
+                  }}
+                />
+              </Flex>
+            )}
               <CartWidget />
           </Flex>
         </Flex>

@@ -1,6 +1,10 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
+import { Flex, Heading, Text, Button } from '@chakra-ui/react';
+import { useAuth } from "../../context/AuthContext";
 
-export const InicialLogin = ({ welcomeMessage }) => (
+export const InicialLogin = () => {
+    const { user, logout } = useAuth();
+
+    return (
     <Flex
     p={4} 
     justifyContent="center"
@@ -29,6 +33,10 @@ export const InicialLogin = ({ welcomeMessage }) => (
         fontWeight={600}
         fontSize={{ base: "10px", sm: "20px", lg: "30px" }}
         fontFamily={'"Lacquer", system-ui'}
-        >{welcomeMessage}</Text>
+        >{user.displayName || "Usuario"}!</Text>
+        <Button colorScheme="teal" onClick={logout}>
+            Cerrar sesión
+        </Button>
     </Flex>
-);
+    );
+}

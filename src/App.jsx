@@ -2,16 +2,16 @@
   // import MainLayout from './layout/MainLayout';
   import { MainRouter } from "./routes";
   import './App.css'
-  import { CartProvider, AuthContext } from './context';
+  import { CartProvider, AuthProvider } from './context';
 
 
   function App() {
     return (
       <ChakraProvider>
         <CartProvider>
-          <AuthContext>
+          <AuthProvider>
             <MainRouter />
-          </AuthContext>
+          </AuthProvider>
         </CartProvider>
       </ChakraProvider>
     );
