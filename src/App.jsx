@@ -2,14 +2,16 @@
   // import MainLayout from './layout/MainLayout';
   import { MainRouter } from "./routes";
   import './App.css'
-  import { CartProvider } from './context/CartContext';
+  import { CartProvider, AuthContext } from './context';
 
 
   function App() {
     return (
       <ChakraProvider>
         <CartProvider>
-          <MainRouter />
+          <AuthContext>
+            <MainRouter />
+          </AuthContext>
         </CartProvider>
       </ChakraProvider>
     );

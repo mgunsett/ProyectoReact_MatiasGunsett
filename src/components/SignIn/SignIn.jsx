@@ -16,11 +16,10 @@ import {
     signInWithPopup, 
     signInWithEmailAndPassword,
     GoogleAuthProvider, 
-    updateProfile
+    updateProfile,
 } from 'firebase/auth';
 import googlrIcon from '../../assets/googlrIcon.svg';
 import { InicialLogin } from '../InicialLogin';
-
 
 export const SignIn = () => {
     const [isRegistering, setIsRegistering] = useState(false);
