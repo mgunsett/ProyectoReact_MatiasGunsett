@@ -18,9 +18,8 @@ import { CartContext } from "../context";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
 import './Styles/Payment.css';
-
+ 
 export const Payment = ({ onBack }) => {
-  
   // Al montar el componente, bloqueamos el scroll del body
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -29,10 +28,6 @@ export const Payment = ({ onBack }) => {
       document.body.style.overflow = "unset";
     };
   }, []);
-
-  // const [name, setName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
 
     const toast = useToast();
 
@@ -138,7 +133,24 @@ export const Payment = ({ onBack }) => {
           </Flex>
         </VStack>
       )}
-      {/* <div className="form-container">
+      </Box>
+        <Box className="btn-container-payment">    
+            <Button className="btn" colorScheme="teal" size="lg" onClick={handleCreateOrder}>
+                Crear Orden
+            </Button>
+            <Button  size="md" onClick={onBack}>
+                Ver más productos
+            </Button>
+        </Box>
+    </Box>
+  );
+};
+
+  // const [name, setName] = useState("");
+  // const [lastName, setLastName] = useState("");
+  // const [email, setEmail] = useState("");
+
+ {/* <div className="form-container">
         <input
             type="text"
             placeholder="Nombre" 
@@ -155,15 +167,3 @@ export const Payment = ({ onBack }) => {
             onChange={(e) => setEmail(e.target.value)}
         />
       </div> */}
-      </Box>
-        <Box className="btn-container-payment">    
-            <Button className="btn" colorScheme="teal" size="lg" onClick={handleCreateOrder}>
-                Crear Orden
-            </Button>
-            <Button  size="md" onClick={onBack}>
-                Ver más productos
-            </Button>
-        </Box>
-    </Box>
-  );
-};
