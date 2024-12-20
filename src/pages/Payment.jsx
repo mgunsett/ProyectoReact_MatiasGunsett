@@ -17,6 +17,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { CartContext } from "../context";
 import { db } from "../firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { useAuth } from "../context/AuthContext";
 import './Styles/Payment.css';
  
 export const Payment = ({ onBack }) => {
@@ -73,6 +74,32 @@ export const Payment = ({ onBack }) => {
           isClosable: true,
         });
       });
+  };
+
+  const handlePayment = async () => {
+    const items = cartState.map((item) => ({
+      title: item.title,
+      quantity: item.qtyItem,
+      currency_id: "ARS",
+      unit_price: item.price,
+    }));
+
+    const payer = {
+      email: user.email || "usuario@correo.com",
+      name: user.displayName || "Usuario",
+    };
+
+    try {
+      const response = await axios.post("http://localhost:3001/create_preference", {
+        items,
+        payer,
+      });
+
+      const preferenceId = response.data.id;
+      window.location.href = `https://www.mercadopago.com.ar/checkout/v1/redirect?preference_id=${preferenceId}`;
+    } catch (error) {
+      console.error("Error al iniciar el pago:", error);
+    }
   };
 
   return (
@@ -140,6 +167,9 @@ export const Payment = ({ onBack }) => {
             </Button>
             <Button  size="md" onClick={onBack}>
                 Ver más productos
+            </Button>
+            <Button className="btn" colorScheme="blue" size="lg" onClick={handlePayment}>
+                Pagar con Mercado Pago
             </Button>
         </Box>
     </Box>
