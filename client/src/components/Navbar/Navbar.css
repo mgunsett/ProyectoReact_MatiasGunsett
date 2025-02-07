@@ -1,0 +1,22 @@
+.navbar {
+  background: transparent;
+  transition: background 0.5s ease-in-out, backdrop-filter 0.5s ease-in-out;
+  color: white;
+}
+
+.navbar.scrolled {
+  background: rgba(229, 223, 223, 0.578);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: rgba(33, 33, 65, 0.822);
+}
+
+.menuButton2 {
+  padding-left: 10px;
+  transition: 0.6s;
+  color: white ;
+}
+.menuButton2:hover {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+  padding-left: 15px;
+}

@@ -1,0 +1,25 @@
+.detail-container {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.47 );
+}
+.detail-guia {
+    display: flex;
+    justify-content: start;
+    font-size: 15px;
+    margin-bottom: 30px;
+    gap: 10px;  
+    color: white;
+}
+.guia-hover:hover {
+    cursor: pointer;
+    color: rgb(139, 139, 227);
+}
+.detail-card {
+    align-self: start;
+    justify-content: center;
+    align-items: center;
+}

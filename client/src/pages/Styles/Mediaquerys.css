@@ -1,0 +1,41 @@
+/*! Contacto */
+@media screen and (max-width:1433px) {
+    .contacto-container {
+        padding: 30px;
+        width: 60%;
+    }
+    .promociones{
+        gap: 30px;
+    }
+
+}
+@media screen and (max-width:1122px) {
+    .promociones-suscribe {
+        flex-direction: column;
+        align-items:start;
+    }
+    .promociones-button {
+        width: 110px;
+    }
+
+}
+/*! QuienesSomos */
+@media screen and (max-width:1080px) {
+    .quienesSomos {
+        flex-direction: column;
+        align-items: start;
+        gap: 40px;
+    }
+    .quienesSomos-imgs {
+        justify-content: center;
+    }
+    .quienesSomos-text-p {
+       font-size: 15px;
+       width: auto;
+    }
+    strong {
+        font-size: 70px !important;
+    }
+}
+    
+

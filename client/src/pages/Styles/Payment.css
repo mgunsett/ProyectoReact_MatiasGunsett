@@ -1,0 +1,82 @@
+.container-payment {
+    height: 100vh;
+    width: 35%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    right: 0;
+    position: absolute;
+    top: -51px;
+    transition: all 0.7s ease-in-out;
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.title {
+    align-self: flex-start;
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.header-payment{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    position:static;
+}
+.order-container { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 5px;
+    border-radius: 10px;
+}
+.item-info-payment {
+    font-size: 15px;
+}
+.divider {
+    background-color: white;
+    height: 200px;
+    width: 1px;
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+.form-container input {
+    color: black;
+    width: 250px;
+    height: 30px;
+    font-size: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.636);
+    border-radius: 5px;
+    padding-left: 10px;
+    background-color: rgb(255, 255, 255);
+    margin: 5px;
+}
+input::placeholder {
+    color: rgb(0, 0, 0);
+}
+.btn-container-payment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.btn {
+    width: 90%;
+    height: 30px;
+    border-radius: 5px;
+}

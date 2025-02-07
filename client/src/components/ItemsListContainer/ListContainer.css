@@ -1,0 +1,41 @@
+.titleContainer {
+    height: 90vh;
+    background-image: url('../../assets/fondoCalle.jpg');
+    background-attachment:fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:center;
+    margin-top: -65px;
+}
+@media screen and (max-width: 500px) {
+    .titleContainer {
+        height: 65vh;
+    }
+    
+}
+
+.spray {
+    animation: pintada 3s ease-in-out;
+    left: 200px;
+    top: 200px;
+    opacity: 0;
+}
+
+@keyframes pintada {
+    0% {left: 950px; top: 200px; rotate: 10deg; opacity: 1;}
+    20% {left: 850px; top: 60px; rotate: 0deg;  opacity: 1;}
+    40% {left: 750px; top: 200px; rotate: -10deg; opacity: 1;}
+    60% {left: 650px;  top: 60px; rotate: 0deg; opacity: 1;}
+    80% {left: 550px; top: 200px; rotate: 10deg; opacity: 1;}
+    90% {left: 450px; top: 60px; rotate: 0deg; opacity: 1;}
+    100% {left: 350px; top: 150px; opacity: 0.5;}
+}
+.title2-container {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0 0 1rem; 
+    backdrop-filter: blur(10px);
+    width: 250px; 
+    color: linear-gradient(to top, #000000 0%, #CFCFCF 71%);
+    
+}
