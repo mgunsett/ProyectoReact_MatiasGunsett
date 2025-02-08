@@ -49,12 +49,26 @@ export const Home = () => {
         <Box>
           <Img src={logoAngel} alt="Logo principal" width={"80px"} height={"80px"}/>
         </Box>
-        <Box maxW={'35%'} textAlign={'left'} pl={5}> 
-          <Heading as='h2' size='lg'>15% DE DESCUENTO EN TU PRIMERA COMPRA ONLINE!</Heading>
-          <Text>Suscríbete ahora para recibir las ultimas informaciones y ofertas exclusivas.</Text>
+        <Box 
+          maxW={{ base: '40%', sm: '60%', md: '35', lg: '30%' }} 
+          textAlign={'left'} 
+          pl={{ base: 0, sm: 1, md: 5}}
+        > 
+          <Heading 
+            as='h2' 
+            size={{ base: '12px', sm: '15px', md: '30px', lg: '40px' }}
+          >
+            15% DE DESCUENTO EN TU PRIMERA COMPRA ONLINE!
+          </Heading>
+          <Text
+            fontSize={{ base: '10px', sm: '12px', md: '15px', lg: '20px' }}
+          >Suscríbete ahora para recibir las ultimas informaciones y ofertas exclusivas.</Text>
         </Box>
-        <Flex className='promociones-suscribe' gap={5}>
-          <Text>Dejanos tu email para suscribirte </Text>
+        <Flex className='promociones-suscribe' 
+          gap={{ base: 2, sm: 2, md: 4, lg: 5 }}
+          alignItems={{ base: 'center', sm: 'flex-start', md: 'center', lg: 'center'}}
+          flexDirection={{ base: 'column', sm: 'row', md: 'row', lg: 'row' }}
+        >
           <Input variant='filled' placeholder='Introducir E-mail' />
           <Button className='promociones-button' variant='solid' colorScheme='teal'>
             Suscribirme

@@ -34,8 +34,5 @@
     display: flex;
     gap: 1rem;
     margin: 1rem 0 0 1rem; 
-    backdrop-filter: blur(10px);
-    width: 250px; 
-    color: linear-gradient(to top, #000000 0%, #CFCFCF 71%);
-    
+    backdrop-filter: blur(10px); 
 }

@@ -40,6 +40,8 @@ export const ItemsListContainer = ({ title, products }) => {
       <Heading 
       className='title2-container'
       as={'h1'}
+      bgGradient="linear(to-t, black, white)"
+      bgClip="text"
       lineHeight={1.1}
       fontWeight={600}
       fontSize= {{ base: "25px", sm: "30px", md: '35px' , lg: "40px" }}

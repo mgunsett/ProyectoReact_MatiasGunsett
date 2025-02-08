@@ -69,9 +69,9 @@ export const SlidersCards = ({ products }) => {
           {products.map((product) => (
             <Card 
             className='sliders-fotos'
-            key={product.id} 
-            maxW="md" 
-            minW="250px" 
+            key={product.id}  
+            minW={{ base: "110", sm: "160" , md: "210", lg: "260" }}
+            height={{ base: "340", sm: "380px" , md: "430", lg: "480" }}
             flex="0 0 auto"
             backgroundColor={('rgba(0, 0, 0, 0.381)')}>
               <CardBody>
@@ -80,7 +80,7 @@ export const SlidersCards = ({ products }) => {
                     src={product.imageUrl}
                     alt={product.title}
                     borderRadius="md"
-                    boxSize="250px"
+                    boxSize={{ base: "100px", sm: "150px", md: "200px", lg: "250px" }}
                     objectFit="cover"
                     maxW={"20rem"}
                     transition={"transform 0.3s ease"}
@@ -88,7 +88,11 @@ export const SlidersCards = ({ products }) => {
                   />
                 </Link>
                 <Stack textAlign={"left"} mt="6" spacing="2">
-                  <Heading size="sm" color={'white'}>{product.title}</Heading>
+                  <Heading 
+                    size="sm"  
+                    color={'white'}
+                    width={{ base: "100px", sm: "150px", md: "200px", lg: "250px" }}
+                  >{product.title}</Heading>
                   <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
                   <Text
                     color="blue.500"
