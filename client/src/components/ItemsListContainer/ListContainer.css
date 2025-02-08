@@ -13,23 +13,41 @@
     }
     
 }
-
 .spray {
-    animation: pintada 3s ease-in-out;
-    left: 200px;
-    top: 200px;
+    animation: pintada 3s ease-in-out alternate;
+    left: 20px;
+    top: 5px;
     opacity: 0;
 }
 
 @keyframes pintada {
-    0% {left: 950px; top: 200px; rotate: 10deg; opacity: 1;}
-    20% {left: 850px; top: 60px; rotate: 0deg;  opacity: 1;}
-    40% {left: 750px; top: 200px; rotate: -10deg; opacity: 1;}
-    60% {left: 650px;  top: 60px; rotate: 0deg; opacity: 1;}
-    80% {left: 550px; top: 200px; rotate: 10deg; opacity: 1;}
-    90% {left: 450px; top: 60px; rotate: 0deg; opacity: 1;}
-    100% {left: 350px; top: 150px; opacity: 0.5;}
+    0% { transform: translate(950px, 200px) rotate(10deg); opacity: 1; }
+    20% { transform: translate(850px, 60px) rotate(0deg); opacity: 1; }
+    40% { transform: translate(750px, 200px) rotate(-10deg); opacity: 1; }
+    60% { transform: translate(650px, 60px) rotate(0deg); opacity: 1; }
+    80% { transform: translate(550px, 200px) rotate(10deg); opacity: 1; }
+    100% { transform: translate(350px, 150px) rotate(0deg); opacity: 0.5; }
 }
+.pintura {
+    position: absolute;
+    left: 600px;
+    top: 25px;
+    width: 500px;
+    height: 400px;
+    background: radial-gradient(circle, rgb(207, 180, 56) 10%, rgba(0,0,0,0) 70%);
+    opacity: 0;
+    animation: aparecer 3s ease-in-out forwards;
+}
+
+@keyframes aparecer {
+    0% { opacity: 0; clip-path: circle(0% at 100% 50%); transform: translate(950px, 200px) }
+    20% { opacity: 0.7; clip-path: circle(100% at 50% 50%); transform: translate(850px, 60px); }
+    40% { transform: translate(750px, 200px); }
+    50% { transform: translate(650px, 60px); }
+    80% { transform: translate(550px, 200px); }
+    100% { opacity: 0; clip-path: circle(50% at 25% 50%); }
+}
+
 .title2-container {
     display: flex;
     gap: 1rem;

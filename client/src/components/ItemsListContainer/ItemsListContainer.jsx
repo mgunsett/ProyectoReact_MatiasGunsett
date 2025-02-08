@@ -36,6 +36,7 @@ export const ItemsListContainer = ({ title, products }) => {
         width={'300px'}
         position={'absolute'}
         />
+        <Box className='pintura'></Box>
       </Box>
       <Heading 
       className='title2-container'
