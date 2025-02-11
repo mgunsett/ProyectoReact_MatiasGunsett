@@ -123,8 +123,7 @@ export const Payment = ({ onBack }) => {
       name: user.displayName,
     };
     try {
-      const URL_BACK = "https://proyectoreact-matiasgunsett.onrender.com";
-      const response = await axios.post( URL_BACK, {
+      const response = await axios.post("http://localhost:3000/create_preference", {
         items,
         payer,
       });

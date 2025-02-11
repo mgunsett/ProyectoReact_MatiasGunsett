@@ -13,9 +13,8 @@ const client = new MercadoPagoConfig({
     "APP_USR-3383355378043000-122110-2b2b6e4590b3272b27ca5a06417e019d-2170936801",
 });
 
-const URL_BACK = "https://proyectoreact-matiasgunsett.onrender.com";
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Middlewares
 app.use(cors());
@@ -63,6 +62,6 @@ app.post("/create_preference", async (req, res) => {
 });
 
 // Iniciar servidor
-app.listen(URL_BACK, () => {
-  console.log(`Servidor corriendo en ${URL_BACK}`);
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en ${PORT}`);
 });
