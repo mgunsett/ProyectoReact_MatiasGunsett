@@ -45,40 +45,84 @@ export const Home = () => {
   ) : (
     <Box backgroundColor={('gray.200', 'gray.700')} height={'100%'}>
       <ItemsListContainer title={"Productos"} products={items} />
-      <Flex className="promociones">
-        <Box>
-          <Img src={logoAngel} alt="Logo principal" width={"80px"} height={"80px"}/>
-        </Box>
+      <Flex className="promociones" gap={5}>
+          <Img 
+            src={logoAngel} 
+            alt="Logo principal" 
+            width={{ base: '70px', sm: '80px'}} 
+            height={{ base: '70px', sm: '80px'}}
+          />
         <Box 
-          maxW={{ base: '40%', sm: '60%', md: '35', lg: '30%' }} 
+          maxW={{ base: '50%', sm: '60%', md: '40%', lg: '35%' }} 
           textAlign={'left'} 
           pl={{ base: 0, sm: 1, md: 5}}
+          // mr={{ base: 0, sm: 0, md: '300px', lg: '200px' }}
         > 
           <Heading 
             as='h2' 
-            size={{ base: '12px', sm: '15px', md: '30px', lg: '40px' }}
+            fontSize={{ base: '15px', sm: '15px', md: '20px', lg: '25px' }}
           >
             15% DE DESCUENTO EN TU PRIMERA COMPRA ONLINE!
           </Heading>
           <Text
-            fontSize={{ base: '10px', sm: '12px', md: '15px', lg: '20px' }}
+            fontSize={{ sm: '12px', md: '15px', lg: '20px' }}
+            display={{ base: 'none', sm: 'block'}}
           >Suscríbete ahora para recibir las ultimas informaciones y ofertas exclusivas.</Text>
         </Box>
-        <Flex className='promociones-suscribe' 
-          gap={{ base: 2, sm: 2, md: 4, lg: 5 }}
+        <Flex
+          justifyContent={{ base: 'flex-start', sm: 'flex-start', md: 'center', lg: 'center'}}
+          paddingLeft={{ base: '20px', sm: '30px', md: '40px'}}
+          paddingBottom={'20px'}
+          gap={2}
           alignItems={{ base: 'center', sm: 'flex-start', md: 'center', lg: 'center'}}
-          flexDirection={{ base: 'column', sm: 'row', md: 'row', lg: 'row' }}
+          flexDirection={'row'}
         >
-          <Input variant='filled' placeholder='Introducir E-mail' />
-          <Button className='promociones-button' variant='solid' colorScheme='teal'>
+          <Input 
+            variant='filled' 
+            placeholder='Introducir E-mail' 
+            size={{ base: 'sm', sm: 'md', md: 'md', lg: 'lg' }}
+          />
+          <Button 
+            variant='solid'
+            colorScheme='teal'
+            padding={{ base: '10px', sm: '10px', md: '15px', lg: '15px' }}
+            fontSize={{ base: '10px', sm: '12px', md: '15px', lg: '15px' }}
+          > 
             Suscribirme
           </Button>
         </Flex>
       </Flex>
-      <Flex className="quienesSomos"  >
-        <Box className="quienesSomos-text">
-          <Heading as={"h2"} fontSize={{sm:'30px',lg:'40px', xl:'50px' }} className="quienesSomos-text-h">BeReal <strong>Family</strong></Heading>
-          <Text className="quienesSomos-text-p">"Somos una grupo de amigos que un día entre risas, asados y play decidimos emprender un camino juntos y en algo que nos apasionara a todos. Asi fue que nacio BeReal, construyendo paso a paso cada estilo, cada diseño y cada detalle para ser de nuestro trabajo la mejor experiencia para todos."  </Text>
+      <Flex 
+        className="quienesSomos"
+        gap={{ base: 5, sm: 5, md: 10, lg: 10 }}
+        flexDirection={{ base: 'column', sm: 'column', md: 'row', lg: 'row' }}
+        justifyContent={'center'}
+        
+        margin={'auto'}
+        padding={{ base: '20px', sm: '30px', md: '40px', lg: '40px' }}
+      >
+        <Box 
+          className="quienesSomos-text"
+        >
+            <Heading 
+              as={"h2"} 
+              fontSize={{base:'30px' ,sm:'30px',lg:'40px', xl:'50px' }} 
+              fontFamily={'"Bungee Tint", sans-serif'}
+            >
+              BeReal 
+            </Heading>
+            <Text 
+              fontSize={{base:'50px' ,sm:'60px',lg:'80px', xl:'90px' }}
+              fontFamily={'"Bungee Tint", sans-serif'}
+            >
+              Family
+            </Text>
+          
+          <Text className="quienesSomos-text-p"
+            fontSize={{base:'15px' ,sm:'20px',md:'25px'}}
+            height={{base: '250px'}}>
+            "Somos una grupo de amigos que un día entre risas, asados y play decidimos emprender un camino juntos y en algo que nos apasionara a todos. Asi fue que nacio BeReal, construyendo paso a paso cada estilo, cada diseño y cada detalle para ser de nuestro trabajo la mejor experiencia para todos." 
+          </Text>
         </Box>
         <Box className="quienesSomos-imgs">
         <Img

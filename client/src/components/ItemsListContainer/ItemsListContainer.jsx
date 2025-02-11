@@ -26,26 +26,20 @@ export const ItemsListContainer = ({ title, products }) => {
           alt='Banner'
           opacity={0.9}
           margin={'auto'}
-          marginTop={{ base: '20px', sm: '80px', lg: '50px' }}
-          boxSize={{ base: '50px', sm: '250px', lg: '450px' }}	
+          marginTop={{ base: '80px', sm: '80px', lg: '50px' }}
+          boxSize={{ base: '220px', sm: '250px', lg: '450px' }}	
         />
-        <Image 
-        className='spray'
-        src={spray}
-        alt='spray'
-        width={'300px'}
-        position={'absolute'}
-        />
-        <Box className='pintura'></Box>
       </Box>
       <Heading 
       className='title2-container'
       as={'h1'}
-      bgGradient="linear(to-t, black, white)"
-      bgClip="text"
+      // Aplicar gradient al texto //
+      // bgGradient="linear(to-t, black, white)"
+      // bgClip="text"
+      color={"rgba(237, 237, 78, 0.737)"}
       lineHeight={1.1}
       fontWeight={600}
-      fontSize= {{ base: "25px", sm: "30px", md: '35px' , lg: "40px" }}
+      fontSize= {{ base: "30px", sm: "30px", md: '35px' , lg: "40px" }}
       fontFamily={'"Lacquer", system-ui'}
       >{primeraMayuscula(title)}</Heading>
 
