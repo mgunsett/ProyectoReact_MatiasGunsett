@@ -123,7 +123,7 @@ export const Payment = ({ onBack }) => {
       name: user.displayName,
     };
     try {
-      const response = await axios.post("https://proyectoreact-matiasgunsett.onrender.com/create_preference", {
+      const response = await axios.post(`https://proyectoreact-matiasgunsett.onrender.com/create_preference`, {
         items,
         payer,
       });
