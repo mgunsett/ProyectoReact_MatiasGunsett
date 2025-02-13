@@ -184,7 +184,7 @@ export const Home = () => {
           <Img 
             src={envio_moto} 
             alt="Pago en Cuotas" 
-            boxSize="90px" 
+            boxSize={{ base: '50px', sm: '70px', md: '90px'}} 
             m={'auto'}
           />
           <Text 
@@ -200,11 +200,11 @@ export const Home = () => {
           <Img 
             src={tarjeta_cred} 
             alt="Pago en Cuotas" 
-            boxSize="90px" 
+            boxSize={{ base: '50px', sm: '70px', md: '90px'}}  
             m={'auto'}
           />
           <Text 
-            fontSize={{ base: 'sm', sm: 'md', md: 'md', lg: 'xl' }}
+            fontSize={{ base: '15px', sm: 'md', md: 'md', lg: 'xl' }}
             mt={3}
             fontFamily={'"Lacquer", system-ui, sans-serif'}
             maxWidth={'200px'}
@@ -216,7 +216,7 @@ export const Home = () => {
           <Img
             src={atencion_wsp} 
             alt="Pago en Cuotas" 
-            boxSize="70px" 
+            boxSize={{ base: '30px', sm: '50px', md: '70px'}} 
             m={'auto'}
           />
           <Text 

@@ -51,13 +51,21 @@ export const Navbar = () => {
   return (
     <Box className={navClass} px={4} position="sticky" top={0} zIndex={10}>
       <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+        <Box flex={1} display={isMobile ? ('flex') : ('none')} justifyContent= "flex-start">
+          <Link to="/">
+            <img width={"70px"} height={"70px"} src={logoBeReal} alt="Logo principal" />
+          </Link>
+        </Box>
         {isMobile ? (
+          <Flex gap={4} alignItems={"center"}>
+          <CartWidget />
           <IconButton
             icon={<HamburgerIcon />}
             colorScheme="whiteAlpha"
             onClick={onOpen}
             variant="outline"
           />
+          </Flex>
         ) : (
           <Box display={"flex"} alignItems={"center"} gap={4}>
             <Box flex={1} display="flex" justifyContent= "flex-start">
@@ -85,11 +93,7 @@ export const Navbar = () => {
           </Box>
         )}
         
-        <Box flex={1} display= {isMobile ? ('flex') : ('none')} justifyContent= "center">
-          <Link to="/">
-            <img width={"70px"} height={"70px"} src={logoBeReal} alt="Logo principal" />
-          </Link>
-        </Box>
+        
 
         {!isMobile && (
           <Flex alignItems={"center"} gap={4}>
@@ -107,7 +111,7 @@ export const Navbar = () => {
       </Flex>
 
       {isMobile && (
-        <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+        <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent backgroundColor="gray.800">
             <DrawerCloseButton color="white" />
