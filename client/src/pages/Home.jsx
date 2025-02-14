@@ -29,7 +29,7 @@ export const Home = () => {
   //y aca le pasamos como parametro a la hooks que customizamos el nombre de la "Coleccion" //
   const { items, loading } = useItemsCollection("products"); 
   
-  // Estado para guardar un producto aleatorio ---------------------------//
+  // Estado para mostrar un producto aleatorio ---------------------------//
   const [randomProduct, setRandomProduct] = useState(null);
 
   useEffect(() => {
@@ -56,7 +56,6 @@ export const Home = () => {
           maxW={{ base: '50%', sm: '60%', md: '40%', lg: '35%' }} 
           textAlign={'left'} 
           pl={{ base: 0, sm: 1, md: 5}}
-          // mr={{ base: 0, sm: 0, md: '300px', lg: '200px' }}
         > 
           <Heading 
             as='h2' 
@@ -139,14 +138,23 @@ export const Home = () => {
         gap={1}
         margin={'auto'}
       >
-        <GridItem rowSpan={2} colSpan={2}>
+        <GridItem 
+          rowSpan={2} 
+          colSpan={2}
+          sx={{
+            transition: "all 0.3s ease-in-out",
+            _hover: { gridColumn: "span 4" }, // Expande la columna al pasar el mouse
+          }}
+        >
           <Img
           className="fotoMain1" 
           src={fotoMain1}
           objectFit={'cover'} 
           height={'500px'}
-          width={'600px'} 
-          alt="Logo principal"
+          width={'100%'} 
+          alt="imagen 1"
+          transition="all 0.3s ease-in-out"
+          _hover={{ transform: "scale(1.1)" }}
           />
         </GridItem>
         <GridItem rowSpan={2} colSpan={1}>
@@ -155,8 +163,8 @@ export const Home = () => {
           src={fotoMain5}
           objectFit={'cover'} 
           height={'500px'}
-          width={'600px'} 
-          alt="Logo principal"
+          width={'100%'} 
+          alt="imagen 2"
           />
         </GridItem>
         <GridItem  rowSpan={1} colSpan={2} >
@@ -165,8 +173,8 @@ export const Home = () => {
           src={fotoMain2} 
           objectFit={'cover'}  
           height={'250px'}
-          width={'550px'}
-          alt="Logo principal"
+          width={'100%'}
+          alt="imagen 3"
           />
         </GridItem>
         <GridItem rowSpan={1} colSpan={2}>
@@ -175,8 +183,9 @@ export const Home = () => {
           src={fotoMain4} 
           objectFit={'cover'}
           height={'250px'} 
-          width={'550px'}
-          alt="Logo principal"/>  
+          width={'100%'}
+          alt="imagen 4"
+          />  
         </GridItem>
       </Grid>
       <Flex className="bannerInfo">
@@ -188,12 +197,12 @@ export const Home = () => {
             m={'auto'}
           />
           <Text 
-            fontSize={{ base: 'sm', sm: 'md', md: 'md', lg: 'xl' }}
+            fontSize={{ base: '12px', sm: '15px', md: '16px'}}
             mt={3}
             fontFamily={'"Lacquer", system-ui, sans-serif'}
-            maxWidth={'250px'}
+            maxWidth={{ base: '80px', sm: '90px', md: '150px'}}
           >
-            Envio GRATIS a partir de $20.000
+            Envios a todo el País
           </Text>
         </Box>
         <Box textAlign="center">
@@ -204,10 +213,10 @@ export const Home = () => {
             m={'auto'}
           />
           <Text 
-            fontSize={{ base: '15px', sm: 'md', md: 'md', lg: 'xl' }}
+            fontSize={{ base: '12px', sm: '15px', md: '16px'}}
             mt={3}
             fontFamily={'"Lacquer", system-ui, sans-serif'}
-            maxWidth={'200px'}
+            maxWidth={{ base: '80px', sm: '90px', md: '150px'}}
           >
             3 Cuotas sin Interes!
           </Text>
@@ -220,10 +229,10 @@ export const Home = () => {
             m={'auto'}
           />
           <Text 
-            fontSize={{ base: 'sm', sm: 'md', md: 'md', lg: 'xl' }}
-            mt={3}
+            fontSize={{ base: '12px', sm: '15px', md: '16px'}}
+            mt={4}
             fontFamily={'"Lacquer", system-ui, sans-serif'}
-            maxWidth={'200px'}
+            maxWidth={{ base: '80px', sm: '90px', md: '150px'}}
           >
             Atención 24/7
           </Text>
