@@ -52,7 +52,7 @@ export const Home = () => {
   return loading ? (
     <SkeletonLoading />   
   ) : (
-    <Box backgroundColor={('gray.200', 'gray.700')} height={'100%'}>
+    <Box backgroundColor={('gray.200', 'gray.700')} height={'100%'} paddingBottom={'150px'}>
       <ItemsListContainer title={"Productos"} products={items} />
       <Flex className="promociones" gap={5}>
           <Img 
@@ -132,13 +132,15 @@ export const Home = () => {
             "Somos una grupo de amigos que un día entre risas, asados y play decidimos emprender un camino juntos y en algo que nos apasionara a todos. Asi fue que nacio BeReal, construyendo paso a paso cada estilo, cada diseño y cada detalle para ser de nuestro trabajo la mejor experiencia para todos." 
           </Text>
         </Box>
-        <Box className="quienesSomos-imgs">
+        
         <Img
         className="quienesSomos-img"
+        width={{ base: '300px', sm: '360px', md: '680px', lg: '700px' }}
+        height={{ base: '380px', sm: '460px', md: '570px', lg: '580px' }}
         src={fotoFamily}
         alt='Logo BeReal' 
         />
-        </Box>
+     
       </Flex>
       <Grid
       w={'85%'}
@@ -221,23 +223,28 @@ export const Home = () => {
           </Text>
         </Box>
       </Flex>
-      <Flex direction="column" align="center" justify="center" p={5}>
-      <Heading 
-        as="h2" 
-        size="2xl" 
-        m={8} 
-        fontFamily={'"Bungee Tint", sans-serif'}
+      <Flex 
+        direction="column" 
+        align="center" 
+        justify="center" 
+        p={5}
       >
-        Destacado
-      </Heading>
-      {loading ? (
-        <Spinner size="xl" />
-      ) : randomProduct ? (
-        <HomeDetailContainer product={randomProduct} />
-      ) : (
-        <Text>No hay productos destacados</Text>
-      )}
-    </Flex>
+        <Heading 
+          as="h2" 
+          size="2xl" 
+          m={8} 
+          fontFamily={'"Bungee Tint", sans-serif'}
+        >
+          Destacado
+        </Heading>
+        {loading ? (
+          <Spinner size="xl" />
+        ) : randomProduct ? (
+          <HomeDetailContainer product={randomProduct} />
+        ) : (
+          <Text>No hay productos destacados</Text>
+        )}
+      </Flex>
     </Box>
   );
 };
