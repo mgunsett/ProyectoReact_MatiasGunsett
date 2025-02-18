@@ -143,11 +143,12 @@ export const Home = () => {
      
       </Flex>
       <Grid
-      w={'85%'}
+      w={'90%'}
       templateRows='repeat(2, 1fr)'
       templateColumns='repeat(8, 1fr)'
       gap={1}
       margin={'auto'}
+      mt={5}
     >
       {images.map((image, index) => (
         <GridItem 
@@ -157,11 +158,6 @@ export const Home = () => {
           rowSpan= {2}
           colSpan={hoveredIndex === null ? 2 : hoveredIndex === index ? 4 : 1}
           overflow={'hidden'}
-          sx={{
-            transitionProperty: 'all',
-            transitionDuration: '0.5s',
-            transitionTimingFunction: 'ease-in-out',
-          }}  
         > 
           <Img
             src={image.src}

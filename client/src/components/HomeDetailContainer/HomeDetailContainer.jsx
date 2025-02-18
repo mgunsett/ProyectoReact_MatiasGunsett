@@ -61,12 +61,17 @@ export const HomeDetailContainer = ({ product }) => {
   };
 
   return (
-    <Box className="HomeDetailContiner">
+    <Box 
+      className="HomeDetailContiner"
+      width={{ base: "100%", sm: "80%", md: "80%"}}
+      margin={"auto"}
+      p={4}
+    >
       <SimpleGrid
         className="detail-card"
-        columns={{ sm: 1, md: 2 }}
-        spacing={2} 
-        p={2} 
+        columns={{ base:1, sm: 1, md: 2 }}
+        spacing={1} 
+        p={1} 
       > 
         <Flex
           justifyContent={"center"}
@@ -130,7 +135,7 @@ export const HomeDetailContainer = ({ product }) => {
         <Stack 
           alignSelf={'start'}
           p={2} >
-          <Box as={"header"} marginBottom={16}>
+          <Box as={"header"} marginBottom={6}>
             <Heading
                 color={"rgba(237, 237, 78, 0.737)"}
                 lineHeight={1.1}
@@ -161,7 +166,7 @@ export const HomeDetailContainer = ({ product }) => {
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={["column", "row"]}
-            alignItems={["center", "flex-start"]}
+            alignItems={"flex-start"}
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text 
@@ -172,10 +177,11 @@ export const HomeDetailContainer = ({ product }) => {
               >
                 Talle :
               </Text>
-              <Flex gap={4}>
+              <Flex  gap={2}>
               {sizes.map((size) => (
                 <Button
                   key={size}
+                  size={{ base: "sm", sm: "md" }}
                   onClick={() => handleSizeClick(size)}
                   border="3px solid"
                   borderColor={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "gray.300"}
@@ -193,9 +199,9 @@ export const HomeDetailContainer = ({ product }) => {
           </Stack>
 
           <Button
-            maxW={"60%"}
+            maxW={{ base: "100%", sm: "60%" }}
             size={"lg"}
-            py={"7"}
+            py={"7s"}
             backgroundColor={"rgba(0, 0, 0, 0.745)"}
             color={useColorModeValue("white", "gray.900")}
             textTransform={"uppercase"}
@@ -206,14 +212,14 @@ export const HomeDetailContainer = ({ product }) => {
               color: "black",
             }}
             onClick={handleShowCount}
-            fontSize={'15px'}
+            fontSize={{ base: "12px", sm: "15px" }}
           >
             Agregar al carrito
           </Button>
           {showCount && (
             <Stack direction="row" spacing={4} align="center" mt={1}>
               <Button 
-                boxSize={'33px'}
+                boxSize={{ base: '28px', sm: '33px' }}
                 onClick={handleDecrement}
                 bg={'transparent'}
                 color={'white'}
@@ -223,7 +229,7 @@ export const HomeDetailContainer = ({ product }) => {
               <Text color={'white'} fontSize="lg">{count}</Text>
               <Button 
                 onClick={handleIncrement}
-                boxSize={'33px'}
+                boxSize={{ base: '28px', sm: '33px' }}
                 bg={'transparent'}
                 color={'white'}
                 border={'1px solid white'}
