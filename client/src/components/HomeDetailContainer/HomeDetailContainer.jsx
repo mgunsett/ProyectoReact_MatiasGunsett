@@ -88,7 +88,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
-            boxSize={{ base: '70px', sm: '90px', md: '120px', lg: '150px' }}
+            boxSize={{ base: '60px', sm: '80px', md: '120px', lg: '150px' }}
             onClick={() => handleImageClick(product.imageUrl)}
             _hover={{ cursor: "pointer" }}
             />
@@ -96,7 +96,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageTwo}
             fit={'cover'}
-            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            boxSize={{base: '60px', sm: '80px', md: '120px', lg: '150px'}}
             onClick={() => handleImageClick(product.imageTwo)}
             _hover={{ cursor: "pointer" }}
             />
@@ -104,7 +104,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageThree}
             fit={'cover'}
-            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            boxSize={{base: '60px', sm: '80px', md: '120px', lg: '150px'}}
             onClick={() => handleImageClick(product.imageThree)} 
             _hover={{ cursor: "pointer" }}
             />
@@ -112,7 +112,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageFour}
             fit={'cover'}
-            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+            boxSize={{base: '60px', sm: '80px', md: '120px', lg: '150px'}}
             onClick={() => handleImageClick(product.imageFour)} 
             _hover={{ cursor: "pointer" }}
             />
@@ -124,7 +124,7 @@ export const HomeDetailContainer = ({ product }) => {
             src={mainImage} // Usa el estado mainImage
             fit={'cover'}
             w={"70%"}
-            h={{ base: "320px", sm: "380px", lg: "650px" }}
+            h={{ base: "320px", sm: "400px", lg: "650px" }}
           />    
         </Flex>
         <Stack 
