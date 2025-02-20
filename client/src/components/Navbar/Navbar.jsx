@@ -5,16 +5,22 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  Button,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionIcon,
+  AccordionPanel,
   IconButton,
   Drawer,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
   DrawerBody,
+  DrawerHeader,
   useDisclosure,
   useBreakpointValue,
   Icon,
+  Stack,
 } from "@chakra-ui/react";
 import { CartWidget } from "../../components";
 import logoBeReal from "../../assets/logo-BeReal.png";
@@ -113,28 +119,51 @@ export const Navbar = () => {
       {isMobile && (
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
-          <DrawerContent backgroundColor="gray.800">
+          <DrawerContent 
+            backgroundColor="rgba(74, 85, 104, 0.35)" 
+            backdropFilter="blur(10px)"
+            color="white"
+            fontFamily={'"Lacquer", system-ui, sans-serif'}
+          >
+            <DrawerHeader
+              fontFamily={'"Lacquer", system-ui, sans-serif'}
+              color={"rgba(237, 237, 78, 0.737)"}
+              fontSize={'25px'}
+              m={0}
+            >
+                Menú 👇
+            </DrawerHeader>
             <DrawerCloseButton color="white" />
-            <DrawerBody>
-              <Menu>
-                <MenuButton as={Button} colorScheme="whiteAlpha" width="100%" mt={4}>
-                  Productos <ChevronDownIcon />
-                </MenuButton>
-                <MenuList backgroundColor={"gray.700"}>
-                  {items.map((category) => (
-                    <MenuItem key={category.slug} backgroundColor={"gray.700"}>
-                      <Link to={`/category/${category.slug}`} className="menuButton2">
-                        {category.name}
-                      </Link>
-                    </MenuItem>
-                  ))}
-                </MenuList>
-              </Menu>
-              <Link to="/contacto" className="menuButton" style={{ display: "block", marginTop: "10px" }}>
+            <DrawerBody textAlign={'left'}>
+            <Accordion allowToggle ml={'-13px'}>
+                <AccordionItem>
+                  <AccordionButton color={'white'} mt={'30px'}>
+                    <Box flex="1" textAlign="left">
+                      Productos
+                    </Box>
+                    <AccordionIcon />
+                  </AccordionButton>
+                  <AccordionPanel backgroundColor="rgba(74, 85, 104, 0.35)">
+                    {items.map((category) => (
+                      <Stack key={category.slug} spacing={2}>
+                        <Link
+                          to={`/category/${category.slug}`}
+                        >
+                          {category.name}
+                        </Link>
+                      </Stack>
+                    ))}
+                  </AccordionPanel>
+                </AccordionItem>
+              </Accordion>
+              <Link to="/contacto"  style={{ display: "block", marginTop: "10px" }}>
                 Contacto
               </Link>
               {user && (
-                <Flex alignItems={"center"} mt={4}>
+                <Flex 
+                  alignItems={"center"} 
+                  mt={3} 
+                >
                   <Box color="white" mr={4}>
                     {user.displayName}
                   </Box>
@@ -142,6 +171,7 @@ export const Navbar = () => {
                 </Flex>
               )}
             </DrawerBody>
+            
           </DrawerContent>
         </Drawer>
       )}

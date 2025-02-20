@@ -85,7 +85,6 @@ export const HomeDetailContainer = ({ product }) => {
             gap={4}
           >
             <Image 
-            rounded={"md"}
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
@@ -94,7 +93,6 @@ export const HomeDetailContainer = ({ product }) => {
             _hover={{ cursor: "pointer" }}
             />
             <Image
-            rounded={"md"}
             alt={product.title}
             src={product.imageTwo}
             fit={'cover'}
@@ -103,7 +101,6 @@ export const HomeDetailContainer = ({ product }) => {
             _hover={{ cursor: "pointer" }}
             />
             <Image
-            rounded={"md"}
             alt={product.title}
             src={product.imageThree}
             fit={'cover'}
@@ -112,7 +109,6 @@ export const HomeDetailContainer = ({ product }) => {
             _hover={{ cursor: "pointer" }}
             />
             <Image
-            rounded={"md"}
             alt={product.title}
             src={product.imageFour}
             fit={'cover'}
@@ -124,12 +120,11 @@ export const HomeDetailContainer = ({ product }) => {
           <Image
             id="detail-image"
             alignSelf={'start'}
-            rounded={"md"}
             alt={product.title}
             src={mainImage} // Usa el estado mainImage
             fit={'cover'}
             w={"70%"}
-            h={{ base: "100%", sm: "400px", lg: "650px" }}
+            h={{ base: "320px", sm: "380px", lg: "650px" }}
           />    
         </Flex>
         <Stack 

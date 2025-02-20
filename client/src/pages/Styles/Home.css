@@ -17,12 +17,6 @@
     }
     
 }
-/*.quienesSomos-imgs {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    margin-bottom: 80px;
-}*/
 .quienesSomos-img { 
     margin: 60px 0;
     object-fit:cover;

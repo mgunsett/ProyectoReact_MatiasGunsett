@@ -156,7 +156,7 @@ export const Home = () => {
           onMouseEnter={() => setHoveredIndex(index)}
           onMouseLeave={() => setHoveredIndex(null)}
           rowSpan= {2}
-          colSpan={hoveredIndex === null ? 2 : hoveredIndex === index ? 4 : 1}
+          colSpan={hoveredIndex === null ? 2 : hoveredIndex === index ? 5 : 1}
           overflow={'hidden'}
         > 
           <Img

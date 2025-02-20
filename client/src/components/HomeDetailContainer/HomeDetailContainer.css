@@ -7,6 +7,14 @@
     -webkit-box-shadow: 37px 35px 6px 3px rgba(0,0,0,0.78);
     -moz-box-shadow: 37px 35px 6px 3px rgba(0,0,0,0.78);
 }
+@media screen and (max-width: 380px) {
+    .HomeDetailContiner {
+        box-shadow: 13px 14px 6px -3px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 13px 14px 6px -3px rgba(0,0,0,0.75);
+        -moz-box-shadow: 13px 14px 6px -3px rgba(0,0,0,0.75);
+    }
+    
+}
 .detail-card {
     align-self: start;
     justify-content: center;
