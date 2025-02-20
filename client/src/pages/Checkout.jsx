@@ -24,6 +24,8 @@ export const Checkout = () => {
       backgroundColor={('gray.200', 'gray.700')}
     >
       <Flex
+        flexDirection={{ base: 'column', md: 'row' }}
+        justifyContent={'center'}
         p={2}
         alignItems={'center'}
       >

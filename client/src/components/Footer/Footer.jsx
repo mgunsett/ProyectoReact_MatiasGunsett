@@ -5,6 +5,7 @@ import {
     Flex,
     Stack,
     Text,
+    Image
   } from '@chakra-ui/react';
   import logo_2 from '../../assets/logo_2.png';
   import { Link } from "react-router-dom";
@@ -13,14 +14,19 @@ import {
 export const Footer = () => {
     return (
         <Box bg={'black'} color={'white'} padding={'30px'}>
-        <Flex align={'center'} justifyContent={'space-between'}>
+        <Flex 
+            direction={{ base: 'column', md: 'row' }}
+            alignItems={{ base: 'center', md: 'center' }} 
+            justifyContent={'space-between'}
+            gap={6}
+        >
             <Box>
                 <Link to='/'>   
-                    <img width={'70px'} height={'70px'} src={logo_2} alt="Logo principal" />
+                    <Image width={'70px'} height={'70px'} src={logo_2} alt="Logo principal" />
                 </Link>
             </Box>
-            <Text>© 2024 BeReal. Todos los Derechos Reservados.</Text>
-            <Stack direction={'row'} spacing={6}>
+            <Text textAlign={'center'}>© 2024 BeReal. Todos los Derechos Reservados.</Text>
+            <Stack direction={'row'} spacing={6} mt={{ base: 4, md: 0 }}>
                 <Button 
                     label={'Twitter'} 
                     boxSize={'35px'}

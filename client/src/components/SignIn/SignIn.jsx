@@ -42,14 +42,13 @@ export const SignIn = () => {
 
   return (
     <Flex
-      className="signInContainer"
-      p={4}
+      p={{ base: 7, sm: 6}}
       justifyContent="center"
       flexDirection="column"
       alignItems="center"
       maxWidth="700px"
       mx="auto"
-      boxSize={"lg"}
+      boxSize={{ base: "80%", sm: "md", md: 'lg'}}
       color={"white"}
       background={"rgba(33, 33, 65, 0.621)"}
       borderRadius={8}
@@ -61,7 +60,7 @@ export const SignIn = () => {
         mb={6}
         lineHeight={1.1}
         fontWeight={600}
-        fontSize={{ base: "10px", sm: "20px", lg: "30px" }}
+        fontSize={{ base: "20px", sm: "20px", lg: "30px" }}
         fontFamily={'"Lacquer", system-ui'}
       >
         {isRegistering ? "Registrarse" : "Ingresar"}
@@ -69,8 +68,9 @@ export const SignIn = () => {
       {error && <Box color="red.500" mb={4}>{error}</Box>}
       <form onSubmit={handleSubmit}>
         <FormControl id="email" mb={4}>
-          <FormLabel>Email:</FormLabel>
+          <FormLabel fontSize={{ base: "12px", sm: "20px"}}>Email:</FormLabel>
           <Input
+            size={{ base: "xs", sm: "md"}}
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -78,8 +78,9 @@ export const SignIn = () => {
           />
         </FormControl>
         <FormControl id="password" mb={6}>
-          <FormLabel>Password:</FormLabel>
+          <FormLabel fontSize={{ base: "12px", sm: "20px"}}>Password:</FormLabel>
           <Input
+            size={{ base: "xs", sm: "md"}}
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -88,8 +89,9 @@ export const SignIn = () => {
         </FormControl>
         {isRegistering && (
           <FormControl id="username" mb={4}>
-            <FormLabel>Username:</FormLabel>
+            <FormLabel fontSize={{ base: "12px", sm: "20px"}}>Username:</FormLabel>
             <Input
+              size={{ base: "xs", sm: "md"}}
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -97,10 +99,16 @@ export const SignIn = () => {
             />
           </FormControl>
         )}
-        <Button type="submit" colorScheme="teal" width="full">
+        <Button 
+          type="submit" 
+          colorScheme="teal" 
+          width="full"
+          size={{ base: "sm", sm: "md"}}
+        >
           {isRegistering ? "Registrarse" : "Iniciar Sesión"}
         </Button>
         <Button
+          size={{ base: "sm", sm: "md"}}
           type="button"
           variant="outline"
           width="full"
@@ -112,7 +120,14 @@ export const SignIn = () => {
           _hover={{ bg: "#357ae8", borderColor: "#357ae8" }}
           onClick={loginWithGoogle}
         >
-          <Image src={googlrIcon} alt="Google Icon" w={5} h={5} mr={3} />
+          <Image 
+            size={{base:'sm', sm:'md'}}
+            src={googlrIcon} 
+            alt="Google Icon" 
+            w={5} 
+            h={5} 
+            mr={3} 
+          />
           Iniciar con Google
         </Button>
       </form>

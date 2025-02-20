@@ -101,21 +101,22 @@ export const Home = () => {
         </Flex>
       </Flex>
       <Flex 
-        className="quienesSomos"
-        gap={{ base: 5, sm: 5, md: 10, lg: 10 }}
+        gap={{ base: 0, sm: 2, md: 10, lg: 10 }}
         flexDirection={{ base: 'column', sm: 'column', md: 'row', lg: 'row' }}
         justifyContent={'center'}
-        
         margin={'auto'}
         padding={{ base: '20px', sm: '30px', md: '40px', lg: '40px' }}
       >
-        <Box 
-          className="quienesSomos-text"
+        <Flex
+          flexDirection={'column'}
+          alignItems={'flex-start'}
+          color={'white'}
         >
             <Heading 
               as={"h2"} 
               fontSize={{base:'30px' ,sm:'30px',lg:'40px', xl:'50px' }} 
               fontFamily={'"Bungee Tint", sans-serif'}
+              marginBottom={'-20px'}
             >
               BeReal 
             </Heading>
@@ -126,12 +127,16 @@ export const Home = () => {
               Family
             </Text>
           
-          <Text className="quienesSomos-text-p"
+          <Text 
+            className="quienesSomos-text-p"
+            lineHeight={{base: '20px', sm: '30px', md: '40px'}}
             fontSize={{base:'15px' ,sm:'20px',md:'25px'}}
-            height={{base: '250px'}}>
+            height={{base: '250px'}}
+            margin={{base: 'none', sm: '10px', md: '20px'}}
+          >
             "Somos una grupo de amigos que un día entre risas, asados y play decidimos emprender un camino juntos y en algo que nos apasionara a todos. Asi fue que nacio BeReal, construyendo paso a paso cada estilo, cada diseño y cada detalle para ser de nuestro trabajo la mejor experiencia para todos." 
           </Text>
-        </Box>
+        </Flex>
         
         <Img
         className="quienesSomos-img"
@@ -139,6 +144,8 @@ export const Home = () => {
         height={{ base: '380px', sm: '460px', md: '570px', lg: '580px' }}
         src={fotoFamily}
         alt='Logo BeReal' 
+        mb={'60px'}
+        mt={{ base: '-40px', sm: '40px', md: '50px', lg: '60px' }}
         />
      
       </Flex>
