@@ -43,6 +43,7 @@ export const SignIn = () => {
   return (
     <Flex
       p={{ base: 7, sm: 6}}
+      pt={{ base: 4, sm: 3}}
       justifyContent="center"
       flexDirection="column"
       alignItems="center"

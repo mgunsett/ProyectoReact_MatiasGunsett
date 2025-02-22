@@ -7,7 +7,6 @@ import {
   Text,
   Button,
   Heading,
-  Divider,
   VStack,
   HStack,
   Spacer,
@@ -32,7 +31,13 @@ export const CartDetails = ({onContinue}) => {
 
   return (
     <>
-    <Box p={4} maxW="600px" mb={5}  h="70vh" overflowY="auto">
+    <Box 
+      p={4} 
+      maxW={{ base: "90%", md: "600px" }} 
+      mb={5}  
+      h="70vh" 
+      overflowY="auto"
+    >
       <Heading 
       as="h2" 
       size="lg" 
@@ -65,36 +70,45 @@ export const CartDetails = ({onContinue}) => {
               <Image
                 src={item.imageUrl}
                 alt={item.title}
-                boxSize="100px"
+                boxSize="80px"
                 objectFit="cover"
                 borderRadius="md"
                 mr={4}
               />
-              <Box flex="1" w={'390px'} >
-                <Text fontSize="xl" fontWeight="bold" color={'white'}>
+              <Box 
+                flex="1" 
+                w={{ base: "50%", md: "350px" }} 
+              >
+                <Text 
+                  fontSize={{ base: "sm", md: "md",lg: "xl" }} 
+                  fontWeight="bold" 
+                  color={'white'}
+                >
                   {item.title}
                 </Text>
-                  <Text color={'white'}>Precio: ${item.price.toFixed(2)}</Text>
+                  <Text color={'white'}>
+                    Precio: ${item.price.toFixed(2)}
+                  </Text>
               </Box>
               <Spacer />
               <HStack>
-              <HStack>
-                    <IconButton
-                      aria-label="Disminuir cantidad"
-                      icon={<MinusIcon />}
-                      size="sm"
-                      onClick={() => removeItem(item)}
-                      isDisabled={item.qtyItem === 1}
-                    />
-                    <Text color={'white'}>{item.qtyItem}</Text>
-                    <IconButton
-                      aria-label="Aumentar cantidad"
-                      icon={<AddIcon />}
-                      size="sm"
-                      onClick={() => addItem(item)}
-                      isDisabled={item.qtyItem >= item.stock}
-                    />
-                  </HStack>
+                <HStack>
+                  <IconButton
+                    aria-label="Disminuir cantidad"
+                    icon={<MinusIcon />}
+                    size={{ base: "xs", md: "sm" }}
+                    onClick={() => removeItem(item)}
+                    isDisabled={item.qtyItem === 1}
+                  />
+                  <Text color={'white'}>{item.qtyItem}</Text>
+                  <IconButton
+                    aria-label="Aumentar cantidad"
+                    icon={<AddIcon />}
+                    size={{ base: "xs", md: "sm" }}
+                    onClick={() => addItem(item)}
+                    isDisabled={item.qtyItem >= item.stock}
+                  />
+                </HStack>
                 <IconButton
                   aria-label="Eliminar producto"
                   icon={<DeleteIcon />}
@@ -111,8 +125,8 @@ export const CartDetails = ({onContinue}) => {
   </Box>
   
   <Flex 
-  p={6}
-  w="70%"
+  p={{ base: 4, md: 6 }}
+  w={{ base: "90%", md: "70%" }}
   alignItems="center"
   justifyContent="space-between"
   borderTop="2px"

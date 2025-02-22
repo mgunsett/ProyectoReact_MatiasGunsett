@@ -12,7 +12,7 @@ export const InicialLogin = () => {
     alignItems="center"
     maxWidth="700px" 
     mx="auto"
-    boxSize={'lg'}
+    boxSize={{ base: "70%", sm: "md", md: 'lg'}}
     color={'white'}
     background={'rgba(33, 33, 65, 0.621)'}
     borderRadius={8}
@@ -24,17 +24,21 @@ export const InicialLogin = () => {
         mb={6}
         lineHeight={1.1}
         fontWeight={600}
-        fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
+        fontSize={{ base: "15px", sm: "30px", lg: "40px" }}
         fontFamily={'"Lacquer", system-ui'}
         >Bienvenido</Heading>
         <Text
         mb={6}
         lineHeight={1.1}
         fontWeight={600}
-        fontSize={{ base: "10px", sm: "20px", lg: "30px" }}
+        fontSize={{ base: "18px", sm: "20px", lg: "30px" }}
         fontFamily={'"Lacquer", system-ui'}
         >{user.displayName || "Usuario"}!</Text>
-        <Button colorScheme="teal" onClick={logout}>
+        <Button 
+        colorScheme="teal" 
+        onClick={logout}
+        size={{ base: "xs", sm: "md", md: "lg" }} 
+        >
             Cerrar sesión
         </Button>
     </Flex>

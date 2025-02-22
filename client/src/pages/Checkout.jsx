@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import { CartDetails, SignIn } from "../components"
 import { Payment } from "./Payment";
-import { Box, Flex, Divider, Stack } from "@chakra-ui/react";
+import { Box, Flex, Divider, Stack, useBreakpointValue } from "@chakra-ui/react";
 import './Styles/Checkout.css';
 
 export const Checkout = () => {
@@ -15,10 +15,12 @@ export const Checkout = () => {
     setShowPayment(false);
   }; 
 
+  const isMobile = useBreakpointValue({ base: true, sm: true, md: false });
+
   return (
     <Box 
       position="relative" 
-      height="100vh" 
+      height={{ base: '100%', md: '100vh' }} 
       paddingTop={20}
       marginTop={-16}
       backgroundColor={('gray.200', 'gray.700')}
@@ -30,13 +32,25 @@ export const Checkout = () => {
         alignItems={'center'}
       >
         <SignIn />
+      {isMobile ? (
+        <Divider 
+        orientation='horizontal' 
+        width={'90%'}
+        height={'1px'}
+        bg={'gray.400'}
+        margin={4}
+        opacity={0.5}
+      />
+       ) : (
         <Stack direction='row' h='600px' p={4}>
-        <Divider orientation='vertical' />
+          <Divider orientation='vertical' />
         </Stack>
+        )}
         <Box
         opacity={showPayment ? 0.5 : 1}
         transition="opacity 0.5s ease"
-        w={'50%'}
+        w={{ base: '100%', md: '50%' }}
+        p={{ base: 4 }}
         >
           <CartDetails onContinue={handleContinuePurchase} />
         </Box>
