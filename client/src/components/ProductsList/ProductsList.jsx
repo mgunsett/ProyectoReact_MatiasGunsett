@@ -28,26 +28,19 @@ export const ProductsList = ({ title, products }) => {
       paddingTop={16}
       marginTop={-16}
     >
-    <Box
-    className='Banner'
-    >
-    </Box>
-    <Text 
-    className='TitleHeader'
-    >{primeraMayuscula(title)}</Text>
+    <Box className='Banner'></Box>
+    <Text className='TitleHeader'>{primeraMayuscula(title)}</Text>
     <Flex
-    className="cardsContainer"
-    direction="row"
-    wrap="wrap"
-    gap="5rem"
-    padding="1rem"
-    maxW="100%"
-    justifyContent={"center"}
-    paddingBottom={16}
+      direction="row"
+      wrap="wrap"
+      gap="5rem"
+      padding="1rem"
+      maxW="100%"
+      justifyContent={"center"}
+      paddingBottom={16}
     >
       {products.map((product) => (
         <Card 
-        className='sliders-fotos'
         key={product.id} 
         maxW="md" 
         minW="250px" 

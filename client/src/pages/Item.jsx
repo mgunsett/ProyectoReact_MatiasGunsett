@@ -27,7 +27,7 @@ export const Item = () => {
       paddingTop={20}
       marginTop={-16}
     >
-    <ItemDetailContainer  product={productData}/>
+      <ItemDetailContainer  product={productData}/>
     </Box>
   );
 };

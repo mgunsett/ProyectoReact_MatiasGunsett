@@ -50,7 +50,7 @@ export const Checkout = () => {
         opacity={showPayment ? 0.5 : 1}
         transition="opacity 0.5s ease"
         w={{ base: '100%', md: '50%' }}
-        p={{ base: 4 }}
+        p={{ base: 2 }}
         >
           <CartDetails onContinue={handleContinuePurchase} />
         </Box>

@@ -7,6 +7,7 @@ import {
   Text,
   Button,
   Heading,
+  Stack,
   VStack,
   HStack,
   Spacer,
@@ -32,8 +33,8 @@ export const CartDetails = ({onContinue}) => {
   return (
     <>
     <Box 
-      p={4} 
-      maxW={{ base: "90%", md: "600px" }} 
+      p={{ base: 0, md: 4 }} 
+      maxW={{ base: "100%", md: "600px" }} 
       mb={5}  
       h="70vh" 
       overflowY="auto"
@@ -57,27 +58,29 @@ export const CartDetails = ({onContinue}) => {
           Tu carrito está vacío.
         </Alert>
       ) : (
-        <VStack spacing={4}>
+        <Box w={{ base: "330px", md: "90%" }}>
           {cartState.map((item) => (  
             <Flex
               key={item.id}
-              p={4}
+              p={1}
               borderWidth="1px"
               borderRadius="md"
               alignItems="center"
               boxShadow="sm"
+              
             >
               <Image
                 src={item.imageUrl}
                 alt={item.title}
-                boxSize="80px"
+                boxSize="90px"
                 objectFit="cover"
                 borderRadius="md"
                 mr={4}
+                h={'110px'}
               />
               <Box 
-                flex="1" 
-                w={{ base: "50%", md: "350px" }} 
+                
+                w={{ base: "140px"}}
               >
                 <Text 
                   fontSize={{ base: "sm", md: "md",lg: "xl" }} 
@@ -87,12 +90,19 @@ export const CartDetails = ({onContinue}) => {
                   {item.title}
                 </Text>
                   <Text color={'white'}>
-                    Precio: ${item.price.toFixed(2)}
+                    Precio:
+                  </Text>
+                  <Text color={'white'}>
+                    ${item.price}
                   </Text>
               </Box>
               <Spacer />
               <HStack>
-                <HStack>
+                <Stack 
+                  direction={{ base: "column", md: "row" }}
+                  spacing={2}
+                  alignItems="center"
+                >
                   <IconButton
                     aria-label="Disminuir cantidad"
                     icon={<MinusIcon />}
@@ -108,7 +118,7 @@ export const CartDetails = ({onContinue}) => {
                     onClick={() => addItem(item)}
                     isDisabled={item.qtyItem >= item.stock}
                   />
-                </HStack>
+                </Stack>
                 <IconButton
                   aria-label="Eliminar producto"
                   icon={<DeleteIcon />}
@@ -116,31 +126,36 @@ export const CartDetails = ({onContinue}) => {
                   variant="outline"
                   onClick={() => handleDeleteItem(item)}
                   _hover={{background: 'red.200'}}
+                  mr={2}
                 />
               </HStack>
             </Flex>
           ))}
-        </VStack>
+        </Box>
       )}
   </Box>
   
   <Flex 
   p={{ base: 4, md: 6 }}
-  w={{ base: "90%", md: "70%" }}
+  w={{ base: "100%", md: "70%" }}
   alignItems="center"
   justifyContent="space-between"
   borderTop="2px"
   borderColor="gray.200"
   borderTopColor="gray.200"
   >
-    <Text fontSize="2xl" fontWeight="bold" color={'white'}>
+    <Text 
+      fontSize={{ base: "lg", md: '2xl' }}
+      fontWeight="bold" 
+      color={'white'}
+    >
       Total: <Text color={"rgba(237, 237, 78, 0.737)"}>${total.toFixed(2)}</Text>
     </Text>
     <Spacer />
     <Button
-    maxW={"100%"}
+    maxW={{ base: "80%", md: "100%" }}
     mt={2}
-    size={"lg"}
+    size={{ base: "xs", md: "lg" }}
     py={"7"}
     textTransform={"uppercase"}
     onClick={onContinue}

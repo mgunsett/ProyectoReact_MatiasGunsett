@@ -16,3 +16,13 @@
     font-size: 60px;
     font-family: "Bungee Tint", sans-serif;
 }
+@media screen and (max-width: 480px) {
+    .Banner {
+        height: 70px;
+        background-size:cover;
+        background-position:center;
+    }
+    .TitleHeader {
+        font-size: 40px;
+    }
+}
