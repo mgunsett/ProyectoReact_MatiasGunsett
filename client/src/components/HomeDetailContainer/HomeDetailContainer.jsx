@@ -163,7 +163,7 @@ export const HomeDetailContainer = ({ product }) => {
             direction={["column", "row"]}
             alignItems={"flex-start"}
           >
-            <VStack spacing={{ base: 4, sm: 6 }}>
+            <VStack spacing={{ base: 2, sm: 6 }}>
               <Text 
                 color={'white'}
                 fontSize={"20px"}
@@ -172,7 +172,7 @@ export const HomeDetailContainer = ({ product }) => {
               >
                 Talle :
               </Text>
-              <Flex  gap={2}>
+              <Flex  gap={{ base: 1, sm: 4 }}>
               {sizes.map((size) => (
                 <Button
                   key={size}

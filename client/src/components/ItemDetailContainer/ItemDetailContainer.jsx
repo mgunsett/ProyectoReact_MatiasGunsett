@@ -144,6 +144,7 @@ export const ItemDetailContainer = ({ product }) => {
         <Stack alignSelf={'start'} p={{ base: 1, sm: 2 }}>  
           <Box as={"header"} marginBottom={{ base: 9, sm: 14 }}>
             <Heading
+              color={"rgba(237, 237, 78, 0.737)"}
               lineHeight={1.1}
               fontWeight={600}
               fontSize={{ base: "25px", sm: "30px", lg: "40px" }}
@@ -174,7 +175,7 @@ export const ItemDetailContainer = ({ product }) => {
             direction={["column", "row"]}
             alignItems={"flex-start"}
           >
-            <VStack spacing={{ base: 4, sm: 6 }}>
+            <VStack spacing={{ base: 2, sm: 6 }}>
               <Text
                 color={'white'}
                 fontSize={{ base: "20px", sm: "25px" }}
@@ -191,12 +192,13 @@ export const ItemDetailContainer = ({ product }) => {
               >
                 Talle :
               </Text>
-              <Flex gap={4}>
+              <Flex  gap={{ base: 1 , sm: 4 }}>
               {sizes.map((size) => (
                 <Button
                   key={size}
+                  size={{ base: "xs", sm: "md" }}
                   onClick={() => handleSizeClick(size)}
-                  border="3px solid"
+                  border="2px solid"
                   borderColor={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "gray.300"}
                   color={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "white"}
                   _hover={{
@@ -212,18 +214,19 @@ export const ItemDetailContainer = ({ product }) => {
           </Stack>
 
           <Button
-            maxW={"60%"}
+            maxW={{ base: "100%", sm: "60%" }}
             size={"lg"}
             py={"7"}
-            backgroundColor={('gray.200', 'gray.700')}
+            backgroundColor={"rgba(0, 0, 0, 0.745)"}
             color={useColorModeValue("white", "gray.900")}
             textTransform={"uppercase"}
             _hover={{
+              border: "1px solid rgba(237, 237, 78, 0.737)",
               transform: "translateY(2px)",
               boxShadow: "lg",
             }}
             onClick={handleShowCount}
-            fontSize={'15px'}
+            fontSize={{ base: "12px", sm: "15px" }}
           >
             Agregar al carrito
           </Button>

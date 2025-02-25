@@ -32,7 +32,6 @@ export const Checkout = () => {
         p={2}
         alignItems={'center'}
       >
-          <SignIn />
         <SignIn />
       {isMobile ? (
         <Divider 
@@ -45,7 +44,6 @@ export const Checkout = () => {
       />
        ) : (
         <Stack direction='row' h='600px' p={4}>
-          <Divider orientation='vertical' />
           <Divider orientation='vertical' />
         </Stack>
         )}
