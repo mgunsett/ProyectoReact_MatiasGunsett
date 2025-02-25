@@ -133,7 +133,11 @@ export const SignIn = () => {
         </Button>
       </form>
       <Box mt={4}>
-        <Button variant="link" onClick={() => setIsRegistering(!isRegistering)}>
+        <Button 
+          fontSize={{ base: "12px", sm: "20px"}}
+          variant="link" 
+          onClick={() => setIsRegistering(!isRegistering)}
+        >
           {isRegistering
             ? "¿Ya tienes una cuenta? Inicia sesión"
             : "¿No tienes una cuenta? Regístrate"}

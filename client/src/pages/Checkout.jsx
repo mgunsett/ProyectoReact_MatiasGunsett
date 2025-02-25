@@ -21,6 +21,7 @@ export const Checkout = () => {
     <Box 
       position="relative" 
       height={{ base: '100%', md: '100vh' }} 
+      height={{ base: '100%', md: '100vh' }} 
       paddingTop={20}
       marginTop={-16}
       backgroundColor={('gray.200', 'gray.700')}
@@ -31,6 +32,7 @@ export const Checkout = () => {
         p={2}
         alignItems={'center'}
       >
+          <SignIn />
         <SignIn />
       {isMobile ? (
         <Divider 
@@ -43,6 +45,7 @@ export const Checkout = () => {
       />
        ) : (
         <Stack direction='row' h='600px' p={4}>
+          <Divider orientation='vertical' />
           <Divider orientation='vertical' />
         </Stack>
         )}
