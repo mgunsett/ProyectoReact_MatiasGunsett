@@ -68,7 +68,6 @@ export const SlidersCards = ({ products }) => {
         >
           {products.map((product) => (
             <Card 
-            className='sliders-fotos'
             key={product.id}  
             minW={{ base: "140", sm: "160" , md: "210", lg: "260" }}
             height={{ base: "360", sm: "380px" , md: "430", lg: "480" }}

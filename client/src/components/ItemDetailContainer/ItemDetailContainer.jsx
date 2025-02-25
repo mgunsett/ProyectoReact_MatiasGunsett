@@ -63,31 +63,38 @@ export const ItemDetailContainer = ({ product }) => {
   };
 
   return (
-    <Box className="detail-container">
+    <Box 
+      className="detail-container"
+      w={{ base: "100%", lg: "90%" }}
+      m={"auto"}
+
+    >
       <Box className="detail-guia">
-        <Link className="guia-hover" to="/">Inico</Link> /
+        <Link className="guia-hover" to="/">Inicio</Link> /
         <Link className="guia-hover" to={`/category/${product.category}`}> {product.category} </Link> /
         <Link className="guia-hover" to={`/item/${product.id}`}> {product.title}</Link>
       </Box>
       <SimpleGrid
-        className="detail-card"
+        alignSelf={'start'}
+        justifyContent={'center'}
+        alignItems={'center'}
         columns={{ sm: 1, md: 2 }}
         spacing={2} 
-        p={2} 
+        p={1} 
       > 
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
-          gap={6}
+          gap={{ base: 4, sm: 6 }}
         >
           <Flex 
             flexDirection={'column'} 
             justifyContent={'space-between'} 
             alignItems={'center'}
-            gap={4}
+            gap={{ base: 3, sm: 4 }}
           >
             <Image 
-            rounded={"md"}
+            rounded={"sm"}
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
@@ -96,7 +103,7 @@ export const ItemDetailContainer = ({ product }) => {
             _hover={{ cursor: "pointer" }}
             />
             <Image
-            rounded={"md"}
+            rounded={"sm"}
             alt={product.title}
             src={product.imageTwo}
             fit={'cover'}
@@ -105,7 +112,7 @@ export const ItemDetailContainer = ({ product }) => {
             _hover={{ cursor: "pointer" }}
             />
             <Image
-            rounded={"md"}
+            rounded={"sm"}
             alt={product.title}
             src={product.imageThree}
             fit={'cover'}
@@ -114,7 +121,7 @@ export const ItemDetailContainer = ({ product }) => {
             _hover={{ cursor: "pointer" }}
             />
             <Image
-            rounded={"md"}
+            rounded={"sm"}
             alt={product.title}
             src={product.imageFour}
             fit={'cover'}
@@ -126,22 +133,20 @@ export const ItemDetailContainer = ({ product }) => {
           <Image
             id="detail-image"
             alignSelf={'start'}
-            rounded={"md"}
+            rounded={"sm"}
             alt={product.title}
             src={mainImage} // Usar el estado mainImage
             fit={'cover'}
-            w={"70%"}
-            h={{ base: "100%", sm: "400px", lg: "650px" }}
+            w={"76%"}
+            h={{ base: "320px", sm: "400px", lg: "650px" }}
           />    
         </Flex>
-        <Stack 
-          alignSelf={'start'}
-          p={2} >
-          <Box as={"header"} marginBottom={16}>
+        <Stack alignSelf={'start'} p={{ base: 1, sm: 2 }}>  
+          <Box as={"header"} marginBottom={{ base: 9, sm: 14 }}>
             <Heading
               lineHeight={1.1}
               fontWeight={600}
-              fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
+              fontSize={{ base: "25px", sm: "30px", lg: "40px" }}
               fontFamily={'"Lacquer", system-ui'}
             >
               {product.title}
@@ -167,12 +172,12 @@ export const ItemDetailContainer = ({ product }) => {
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={["column", "row"]}
-            alignItems={["center", "flex-start"]}
+            alignItems={"flex-start"}
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text
                 color={'white'}
-                fontSize={"2xl"}
+                fontSize={{ base: "20px", sm: "25px" }}
                 fontWeight={"300"}
                 alignSelf={'flex-start'}
               >

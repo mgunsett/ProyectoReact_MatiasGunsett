@@ -1,11 +1,11 @@
 .container {
     background-image: url('../../assets/banner.png');
     background-attachment:local;
-    background-size:contain;
-    background-position:center;
+    background-size: contain;
+    background-position-y: 10%;
     background-repeat: no-repeat;
     max-width: 100%;    
     max-height: 100%;
     margin: 0;
-    padding: 25px;
+    padding: 10px;
 }

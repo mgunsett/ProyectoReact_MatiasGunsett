@@ -31,19 +31,17 @@ export const ProductsList = ({ title, products }) => {
     <Box className='Banner'></Box>
     <Text className='TitleHeader'>{primeraMayuscula(title)}</Text>
     <Flex
-      direction="row"
       wrap="wrap"
-      gap="5rem"
-      padding="1rem"
+      gap={2}
+      justifyContent="center"
       maxW="100%"
-      justifyContent={"center"}
       paddingBottom={16}
     >
       {products.map((product) => (
         <Card 
         key={product.id} 
-        maxW="md" 
-        minW="250px" 
+        minW={{ base: "140px", sm: "160px" , md: "210px", lg: "260px" }} 
+        height={{ base: "360px", sm: "380px" , md: "430px", lg: "480px" }}
         flex="0 0 auto"
         backgroundColor={('rgba(0, 0, 0, 0.381)')}
         >
@@ -53,15 +51,21 @@ export const ProductsList = ({ title, products }) => {
                 src={product.imageUrl}
                 alt={product.title}
                 borderRadius="md"
-                boxSize="250px"
+                boxSize={{ base: "140px", sm: "150px", md: "200px", lg: "250px" }}
                 objectFit="cover"
-                maxW={"20rem"}
+                maxW={"21rem"}
                 transition={"transform 0.3s ease"}
                 _hover={{ transform: "scale(1.1)" }}
               />
             </Link>
             <Stack textAlign={"left"} mt="6" spacing="2">
-              <Heading size="sm" color={'white'} >{product.title}</Heading>
+              <Heading 
+                size="sm" 
+                color={'white'} 
+                width={{ base: "130px", sm: "150px", md: "200px", lg: "250px" }}
+              >
+                {product.title}
+              </Heading>
               <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
               <Text
                 color="blue.500"
@@ -75,7 +79,9 @@ export const ProductsList = ({ title, products }) => {
           </CardBody>
           <Divider color={'white'}/>
           <CardFooter>
-            <ButtonGroup spacing="3" color={'white'} _hover={{
+            <ButtonGroup 
+            color={'white'} 
+            _hover={{
                 backgroundColor: "rgba(237, 237, 78, 0.737)",
                 transform: "scale(1.1)",
                 borderRadius: "2px",
