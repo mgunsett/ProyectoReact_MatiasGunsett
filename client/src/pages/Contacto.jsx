@@ -1,5 +1,4 @@
 import {
-  Container,
   Flex,
   Box,
   Heading,
@@ -43,11 +42,10 @@ export const Contacto = () => {
     overflow="hidden">
         <Flex
           className='contacto-container'
-          >
+          maxW={{base:'90%', sm:'80%', md:'60%'}}
+        >
           <Box p={4}>
-            <Wrap 
-            spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}
-            >
+            <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
               <WrapItem>
                 <Box>
                   <Heading 
@@ -59,18 +57,29 @@ export const Contacto = () => {
                   <Text mt={{ sm: 3, md: 3, lg: 5 }} color="white">
                     Nuestros medios de Contacto:
                   </Text>
-                  <Box className='contacto-info'> 
+                  <Flex
+                    flexDirection={'column'}
+                    alignItems={'flex-start'}
+                    gap={6}
+                    paddingTop={5}
+                  > 
                       <Button
-                        size="md"
+                        size={{ base: 'md', sm: 'lg'}}
                         variant="ghost"
                         color="#DCE2FF"
                         _hover={{ border: '2px solid #1C6FEB' }}
-                        leftIcon={<MdPhone color="rgb(240, 240, 42)" size="20px" />}>
+                        leftIcon={
+                          <MdPhone 
+                            color="rgb(240, 240, 42)" 
+                            size="20px"
+                          />
+                        }
+                      >
                         +54-342-111-1111
                       </Button>
                       <Button
+                        mr={5}
                         size="md"
-                       
                         variant="ghost"
                         color="#DCE2FF"
                         _hover={{ border: '2px solid #1C6FEB' }}
@@ -86,7 +95,7 @@ export const Contacto = () => {
                         leftIcon={<MdLocationOn color="rgb(240, 240, 42)" size="20px" />}>
                         Santa Fe, Argentina
                       </Button>
-                  </Box>
+                  </Flex>
 
                   <HStack
                     mt={{ lg: 10, md: 8, sm: 6 }}
@@ -130,7 +139,12 @@ export const Contacto = () => {
                 </Box>
               </WrapItem>
               <WrapItem>
-                <Box bg="white" borderRadius="lg">
+                <Box 
+                  bg="white" 
+                  borderRadius="lg"
+                  boxShadow="2xl"
+                  maxW={{ base: '90%', sm: '800px'}}
+                >
                   <Box m={8} color="#0B0E3F">
                     <VStack spacing={5}>
                       <FormControl id="name">
