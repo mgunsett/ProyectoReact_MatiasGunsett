@@ -21,6 +21,7 @@ import {
   useBreakpointValue,
   Icon,
   Stack,
+  Divider
 } from "@chakra-ui/react";
 import { CartWidget } from "../../components";
 import logoBeReal from "../../assets/logo-BeReal.png";
@@ -98,9 +99,7 @@ export const Navbar = () => {
             </Link>
           </Box>
         )}
-        
-        
-
+  
         {!isMobile && (
           <Flex alignItems={"center"} gap={4}>
             {user && (
@@ -135,9 +134,9 @@ export const Navbar = () => {
             </DrawerHeader>
             <DrawerCloseButton color="white" />
             <DrawerBody textAlign={'left'}>
-            <Accordion allowToggle ml={'-13px'}>
+            <Accordion allowToggle ml={'-15px'} paddingBottom={'10px'}>
                 <AccordionItem>
-                  <AccordionButton color={'white'} mt={'30px'}>
+                  <AccordionButton color={'white'} mt={'10px'}>
                     <Box flex="1" textAlign="left">
                       Productos
                     </Box>
@@ -155,10 +154,14 @@ export const Navbar = () => {
                     ))}
                   </AccordionPanel>
                 </AccordionItem>
+                <AccordionItem>
+                  <AccordionButton color={'white'} mt={'10px'}>
+                  <Link to="/contacto">
+                    Contacto
+                  </Link>
+                  </AccordionButton>
+                </AccordionItem>
               </Accordion>
-              <Link to="/contacto"  style={{ display: "block", marginTop: "10px" }}>
-                Contacto
-              </Link>
               {user && (
                 <Flex 
                   alignItems={"center"} 
