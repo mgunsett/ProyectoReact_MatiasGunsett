@@ -17,7 +17,6 @@ import './ItemDetailContainer.css'
 
 export const ItemDetailContainer = ({ product }) => {
 
-  const [isClicked, setIsClicked] = useState(false);
   const [selectedSize, setSelectedSize] = useState(null); 
 
   const [showCount, setShowCount] = useState(false);
@@ -28,15 +27,22 @@ export const ItemDetailContainer = ({ product }) => {
   const [mainImage, setMainImage] = useState(product.imageUrl); // Estado para la imagen principal
 
   // Mostrar el contador de cantidad //
-  const handleShowCount = () => {
-    setShowCount(!showCount);
+  const handleAgregarAlCarrito = () => {
+    if (!selectedSize) {
+      // Puedes utilizar un toast o un alert para informar al usuario
+      alert("Por favor, selecciona un talle antes de agregar el producto al carrito.");
+      return;
+    }
+    // Se añade el producto con la propiedad 'selectedSize'
+    addItem({ ...product, selectedSize }, 1);
+    setShowCount(true);
   }; 
   // Si la cantidad es menor al stock, incrementar la cantidad en 1 //
   const handleIncrement = () => {
     if (count < product.stock) { 
       const newCount = count + 1;
       setCount(newCount);
-      addItem(product, newCount);
+      addItem({ ...product, selectedSize }, 1);
     }
   };
   // Si la cantidad es mayor a 0, decrementar la cantidad en 1 //
@@ -44,7 +50,7 @@ export const ItemDetailContainer = ({ product }) => {
     if (count > 0) {
       const newCount = count - 1;
       setCount(newCount);
-      removeItem(product);
+      removeItem({ ...product, selectedSize });
     }
   };
   // Función para manejar el click en los talles //
@@ -55,7 +61,9 @@ export const ItemDetailContainer = ({ product }) => {
       setSelectedSize(size); // Actualizar el talle seleccionado
     }
   };
-  const sizes = ["SM", "ME", "LA", "XL"]; // Talles disponibles
+  
+  // Si product.sizesStock existe, extraemos los talles; sino, usamos un fallback
+  const sizes = product.sizesStock ? Object.keys(product.sizesStock) : ["SM", "MD", "LA", "XL"];
 
   // Función para manejar el click en las imágenes //
   const handleImageClick = (imageSrc) => {
@@ -205,6 +213,7 @@ export const ItemDetailContainer = ({ product }) => {
                     borderColor: "rgba(237, 237, 78, 0.737)",
                   }}
                   variant="outline"
+                  disabled={product.sizesStock && product.sizesStock[size] <= 0} // Si el stock es 0, deshabilita el botón
                 >
                   {size}
                 </Button>
@@ -225,7 +234,7 @@ export const ItemDetailContainer = ({ product }) => {
               transform: "translateY(2px)",
               boxShadow: "lg",
             }}
-            onClick={handleShowCount}
+            onClick={handleAgregarAlCarrito}
             fontSize={{ base: "12px", sm: "15px" }}
           >
             Agregar al carrito

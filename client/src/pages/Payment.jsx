@@ -167,7 +167,7 @@ export const Payment = ({ onBack }) => {
         <VStack spacing={2} align='normal'w={"100%"}>
           {cartState.map((item) => (  
             <Flex
-              key={item.id}
+              key={item.id + item.selectedSize}
               p={2}
               alignItems="center"
               boxShadow="sm"
@@ -184,6 +184,7 @@ export const Payment = ({ onBack }) => {
                 <Text fontSize="lg" fontWeight="bold" color={'white'}>
                   {item.title}
                 </Text>
+                <Text color={'white'}>Talle: {item.selectedSize}</Text>
                 <HStack spacing={4} mt={2}>
                   <Text color={'white'}>Precio: ${item.price.toFixed(2)}</Text>
                 </HStack>

@@ -27,8 +27,16 @@ export const HomeDetailContainer = ({ product }) => {
 
   // Mostrar el contador de cantidad //
   const handleShowCount = () => {
-    setShowCount(!showCount);
+    if (!selectedSize) {
+      // Puedes utilizar un toast o un alert para informar al usuario
+      alert("Por favor, selecciona un talle antes de agregar el producto al carrito.");
+      return;
+    }
+    // Se añade el producto con la propiedad 'selectedSize'
+    addItem({ ...product, selectedSize }, 1);
+    setShowCount(true);
   }; 
+  
   // Si la cantidad es menor al stock, incrementar la cantidad en 1 //
   const handleIncrement = () => {
     if (count < product.stock) { 
@@ -53,7 +61,10 @@ export const HomeDetailContainer = ({ product }) => {
       setSelectedSize(size); // Actualizar el talle seleccionado
     }
   };
-  const sizes = ["SM", "ME", "LA", "XL"]; // Talles disponibles
+  
+  // Si product.sizesStock existe, extraemos los talles; sino, usamos un fallback
+  const sizes = product.sizesStock ? Object.keys(product.sizesStock) : ["SM", "MD", "LA", "XL"];
+
 
   // Función para manejar el click en las imágenes //
   const handleImageClick = (imageSrc) => {
@@ -185,6 +196,7 @@ export const HomeDetailContainer = ({ product }) => {
                     borderColor: "rgba(237, 237, 78, 0.737)",
                   }}
                   variant="outline"
+                  disabled={product.sizesStock && product.sizesStock[size] <= 0} // Si el stock es 0, deshabilita el botón
                 >
                   {size}
                 </Button>

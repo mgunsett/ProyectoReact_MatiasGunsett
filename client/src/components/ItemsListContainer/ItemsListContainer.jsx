@@ -1,14 +1,7 @@
-import {
-  Heading,
-  Box,
-  Image,
-  Flex,
-} from '@chakra-ui/react';
+import { Heading, Box, Image, Flex} from '@chakra-ui/react';
 import './ListContainer.css';
 import bannerNuevo from '../../assets/bannerNuevo.png'
-import spray  from '../../assets/spray.svg'
 import { SlidersCards } from '../SliderCards';
-
 
 export const ItemsListContainer = ({ title, products }) => {
 
@@ -33,9 +26,6 @@ export const ItemsListContainer = ({ title, products }) => {
       <Heading 
       className='title2-container'
       as={'h1'}
-      // Aplicar gradient al texto //
-      // bgGradient="linear(to-t, black, white)"
-      // bgClip="text"
       color={"rgba(237, 237, 78, 0.737)"}
       lineHeight={1.1}
       fontWeight={600}
@@ -47,3 +37,8 @@ export const ItemsListContainer = ({ title, products }) => {
     </Flex>
   );
 };
+
+
+ // Aplicar gradient al texto //
+      // bgGradient="linear(to-t, black, white)"
+      // bgClip="text"
