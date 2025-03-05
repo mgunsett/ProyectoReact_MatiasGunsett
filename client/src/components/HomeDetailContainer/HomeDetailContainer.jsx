@@ -19,27 +19,25 @@ export const HomeDetailContainer = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState(null); 
 
   const [showCount, setShowCount] = useState(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   const { addItem, removeItem } = useContext(CartContext);
 
   const [mainImage, setMainImage] = useState(product.imageUrl); // Estado para la imagen principal
 
   // Mostrar el contador de cantidad //
-  const handleShowCount = () => {
+  const handleAgregarAlCarrito = () => {
     if (!selectedSize) {
-      // Puedes utilizar un toast o un alert para informar al usuario
       alert("Por favor, selecciona un talle antes de agregar el producto al carrito.");
       return;
     }
-    // Se añade el producto con la propiedad 'selectedSize'
     addItem({ ...product, selectedSize }, 1);
-    setShowCount(true);
+    setShowCount(!showCount);
   }; 
   
   // Si la cantidad es menor al stock, incrementar la cantidad en 1 //
   const handleIncrement = () => {
-    if (count < product.stock) { 
+    if (count < product.stock && count < 10 && count > 0) { 
       const newCount = count + 1;
       setCount(newCount);
       addItem(product, newCount);
@@ -47,7 +45,7 @@ export const HomeDetailContainer = ({ product }) => {
   };
   // Si la cantidad es mayor a 0, decrementar la cantidad en 1 //
   const handleDecrement = () => {
-    if (count > 0) {
+    if (count > 0 && count <= 10 && count > 1) {
       const newCount = count - 1;
       setCount(newCount);
       removeItem(product);
@@ -218,7 +216,7 @@ export const HomeDetailContainer = ({ product }) => {
               boxShadow: "lg",
               color: "black",
             }}
-            onClick={handleShowCount}
+            onClick={ handleAgregarAlCarrito }
             fontSize={{ base: "12px", sm: "15px" }}
           >
             Agregar al carrito

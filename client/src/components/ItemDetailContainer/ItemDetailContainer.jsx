@@ -20,7 +20,7 @@ export const ItemDetailContainer = ({ product }) => {
   const [selectedSize, setSelectedSize] = useState(null); 
 
   const [showCount, setShowCount] = useState(false);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
 
   const { addItem, removeItem } = useContext(CartContext);
 
@@ -35,7 +35,7 @@ export const ItemDetailContainer = ({ product }) => {
     }
     // Se añade el producto con la propiedad 'selectedSize'
     addItem({ ...product, selectedSize }, 1);
-    setShowCount(true);
+    setShowCount(!showCount);
   }; 
   // Si la cantidad es menor al stock, incrementar la cantidad en 1 //
   const handleIncrement = () => {

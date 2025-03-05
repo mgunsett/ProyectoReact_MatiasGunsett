@@ -7,8 +7,6 @@ import {
   Button,
   VStack,
   HStack,
-  Wrap,
-  WrapItem,
   FormControl,
   FormLabel,
   Input,
@@ -31,79 +29,71 @@ import './Styles/Mediaquerys.css'
 export const Contacto = () => {
   return (
     <Box 
-    maxW="full" 
     paddingTop={16}
     marginTop={-16}
     backgroundColor={('gray.200', 'gray.700')}
     >
       <Box 
       className='contacto'
-      maxW="full" 
-      overflow="hidden"
+      overflow= 'auto'
       >
         <Flex
           className='contacto-container'
           w={{ base: '90%', sm: '90%', md: '60%'}}
           margin={'60px auto'}
-          p={'50px'}
+          p={{ base: 5, sm: 5, md: 10, lg: 10 }}
           direction={{ base: 'column', sm: 'column', md: 'row', lg: 'row' }}
           alignItems="center"
           justifyContent={{ base: 'center', sm: 'center', md: 'space-evenly'}}
         >
-          <Box>
-            <Flex
-              direction="column"
-              alignItems={{ base: 'center', sm: 'flex-start' }}
-              gap={4}
-            >
-              <Heading
-                fontSize={{ base: '37px', sm: '4xl', md: '4xl', lg: '5xl' }}
-                color={"rgba(237, 237, 78, 0.737)"}
-                fontFamily={'"Lacquer", system-ui, sans-serif'}
-              >
-                Contacto
-              </Heading>
-              <Text 
-                mt={{ sm: 4, md: 3, lg: 5 }} 
-                color="white"
-                borderBottom={'1px solid #DCE2FF'}
-                display={{base: 'none', sm: 'block'}}
-              >
-                Nuestros medios de Contacto
-              </Text>
-            </Flex>
-            <Flex
-              direction="column"
-              alignItems="flex-start"
-              gap={{ base: 1, sm: 4 }}
+          <Flex
+              flexDirection={'column'}
+              alignItems={'flex-start'}
+              gap={6}
               paddingTop={5}
               marginLeft={{base:'-15px'}}
             >
+            <Heading
+              fontSize={{ base: '2xl', sm: '4xl', md: '4xl', lg: '5xl' }}
+              color="white"
+              fontFamily={'"Lacquer", system-ui, sans-serif'}
+            >
+              Contacto
+            </Heading>
+            <Text mt={{ sm: 3, md: 3, lg: 5 }} color="white">
+              Nuestros medios de Contacto:
+            </Text>
+            
               <Button
                 size={{ base: 'md', sm: 'lg' }}
-                colorScheme='Gray'
-                color=" #DCE2FF"
-                marginLeft={'-2px'}
+                variant="ghost"
+                color="#DCE2FF"
+                transition="border-bottom 0.6s ease-in-out"
+                _hover={{ 
+                  borderBottom: '2px solid #1C6FEB',
+                }}
                 leftIcon={<MdPhone color="rgb(240, 240, 42)" size="20px"/>}
               >
                 +54-342-111-1111
               </Button>
-              <Button 
+              <Button
                 size="md"
                 colorScheme='Gray'
                 color="#DCE2FF"
+                _hover={{ border: '2px solid #1C6FEB' }}
                 leftIcon={<MdEmail color="rgb(240, 240, 42)" size="20px" />}
               >
                 be-realclothes@gmail.com
               </Button>
               <Button
                 size="md"
-                colorScheme='Gray'
+                variant="ghost"
                 color="#DCE2FF"
-                leftIcon={<MdLocationOn color="rgb(240, 240, 42)" size="20px" />}>
+                _hover={{ border: '2px solid #1C6FEB' }}
+                leftIcon={<MdLocationOn color="rgb(240, 240, 42)" size="20px" />}
+              >
                 Santa Fe, Argentina
               </Button>
-            </Flex>
 
             <HStack
               mt={{ lg: 10, md: 8, base: 6 }}
@@ -146,7 +136,7 @@ export const Contacto = () => {
                 />
               </Link>
             </HStack>
-          </Box>
+          </Flex>
           <Box
             bg="white"
             p={7}
