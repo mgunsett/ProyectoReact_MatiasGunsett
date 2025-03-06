@@ -36,14 +36,7 @@
     padding: 10px;
     position:static;
 }
-.order-container { 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    padding: 5px;
-    border-radius: 10px;
-}
+
 .item-info-payment {
     font-size: 15px;
 }

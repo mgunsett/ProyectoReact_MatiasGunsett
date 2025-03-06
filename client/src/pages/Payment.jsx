@@ -157,7 +157,7 @@ export const Payment = ({ onBack }) => {
           }}
         />
       </Box>
-      <Box className="order-container">
+      <Box h={'60vh'} overflowY="auto" mt={4} mb={2} p={4}>
       {cartState.length === 0 ? (
         <Alert status="info" borderRadius="md">
           <AlertIcon />

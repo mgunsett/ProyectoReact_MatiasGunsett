@@ -67,7 +67,7 @@ export const CartDetails = ({onContinue}) => {
               borderRadius="md"
               alignItems="center"
               boxShadow="sm"
-              
+              mb={2}
             >
               <Image
                 src={item.imageUrl}

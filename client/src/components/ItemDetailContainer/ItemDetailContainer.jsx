@@ -35,7 +35,7 @@ export const ItemDetailContainer = ({ product }) => {
     }
     // Se añade el producto con la propiedad 'selectedSize'
     addItem({ ...product, selectedSize }, 1);
-    setShowCount(!showCount);
+    setShowCount(!showCount); 
   }; 
   // Si la cantidad es menor al stock, incrementar la cantidad en 1 //
   const handleIncrement = () => {
@@ -50,7 +50,7 @@ export const ItemDetailContainer = ({ product }) => {
     if (count > 0) {
       const newCount = count - 1;
       setCount(newCount);
-      removeItem({ ...product, selectedSize });
+      removeItem({ ...product, selectedSize }); 
     }
   };
   // Función para manejar el click en los talles //
