@@ -68,9 +68,8 @@ export const Contacto = () => {
                 size={{ base: 'md', sm: 'lg' }}
                 variant="ghost"
                 color="#DCE2FF"
-                transition="border-bottom 0.6s ease-in-out"
-                _hover={{ 
-                  borderBottom: '2px solid #1C6FEB',
+                _hover={{
+                  bg: 'transparent'
                 }}
                 leftIcon={<MdPhone color="rgb(240, 240, 42)" size="20px"/>}
               >
@@ -78,9 +77,11 @@ export const Contacto = () => {
               </Button>
               <Button
                 size="md"
-                colorScheme='Gray'
+                variant="ghost"
                 color="#DCE2FF"
-                _hover={{ border: '2px solid #1C6FEB' }}
+                _hover={{
+                  bg: 'transparent'
+                }}
                 leftIcon={<MdEmail color="rgb(240, 240, 42)" size="20px" />}
               >
                 be-realclothes@gmail.com
@@ -89,7 +90,9 @@ export const Contacto = () => {
                 size="md"
                 variant="ghost"
                 color="#DCE2FF"
-                _hover={{ border: '2px solid #1C6FEB' }}
+                _hover={{
+                  bg: 'transparent'
+                }}
                 leftIcon={<MdLocationOn color="rgb(240, 240, 42)" size="20px" />}
               >
                 Santa Fe, Argentina
