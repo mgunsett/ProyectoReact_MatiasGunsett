@@ -11,7 +11,7 @@ import {
   SimpleGrid,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";  
 import { CartContext } from "../../context/CartContext";
 import './ItemDetailContainer.css'
 
@@ -55,16 +55,16 @@ export const ItemDetailContainer = ({ product }) => {
   };
   // Función para manejar el click en los talles //
   const handleSizeClick = (size) => {
-    if (selectedSize === size) {
-      setSelectedSize(null); // Si el talle ya está seleccionado, deseleccionarlo
-    }else {
-      setSelectedSize(size); // Actualizar el talle seleccionado
-    }
-  };
+    setSelectedSize(selectedSize === size ? null : size); // Alterna la selección del talle
+  }; 
   
-  // Si product.sizesStock existe, extraemos los talles; sino, usamos un fallback
-  const sizes = product.sizesStock ? Object.keys(product.sizesStock) : ["SM", "MD", "LA", "XL"];
-
+  //! Extraemos los talles desde Firestore usando la nueva estructura:
+  // Si existe product.sizesStore.sizes, extraemos las keys; de lo contrario, usamos un fallback.
+  const sizes =
+    product.sizesStock && product.sizesStock.sizes
+      ? Object.keys(product.sizesStore.sizes)
+      : ["SM", "MD", "LA", "XL"];
+  
   // Función para manejar el click en las imágenes //
   const handleImageClick = (imageSrc) => {
     setMainImage(imageSrc); 
@@ -213,7 +213,7 @@ export const ItemDetailContainer = ({ product }) => {
                     borderColor: "rgba(237, 237, 78, 0.737)",
                   }}
                   variant="outline"
-                  disabled={product.sizesStock && product.sizesStock[size] <= 0} // Si el stock es 0, deshabilita el botón
+                  disabled={product.sizesStock?.sizes?.[size] <= 0} // Si el stock es 0, deshabilita el botón
                 >
                   {size}
                 </Button>

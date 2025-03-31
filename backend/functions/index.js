@@ -1,10 +1,6 @@
 import { onDocumentCreated } from "firebase-functions/v2/firestore";
 import { initializeApp } from "firebase-admin/app";
-import {
-  getFirestore,
-  runTransaction,
-  FieldValue,
-} from "firebase-admin/firestore";
+import { getFirestore } from "firebase-admin/firestore";
 
 initializeApp();
 
@@ -18,9 +14,9 @@ export const actualizarStockDespuesDeOrden = onDocumentCreated(
 
     const updates = orderData.items.map(async (item) => {
       const productRef = db.doc(`products/${item.productId}`);
-      const fieldName = `sizesStore.sizes.${item.selectedSize}`;
+      const fieldName = `sizesStock.sizes.${item.selectedSize}`;
 
-      return runTransaction(db, async (transaction) => {
+      return db.runTransaction(db, async (transaction) => {
         const productDoc = await transaction.get(productRef);
         if (!productDoc.exists) {
           throw new Error(`El producto ${item.productId} no existe.`);
@@ -28,7 +24,7 @@ export const actualizarStockDespuesDeOrden = onDocumentCreated(
 
         const productData = productDoc.data();
         const currentStock =
-          productData.sizesStore?.sizes?.[item.selectedSize] || 0;
+          productData.sizesStock?.sizes?.[item.selectedSize] || 0;
 
         if (currentStock < item.quantity) {
           throw new Error(

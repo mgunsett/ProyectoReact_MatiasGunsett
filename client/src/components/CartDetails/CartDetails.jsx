@@ -21,14 +21,9 @@ export const CartDetails = ({onContinue}) => {
 
   const { cartState, addItem, removeItem, deleteItem } = useContext(CartContext);
 
-  const total = cartState.reduce(
-    (acc, item) => acc + item.price * item.qtyItem,
-    0
-  );
+  const total = cartState.reduce((acc, item) => acc + item.price * item.qtyItem, 0 );
   
-  const handleDeleteItem = (item) => {
-    deleteItem(item);
-  };
+  const handleDeleteItem = (item) => { deleteItem(item);};
 
   return (
     <>
@@ -61,7 +56,7 @@ export const CartDetails = ({onContinue}) => {
         <Box w={{ base: "330px", md: "90%" }}>
           {cartState.map((item) => (  
             <Flex
-              key={item.id}
+              key={item.id + item.selectedSize}
               p={1}
               borderWidth="1px"
               borderRadius="md"

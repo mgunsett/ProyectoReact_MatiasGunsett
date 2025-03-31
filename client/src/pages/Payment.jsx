@@ -57,6 +57,8 @@ export const Payment = ({ onBack }) => {
         return {
           id: item.id,
           title: item.title,
+          selectedSize: item.selectedSize,
+          imageUrl: item.imageUrl,
           price: item.price,
           quantity: item.qtyItem,
         };
@@ -68,7 +70,7 @@ export const Payment = ({ onBack }) => {
     addDoc(ordersCollection, orderObj)
       .then(({ id }) => {
         toast({
-          title: 'Pedido creado con éxito!',
+          title: 'Su pedido se realizó con éxito!',
           description: `Su número de orden es: ${id}`,
           status: 'success',
           duration: 9000,
@@ -144,81 +146,101 @@ export const Payment = ({ onBack }) => {
   }, [preferenceId, cartState]);
 
   return (
-    <Box className ="container-payment" marginTop={16}>
+    <Box className="container-payment" marginTop={16}>
       <Box className="header-payment">
-        <Text  className="title">Realizar Pedido</Text>
-        <Icon 
-          as={CloseIcon} 
-          onClick={onBack} 
-          color={'white'}
-          _hover={{ 
-            cursor: "pointer", 
-            color: "red.500"
+        <Text className="title">Realizar Pedido</Text>
+        <Icon
+          as={CloseIcon}
+          onClick={onBack}
+          color={"white"}
+          _hover={{
+            cursor: "pointer",
+            color: "red.500",
           }}
         />
       </Box>
-      <Box h={'60vh'} overflowY="auto" mt={4} mb={2} p={4}>
-      {cartState.length === 0 ? (
-        <Alert status="info" borderRadius="md">
-          <AlertIcon />
-          Tu carrito está vacío.
-        </Alert>
-      ) : (
-        <VStack spacing={2} align='normal'w={"100%"}>
-          {cartState.map((item) => (  
-            <Flex
-              key={item.id + item.selectedSize}
-              p={2}
-              alignItems="center"
-              boxShadow="sm"
-            >
-              <Image
-                src={item.imageUrl}
-                alt={item.title}
-                boxSize="80px"
-                objectFit="cover"
-                borderRadius="md"
-                mr={4}
-              />
-              <Box maxW="sm" className="item-info-payment">
-                <Text fontSize="lg" fontWeight="bold" color={'white'}>
-                  {item.title}
-                </Text>
-                <Text color={'white'}>Talle: {item.selectedSize}</Text>
-                <HStack spacing={4} mt={2}>
-                  <Text color={'white'}>Precio: ${item.price.toFixed(2)}</Text>
-                </HStack>
-              </Box>
-              <Spacer />
+      <Box h={"60vh"} overflowY="auto" mt={4} mb={2} p={4}>
+        {cartState.length === 0 ? (
+          <Alert status="info" borderRadius="md">
+            <AlertIcon />
+            Tu carrito está vacío.
+          </Alert>
+        ) : (
+          <VStack spacing={2} align="normal" w={"100%"}>
+            {cartState.map((item) => (
+              <Flex
+                key={item.id + item.selectedSize}
+                p={2}
+                alignItems="center"
+                boxShadow="sm"
+              >
+                <Image
+                  src={item.imageUrl}
+                  alt={item.title}
+                  boxSize="80px"
+                  objectFit="cover"
+                  borderRadius="md"
+                  mr={4}
+                />
+                <Box maxW="sm" className="item-info-payment">
+                  <Text fontSize="lg" fontWeight="bold" color={"white"}>
+                    {item.title}
+                  </Text>
+                  <Text color={"white"}>Talle: {item.selectedSize}</Text>
+                  <HStack spacing={4} mt={2}>
+                    <Text color={"white"}>Precio: ${item.price.toFixed(2)}</Text>
+                  </HStack>
+                </Box>
+                <Spacer />
+              </Flex>
+            ))}
+            <Flex m={"20px 0"} justifyContent="space-between" alignItems="center">
+              <Text fontSize="2xl" fontWeight="bold" color={"white"}>
+                Total:
+              </Text>
+              <Text
+                fontSize="xl"
+                fontWeight="bold"
+                color={"rgba(237, 237, 78, 0.737)"}
+              >
+                ${total.toFixed(2)}
+              </Text>
             </Flex>
-          ))}
-          <Flex m={'20px 0'} justifyContent="space-between" alignItems="center">
-            <Text fontSize="2xl" fontWeight="bold" color={'white'}>
-              Total:
-            </Text>
-            <Text fontSize="xl" fontWeight="bold" color={"rgba(237, 237, 78, 0.737)"}>
-              ${total.toFixed(2)}
-            </Text>
-          </Flex>
-        </VStack>
-      )}
+          </VStack>
+        )}
       </Box>
-        <Box className="btn-container-payment">    
-            <Button className="btn" colorScheme="teal" size="lg" onClick={handleCreateOrder}>
-                Crear Orden
-            </Button>
-            {preferenceId && (
-            <Wallet 
-              initialization={{ preferenceId: preferenceId , redirectMode: 'blank'}} 
-              customization={{ 
-                texts:{ valueProp: 'smart_option'},
-              }} 
-            />
-             )}
-            <Button  size="md" onClick={onBack}>
-                Ver más productos
-            </Button>
-        </Box>
+      <Box className="btn-container-payment"> 
+        {preferenceId ? (
+          <Wallet
+            initialization={{ preferenceId: preferenceId, redirectMode: "blank" }}
+            onReady={() => console.log("Wallet está listo")}
+            onSubmit={(data) => console.log("Pago enviado", data)}
+            onApprove={(data) => {
+              console.log("Pago aprobado", data);
+              handleCreateOrder();
+            }}
+            customization={{
+              texts: { valueProp: "smart_option" },
+            }}
+          />
+        ) : (
+          <Button
+            size="md"
+            isLoading
+            loadingText="Cargando"
+            spinnerPlacement="end"
+            colorScheme="blue"
+            bg="#009EE3"
+            color="white"
+            _hover={{ bg: "#0077B6" }}
+          >
+            Cargando <span className="loading-dots">...</span>
+          </Button>
+        )}
+        <Button size="md" onClick={onBack}>
+          Ver más productos
+        </Button>
+      </Box>
     </Box>
   );
 };
