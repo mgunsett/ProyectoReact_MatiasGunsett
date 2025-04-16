@@ -208,7 +208,7 @@ export const Payment = ({ onBack }) => {
             </Flex>
           </VStack>
         )}
-      </Box>
+      </Box> 
       <Box className="btn-container-payment"> 
         {preferenceId ? (
           <Wallet

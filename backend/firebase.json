@@ -1,8 +1,13 @@
 {
-  "functions": [
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "functions":
     {
       "source": "functions",
-      "codebase": "default",
       "ignore": [
         "node_modules",
         ".git",
@@ -10,8 +15,8 @@
         "firebase-debug.*.log",
         "*.local"
       ]
-    }
-  ],
+    },
+
   "emulators": {
     "functions": {
       "port": 5001
@@ -19,8 +24,13 @@
     "firestore": {
       "port": 8080
     },
+    "storage": {
+      "port": 9199
+    },
+
     "ui": {
-      "enabled": true
+      "enabled": true,
+      "port": 4000
     },
     "singleProjectMode": true
   }

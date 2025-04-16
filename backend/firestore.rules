@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Permitir lectura y escritura en todos los documentos SOLO si estás usando emulador (modo dev)
+    match /{document=**} {
+      allow read, write: if true;
+    }
+
+  }
+}

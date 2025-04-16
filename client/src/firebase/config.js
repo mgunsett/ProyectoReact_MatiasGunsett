@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
@@ -17,6 +17,11 @@ const app = initializeApp(firebaseConfig);
 
 // Inicializamos la base de datos //!siempre es la misma sentencia para importar la base de datos !
 export const db = getFirestore(app);
+// Conectamos a la base de datos en el emulador (solo para desarrollo)
+if (window.location.hostname === "localhost") {
+  console.log("🔥 Conectado a Firestore Emulator");
+  connectFirestoreEmulator(db, "localhost", 8080);
+}
 
 // Inicializamos el almacenamiento
 export const storage = getStorage(app);
