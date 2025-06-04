@@ -21,7 +21,6 @@ export const Checkout = () => {
     <Box 
       position="relative" 
       height={{ base: '100%', md: '100vh' }} 
-      height={{ base: '100%', md: '100vh' }} 
       paddingTop={20}
       marginTop={-16}
       backgroundColor={('gray.200', 'gray.700')}

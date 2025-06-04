@@ -1,24 +1,24 @@
-const { onDocumentCreated } = require("firebase-functions/v2/firestore");
-const { initializeApp } = require("firebase-admin/app");
-const { getFirestore, FieldValue } = require("firebase-admin/firestore");
+import { onDocumentCreated } from "firebase-functions/v2/firestore";
+import { initializeApp } from "firebase-admin/app";
+import { getFirestore, FieldValue } from "firebase-admin/firestore";
 
 initializeApp();
 const db = getFirestore();
 
-exports.actualizarStockDespuesDeOrden = onDocumentCreated(
+export const actualizarStockDespuesDeOrden = onDocumentCreated(
   "orders/{orderId}",
   async (event) => {
     const orderData = event.data?.data();
     if (!orderData) return;
 
     const updates = orderData.items.map(async (item) => {
-      const productRef = db.doc(`products/${item.productId}`);
+      const productRef = db.doc(`products/${item.id}`);
       const fieldName = `sizesStock.sizes.${item.selectedSize}`;
 
       return db.runTransaction(async (transaction) => {
         const productDoc = await transaction.get(productRef);
         if (!productDoc.exists) {
-          throw new Error(`El producto ${item.productId} no existe.`);
+          throw new Error(`El producto ${item.id} no existe.`);
         }
 
         const productData = productDoc.data();
@@ -27,7 +27,7 @@ exports.actualizarStockDespuesDeOrden = onDocumentCreated(
 
         if (currentStock < item.quantity) {
           throw new Error(
-            `No hay suficiente stock para el producto ${item.productId}`
+            `No hay suficiente stock para el producto ${item.id}`
           );
         }
 

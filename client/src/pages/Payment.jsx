@@ -55,7 +55,7 @@ export const Payment = ({ onBack }) => {
       },
       items: cartState.map((item) => {
         return {
-          id: item.id,
+          productId: item.id,
           title: item.title,
           selectedSize: item.selectedSize,
           imageUrl: item.imageUrl,
