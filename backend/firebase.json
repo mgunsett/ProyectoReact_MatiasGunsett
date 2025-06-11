@@ -19,15 +19,21 @@
 
   "emulators": {
     "functions": {
-      "port": 5001
+      "port": 5001,
+      "host": "localhost"
     },
     "firestore": {
-      "port": 8080
+      "port": 8080,
+      "host": "localhost"
     },
     "storage": {
-      "port": 9199
+      "port": 9199,
+      "host": "localhost"
     },
-
+    "auth": {
+      "port": 9099,
+      "host": "localhost"
+    },
     "ui": {
       "enabled": true,
       "port": 4000

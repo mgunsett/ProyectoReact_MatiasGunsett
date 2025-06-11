@@ -47,47 +47,91 @@ export const Payment = ({ onBack }) => {
     console.log("Public Key Mercado Pago:", MP_PUBLIC_KEY);
 
 
-  const handleCreateOrder = () => {
-    const orderObj = {
-      buyer: {
+  const handleCreateOrder = async () => {
+    try {
+      // Verificar stock antes de crear la orden
+      for (const item of cartState) {
+        const productRef = db.doc(`products/${item.id}`);
+        const productDoc = await productRef.get();
+        if (!productDoc.exists) {
+          throw new Error(`El producto ${item.id} no existe`);
+        }
+        const productData = productDoc.data();
+        const currentStock = productData.sizesStock?.sizes?.[item.selectedSize] || 0;
+        
+        if (currentStock < item.qtyItem) {
+          throw new Error(`No hay suficiente stock para el producto ${item.id}`);
+        }
+      }
+
+      const orderObj = {
+        buyer: {
           name: user.displayName,
           email: user.email,
-      },
-      items: cartState.map((item) => {
-        return {
-          productId: item.id,
-          title: item.title,
-          selectedSize: item.selectedSize,
-          imageUrl: item.imageUrl,
-          price: item.price,
-          quantity: item.qtyItem,
-        };
-      }),
-      total: total,
-    };
+        },
+        items: cartState.map((item) => {
+          return {
+            productId: item.id,
+            title: item.title,
+            selectedSize: item.selectedSize,
+            imageUrl: item.imageUrl,
+            price: item.price,
+            quantity: item.qtyItem,
+          };
+        }),
+        total: total,
+        status: 'pending',
+        createdAt: new Date().toISOString()
+      };
 
-  const ordersCollection = collection(db, "orders");
-    addDoc(ordersCollection, orderObj)
-      .then(({ id }) => {
-        toast({
-          title: 'Su pedido se realizó con éxito!',
-          description: `Su número de orden es: ${id}`,
-          status: 'success',
-          duration: 9000,
-          isClosable: true,
-          position: 'top',
-        });
-      })
-      .catch((error) => {
-        toast({
-          title: 'Error al crear el pedido.',
-          description: `Hubo un problema: ${error.message}`,
-          status: 'error',
-          duration: 9000,
-          isClosable: true,
-        });
+      const ordersCollection = collection(db, "orders");
+      const orderDoc = await addDoc(ordersCollection, orderObj);
+
+      // Crear preferencia de pago en MercadoPago
+      const preference = {
+        items: orderObj.items.map(item => ({
+          title: item.title,
+          quantity: item.quantity,
+          currency_id: "ARS",
+          unit_price: item.price,
+        })),
+        payer: {
+          name: user.displayName,
+          email: user.email,
+        },
+        back_urls: {
+          success: `${window.location.origin}/payment/success/${orderDoc.id}`,
+          failure: `${window.location.origin}/payment/failure/${orderDoc.id}`,
+          pending: `${window.location.origin}/payment/pending/${orderDoc.id}`,
+        },
+        notification_url: `${window.location.origin}/api/webhook/mercadopago`,
+        external_reference: orderDoc.id,
+      };
+
+      // Aquí deberías hacer la llamada a tu backend para crear la preferencia
+      const response = await axios.post('/api/create-preference', { preference });
+      const preferenceId = response.data.preferenceId;
+      setPreferenceId(preferenceId);
+
+      toast({
+        title: 'Su pedido se realizó con éxito!',
+        description: `Su número de orden es: ${orderDoc.id}`,
+        status: 'success',
+        duration: 9000,
+        isClosable: true,
+        position: 'top',
       });
-  };
+    } catch (error) {
+      toast({
+        title: 'Error al procesar el pedido',
+        description: error.message,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+      console.error('Error al crear la orden:', error);
+    }
+};
   
 // Pago Mercadopago :
   useEffect(() => {  
