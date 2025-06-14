@@ -139,7 +139,7 @@ export const Payment = ({ onBack }) => {
       initMercadoPago(MP_PUBLIC_KEY, {  
         locale: 'es-AR',  
         client: {  
-          sandbox: true  
+          sandbox: false  // Cambiamos a producción
         }  
       });  
     } else {  
@@ -148,38 +148,93 @@ export const Payment = ({ onBack }) => {
   }, [MP_PUBLIC_KEY]); 
 
   const handlePayment = async () => {
-    const items = cartState.map((item) => ({
-      title: item.title,
-      quantity: item.qtyItem,
-      currency_id: "ARS",
-      unit_price: item.price,
-    }));
     if (!user) {
       toast({
-      title: 'Usuario no autenticado.',
-      description: 'Por favor, inicie sesión para continuar con el pago.',
-      status: 'warning',
-      duration: 9000,
-      isClosable: true,
+        title: 'Usuario no autenticado.',
+        description: 'Por favor, inicie sesión para continuar con el pago.',
+        status: 'warning',
+        duration: 9000,
+        isClosable: true,
       });
       return;
     }
-    const payer = {
-      email: user.email,
-      name: user.displayName,
-    };
+
     try {
-      const response = await axios.post(`https://proyectoreact-matiasgunsett.onrender.com/create_preference`, {
-        items,
-        payer,
-      });
+      // Primero, creamos la orden en Firestore
+      const orderObj = {
+        buyer: {
+          name: user.displayName,
+          email: user.email,
+        },
+        items: cartState.map((item) => ({
+          productId: item.id,
+          title: item.title,
+          selectedSize: item.selectedSize,
+          imageUrl: item.imageUrl,
+          price: item.price,
+          quantity: item.qtyItem,
+        })),
+        total: total,
+        status: 'pending',
+        createdAt: new Date().toISOString()
+      };
 
-      const {id} = response.data;
-      console.log("ID de preferencia:", id);
-      setPreferenceId(id);
+      const ordersCollection = collection(db, "orders");
+      const orderDoc = await addDoc(ordersCollection, orderObj);
 
+      // Luego, creamos la preferencia en MercadoPago
+      const preference = {
+        items: orderObj.items.map(item => ({
+          title: item.title,
+          quantity: item.quantity,
+          currency_id: "ARS",
+          unit_price: item.price,
+        })),
+        payer: {
+          name: user.displayName,
+          email: user.email,
+        },
+        back_urls: {
+          success: `${window.location.origin}/payment/success/${orderDoc.id}`,
+          failure: `${window.location.origin}/payment/failure/${orderDoc.id}`,
+          pending: `${window.location.origin}/payment/pending/${orderDoc.id}`,
+        },
+        notification_url: `${window.location.origin}/api/webhook/mercadopago`,
+        external_reference: orderDoc.id,
+      };
+
+      try {
+        // Intentamos crear la preferencia en el backend
+        const response = await axios.post('https://proyectoreact-matiasgunsett.onrender.com/create_preference', {
+          preference
+        });
+
+        const { id } = response.data;
+        console.log("ID de preferencia:", id);
+        setPreferenceId(id);
+
+        toast({
+          title: 'Su pedido se realizó con éxito!',
+          description: `Su número de orden es: ${orderDoc.id}`,
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+          position: 'top',
+        });
+      } catch (error) {
+        // Si hay error creando la preferencia, eliminamos la orden
+        await orderDoc.delete();
+        throw error;
+      }
     } catch (error) {
-      console.error("Error al iniciar el pago:", error);
+      console.error("Error al procesar el pago:", error);
+      toast({
+        title: 'Error al procesar el pago',
+        description: error.message,
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
   
