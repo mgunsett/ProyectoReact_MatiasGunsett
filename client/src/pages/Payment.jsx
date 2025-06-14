@@ -37,8 +37,7 @@ export const Payment = ({ onBack }) => {
   }, []);
 
     const toast = useToast();
-    const [preferenceId, setPreferenceId] = useState(null);
-    
+    const [preferenceId, setPreferenceId] = useState(null)
     const { cartState } = useContext(CartContext);
     const total = cartState.reduce(
     (acc, item) => acc + item.price * item.qtyItem,0);

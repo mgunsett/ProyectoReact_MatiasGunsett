@@ -24,8 +24,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
-app.use(cors());
 app.use(bodyParser.json());
+// Configurar CORS para permitir peticiones desde tu frontend
+app.use(cors({
+  origin: ['https://berealclothes.netlify.app', 'http://localhost:3000'], // Agrega aquí los dominios permitidos
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
 
 // Control de que está funcionando el servidor
 app.get("/", (req, res) => {
