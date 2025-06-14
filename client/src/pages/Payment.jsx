@@ -194,11 +194,11 @@ export const Payment = ({ onBack }) => {
           email: user.email,
         },
         back_urls: {
-          success: `${window.location.origin}/payment/success/${orderDoc.id}`,
-          failure: `${window.location.origin}/payment/failure/${orderDoc.id}`,
-          pending: `${window.location.origin}/payment/pending/${orderDoc.id}`,
+          success: `https://berealclothes.netlify.app/`,
+          failure: `https://berealclothes.netlify.app/checkout`,
+          pending: `https://berealclothes.netlify.app/checkout`,
         },
-        notification_url: `${window.location.origin}/api/webhook/mercadopago`,
+        notification_url: `https://berealclothes.netlify.app/api/webhook/mercadopago`,
         external_reference: orderDoc.id,
       };
 
@@ -310,7 +310,7 @@ export const Payment = ({ onBack }) => {
       <Box className="btn-container-payment"> 
         {preferenceId ? (
           <Wallet
-            initialization={{ preferenceId: preferenceId, redirectMode: "blank" }}
+            initialization={{ preferenceId: preferenceId}}
             onReady={() => console.log("Wallet está listo")}
             onSubmit={(data) => console.log("Pago enviado", data)}
             onApprove={(data) => {
