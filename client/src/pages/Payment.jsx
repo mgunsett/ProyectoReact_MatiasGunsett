@@ -198,7 +198,7 @@ export const Payment = ({ onBack }) => {
           failure: `https://berealclothes.netlify.app/checkout`,
           pending: `https://berealclothes.netlify.app/checkout`,
         },
-        notification_url: `https://berealclothes.netlify.app/api/webhook/mercadopago`,
+        notification_url: `${window.location.origin}/api/webhook/mercadopago`,
         external_reference: orderDoc.id,
       };
 

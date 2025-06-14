@@ -13,8 +13,9 @@ dotenv.config();
 
 // Configuración de MercadoPago
 const client = new MercadoPagoConfig({
-  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN || "APP_USR-3383355378043000-122110-2b2b6e4590b3272b27ca5a06417e019d-2170936801",
+  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
 });
+//|| "APP_USR-3383355378043000-122110-2b2b6e4590b3272b27ca5a06417e019d-2170936801",
 
 // Inicializar Firebase
 initializeApp();
