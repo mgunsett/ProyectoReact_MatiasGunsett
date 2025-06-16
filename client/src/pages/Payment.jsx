@@ -28,8 +28,9 @@ export const Payment = ({ onBack }) => {
   const [preferenceId, setPreferenceId] = useState(null);
   const { cartState } = useContext(CartContext);
   const total = cartState.reduce((acc, item) => acc + item.price * item.qtyItem, 0);
-  const MP_PUBLIC_KEY = process.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY;
-
+  const MP_PUBLIC_KEY = process.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY || "APP_USR-7f3e4b4c-354e-4e36-b063-e990a53192f3";
+  console.log("MP_PUBLIC_KEY:", MP_PUBLIC_KEY);
+  
   // Bloquear scroll del body
   useEffect(() => {
     document.body.style.overflow = "hidden";
