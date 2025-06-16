@@ -1,87 +1,3 @@
-// server.js
-import express from "express";
-import cors from "cors";
-import bodyParser from "body-parser";
-import dotenv from "dotenv";
-// SDK de Mercado Pago
-import { MercadoPagoConfig, Preference } from "mercadopago";
-// Firebase Admin
-import { initializeApp } from "firebase-admin/app";
-import { getFirestore } from "firebase-admin/firestore";
-
-dotenv.config();
-
-// Configuración de MercadoPago
-const client = new MercadoPagoConfig({
-  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
-});
-//|| "APP_USR-3383355378043000-122110-2b2b6e4590b3272b27ca5a06417e019d-2170936801",
-
-// Inicializar Firebase
-initializeApp();
-const db = getFirestore();
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middlewares
-app.use(bodyParser.json());
-// Configurar CORS para permitir peticiones desde tu frontend
-app.use(cors({
-  origin: ['https://berealclothes.netlify.app', 'http://localhost:3000'], // Agrega aquí los dominios permitidos
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-}));
-
-// Control de que está funcionando el servidor
-app.get("/", (req, res) => {
-  res.send("Servidor de Mercado Pago");
-});
-
-// Ruta para crear una preferencia
-app.post("/create_preference", async (req, res) => {
-  try {
-    console.log("Recibida preferencia:", req.body.preference);
-    
-    const { preference } = req.body;
-    
-    // Validar que la preferencia tenga los campos necesarios
-    if (!preference || !preference.items || !preference.payer) {
-      return res.status(400).json({
-        error: "Faltan campos requeridos en la preferencia"
-      });
-    }
-    // Crear la preferencia con los datos recibidos
-    const body = {
-      ...preference,
-      back_urls: {
-        success: preference.back_urls.success,
-        failure: preference.back_urls.failure,
-        pending: preference.back_urls.pending,
-      },
-      auto_return: "approved",
-    };
-
-    console.log("Cuerpo de preferencia:", body);
-
-    const preferenceObj = new Preference(client);
-    const result = await preferenceObj.create({ body });
-
-    console.log("Preferencia creada:", result);
-
-    res.json({
-      id: result.id,
-    });
-  } catch (error) {
-    console.error("Error al crear la preferencia:", error);
-    console.error("Error stack:", error.stack);
-    res.status(500).json({
-      error: "Error al crear la preferencia",
-      details: error.message
-    });
-  }
-});
-
 // Ruta para el webhook de MercadoPago
 app.post("/api/webhook/mercadopago", async (req, res) => {
   try {
@@ -95,29 +11,80 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
       notification
     });
 
-    // Actualizar el estado de la orden en Firestore
+    // Obtener la orden completa
     const orderRef = db.collection("orders").doc(orderId);
+    const orderDoc = await orderRef.get();
+    
+    if (!orderDoc.exists) {
+      console.error("Orden no encontrada:", orderId);
+      return res.status(404).json({ error: "Orden no encontrada" });
+    }
+
+    const order = orderDoc.data();
+
+    // Actualizar el estado de la orden
     await orderRef.update({
       paymentStatus: paymentStatus,
       updatedAt: new Date().toISOString()
     });
 
-    // Si el pago es aprobado, enviar notificación al usuario
+    // Si el pago es aprobado, actualizar el stock
     if (paymentStatus === "approved") {
       console.log("Pago aprobado para orden:", orderId);
+
+      // Actualizar el stock para cada item
+      for (const item of order.items) {
+        console.log("Procesando item:", item);
+        
+        // Verificar que el tamaño esté en mayúsculas
+        const size = item.selectedSize.toUpperCase();
+        
+        // Actualizar el stock usando una transacción
+        await db.runTransaction(async (transaction) => {
+          const productRef = db.collection("products").doc(item.productId);
+          const productDoc = await transaction.get(productRef);
+          
+          if (!productDoc.exists) {
+            console.error(`Producto no encontrado: ${item.productId}`);
+            throw new Error(`Producto ${item.productId} no encontrado`);
+          }
+
+          const productData = productDoc.data();
+          const sizes = productData.sizesStock?.sizes || {};
+
+          // Verificar si el tamaño existe
+          if (!sizes[size]) {
+            console.error(`Tamaño no encontrado: ${size} en producto ${item.productId}`);
+            throw new Error(`Tamaño ${size} no disponible en producto ${item.productId}`);
+          }
+
+          // Verificar stock suficiente
+          if (sizes[size] < item.quantity) {
+            console.error(`Stock insuficiente para ${size} en producto ${item.productId}`);
+            throw new Error(`Stock insuficiente para ${size} en producto ${item.productId}`);
+          }
+
+          // Actualizar el stock
+          sizes[size] = sizes[size] - item.quantity;
+
+          transaction.update(productRef, {
+            'sizesStock.sizes': sizes
+          });
+        });
+      }
     }
 
     res.status(200).json({ status: "success" });
   } catch (error) {
     console.error("Error en webhook:", error);
-    res.status(500).json({ error: "Error procesando notificación" });
+    console.error("Error stack:", error.stack);
+    res.status(500).json({
+      error: "Error procesando notificación",
+      details: error.message
+    });
   }
 });
 
-// Iniciar servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en puerto ${PORT}`);
-});
 /*
 // server.js
 import express from "express";
