@@ -42,7 +42,7 @@ export const Payment = ({ onBack }) => {
     const total = cartState.reduce(
     (acc, item) => acc + item.price * item.qtyItem,0);
     
-    const MP_PUBLIC_KEY = "APP_USR-7f3e4b4c-354e-4e36-b063-e990a53192f3";
+    const MP_PUBLIC_KEY = process.env.VITE_REACT_APP_MP_PUBLIC_KEY  || "APP_USR-7f3e4b4c-354e-4e36-b063-e990a53192f3" ;
     console.log("Public Key Mercado Pago:", MP_PUBLIC_KEY);
 
 
@@ -99,12 +99,12 @@ export const Payment = ({ onBack }) => {
           email: user.email,
         },
         back_urls: {
-          success: `${window.location.origin}/payment/success/${orderDoc.id}`,
-          failure: `${window.location.origin}/payment/failure/${orderDoc.id}`,
-          pending: `${window.location.origin}/payment/pending/${orderDoc.id}`,
+          success: `https://berealclothes.netlify.app/`,
+          failure: `https://berealclothes.netlify.app/checkout`,
+          pending: `https://berealclothes.netlify.app/checkout`,
         },
-        notification_url: `${window.location.origin}/api/webhook/mercadopago`,
         external_reference: orderDoc.id,
+        auto_return: "approved"
       };
 
       // Aquí deberías hacer la llamada a tu backend para crear la preferencia
@@ -132,7 +132,7 @@ export const Payment = ({ onBack }) => {
     }
 };
   
-// Pago Mercadopago :
+// Pago Mercadopago (configuraciones):
   useEffect(() => {  
     if (MP_PUBLIC_KEY) {  
       initMercadoPago(MP_PUBLIC_KEY, {  

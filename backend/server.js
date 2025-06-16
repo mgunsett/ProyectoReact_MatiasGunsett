@@ -40,9 +40,17 @@ app.get("/", (req, res) => {
 
 // Ruta para crear una preferencia
 app.post("/create_preference", async (req, res) => {
-  const { preference } = req.body;
-
   try {
+    console.log("Recibida preferencia:", req.body.preference);
+    
+    const { preference } = req.body;
+    
+    // Validar que la preferencia tenga los campos necesarios
+    if (!preference || !preference.items || !preference.payer) {
+      return res.status(400).json({
+        error: "Faltan campos requeridos en la preferencia"
+      });
+    }
     // Crear la preferencia con los datos recibidos
     const body = {
       ...preference,
@@ -54,15 +62,23 @@ app.post("/create_preference", async (req, res) => {
       auto_return: "approved",
     };
 
+    console.log("Cuerpo de preferencia:", body);
+
     const preferenceObj = new Preference(client);
     const result = await preferenceObj.create({ body });
+
+    console.log("Preferencia creada:", result);
 
     res.json({
       id: result.id,
     });
   } catch (error) {
     console.error("Error al crear la preferencia:", error);
-    res.status(500).send("Error al crear la preferencia");
+    console.error("Error stack:", error.stack);
+    res.status(500).json({
+      error: "Error al crear la preferencia",
+      details: error.message
+    });
   }
 });
 
