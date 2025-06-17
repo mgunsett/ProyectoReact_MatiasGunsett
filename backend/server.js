@@ -1,3 +1,55 @@
+app.post("/api/webhook/mercadopago", async (req, res) => {
+  try {
+    const { data } = req.body;
+    const orderId = data.external_reference;
+    const paymentStatus = data.status;
+
+    // 1. Obtener la orden de Firestore
+    const orderRef = db.collection("orders").doc(orderId);
+    const orderDoc = await orderRef.get();
+    
+    if (!orderDoc.exists) {
+      return res.status(404).json({ error: "Orden no encontrada" });
+    }
+
+    // 2. Solo si el pago es aprobado, actualizar stock
+    if (paymentStatus === "approved") {
+      const order = orderDoc.data();
+      
+      // Usar una transacción para asegurar consistencia
+      await db.runTransaction(async (transaction) => {
+        for (const item of order.items) {
+          const productRef = db.collection("products").doc(item.productId);
+          const productDoc = await transaction.get(productRef);
+          
+          if (!productDoc.exists) continue;
+
+          const size = item.selectedSize.toUpperCase();
+          const currentStock = productDoc.data().sizesStock?.sizes?.[size] || 0;
+          
+          // Actualizar stock restando la cantidad comprada
+          transaction.update(productRef, {
+            [`sizesStock.sizes.${size}`]: currentStock - item.quantity
+          });
+        }
+      });
+    }
+
+    // 3. Actualizar estado del pago en la orden
+    await orderRef.update({ 
+      paymentStatus,
+      updatedAt: new Date().toISOString() 
+    });
+
+    res.status(200).json({ success: true });
+    
+  } catch (error) {
+    console.error("Error en webhook:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/*
 // Ruta para el webhook de MercadoPago
 app.post("/api/webhook/mercadopago", async (req, res) => {
   try {
@@ -84,7 +136,8 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
     });
   }
 });
-
+*/
+//!----------------------------------------------------------
 /*
 // server.js
 import express from "express";
