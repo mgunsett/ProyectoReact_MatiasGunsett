@@ -1,69 +1,17 @@
-app.post("/api/webhook/mercadopago", async (req, res) => {
-  try {
-    const { data } = req.body;
-    const orderId = data.external_reference;
-    const paymentStatus = data.status;
-
-    // 1. Obtener la orden de Firestore
-    const orderRef = db.collection("orders").doc(orderId);
-    const orderDoc = await orderRef.get();
-    
-    if (!orderDoc.exists) {
-      return res.status(404).json({ error: "Orden no encontrada" });
-    }
-
-    // 2. Solo si el pago es aprobado, actualizar stock
-    if (paymentStatus === "approved") {
-      const order = orderDoc.data();
-      
-      // Usar una transacción para asegurar consistencia
-      await db.runTransaction(async (transaction) => {
-        for (const item of order.items) {
-          const productRef = db.collection("products").doc(item.productId);
-          const productDoc = await transaction.get(productRef);
-          
-          if (!productDoc.exists) continue;
-
-          const size = item.selectedSize.toUpperCase();
-          const currentStock = productDoc.data().sizesStock?.sizes?.[size] || 0;
-          
-          // Actualizar stock restando la cantidad comprada
-          transaction.update(productRef, {
-            [`sizesStock.sizes.${size}`]: currentStock - item.quantity
-          });
-        }
-      });
-    }
-
-    // 3. Actualizar estado del pago en la orden
-    await orderRef.update({ 
-      paymentStatus,
-      updatedAt: new Date().toISOString() 
-    });
-
-    res.status(200).json({ success: true });
-    
-  } catch (error) {
-    console.error("Error en webhook:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-/*
 // Ruta para el webhook de MercadoPago
 app.post("/api/webhook/mercadopago", async (req, res) => {
   try {
-    const notification = req.body;
-    const orderId = notification.external_reference;
-    const paymentStatus = notification.data.status;
+    const { data } = req.body; // MercadoPago envía los datos en data
+    const orderId = data.external_reference;
+    const paymentStatus = data.status;
 
     console.log("Webhook recibido:", {
       orderId,
       paymentStatus,
-      notification
+      data: req.body
     });
 
-    // Obtener la orden completa
+    // 1. Obtener la orden completa de Firestore
     const orderRef = db.collection("orders").doc(orderId);
     const orderDoc = await orderRef.get();
     
@@ -74,70 +22,67 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
 
     const order = orderDoc.data();
 
-    // Actualizar el estado de la orden
+    // 2. Actualizar el estado de la orden
     await orderRef.update({
-      paymentStatus: paymentStatus,
+      paymentStatus,
       updatedAt: new Date().toISOString()
     });
 
-    // Si el pago es aprobado, actualizar el stock
+    // 3. Si el pago es aprobado, actualizar el stock
     if (paymentStatus === "approved") {
-      console.log("Pago aprobado para orden:", orderId);
-
-      // Actualizar el stock para cada item
-      for (const item of order.items) {
-        console.log("Procesando item:", item);
+      console.log("Iniciando actualización de stock para orden:", orderId);
         
-        // Verificar que el tamaño esté en mayúsculas
-        const size = item.selectedSize.toUpperCase();
-        
-        // Actualizar el stock usando una transacción
-        await db.runTransaction(async (transaction) => {
-          const productRef = db.collection("products").doc(item.productId);
-          const productDoc = await transaction.get(productRef);
+      // Actualizar el stock usando una transacción
+      await db.runTransaction(async (transaction) => {
+        for (const item of order.items) {
+        const productRef = db.collection("products").doc(item.productId);
+        const productDoc = await transaction.get(productRef);
           
-          if (!productDoc.exists) {
-            console.error(`Producto no encontrado: ${item.productId}`);
-            throw new Error(`Producto ${item.productId} no encontrado`);
-          }
+        if (!productDoc.exists) {
+          console.error(`Producto no encontrado: ${item.productId}`);
+          throw new Error(`Producto ${item.productId} no encontrado`);
+        }
 
-          const productData = productDoc.data();
-          const sizes = productData.sizesStock?.sizes || {};
+        const size = item.selectedSize.toUpperCase();
+        const fieldPath = `sizesStock.sizes.${size}`;
+        const currentStock = productDoc.data().sizesStock?.sizes?.[size] || 0;
 
-          // Verificar si el tamaño existe
-          if (!sizes[size]) {
-            console.error(`Tamaño no encontrado: ${size} en producto ${item.productId}`);
-            throw new Error(`Tamaño ${size} no disponible en producto ${item.productId}`);
-          }
+        if (currentStock < item.quantity) {
+          console.error(`Stock insuficiente para ${size} en producto ${item.productId}`);
+          throw new Error(`Stock insuficiente para ${size} en producto ${item.productId}`);
+        }
 
-          // Verificar stock suficiente
-          if (sizes[size] < item.quantity) {
-            console.error(`Stock insuficiente para ${size} en producto ${item.productId}`);
-            throw new Error(`Stock insuficiente para ${size} en producto ${item.productId}`);
-          }
-
-          // Actualizar el stock
-          sizes[size] = sizes[size] - item.quantity;
-
-          transaction.update(productRef, {
-            'sizesStock.sizes': sizes
-          });
+        // Actualizar el stock restando la cantidad comprada
+        transaction.update(productRef, {
+          [fieldPath]: currentStock - item.quantity
         });
+        
+        console.log(`Stock actualizado: Producto ${item.productId}, Talle ${size}, Nuevo stock: ${currentStock - item.quantity}`);
+          }
+        });
+    
+        console.log("Stock actualizado exitosamente para orden:", orderId);
       }
-    }
 
-    res.status(200).json({ status: "success" });
-  } catch (error) {
-    console.error("Error en webhook:", error);
-    console.error("Error stack:", error.stack);
-    res.status(500).json({
-      error: "Error procesando notificación",
-      details: error.message
-    });
-  }
-});
-*/
-//!----------------------------------------------------------
+      res.status(200).json({ success: true });
+      
+    } catch (error) {
+      console.error("Error en webhook:", error);
+      console.error("Stack trace:", error.stack);
+  
+      // Revertir cambios si es necesario
+      if (error.message.includes("Stock insuficiente")) {
+        // Aquí podrías actualizar el estado de la orden a "failed" o similar
+        console.error("Revertiendo cambios por stock insuficiente");
+      }
+  
+      res.status(500).json({ 
+        error: "Error procesando notificación",
+        details: error.message 
+      });
+    }
+  });
+
 /*
 // server.js
 import express from "express";
