@@ -1,88 +1,126 @@
+// server.js
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import dotenv from "dotenv";
+import { initializeApp, applicationDefault } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
+import { MercadoPagoConfig, Preference, Payment } from "mercadopago"; // Agregamos Payment
+
+// Cargar variables de entorno
+dotenv.config();
+
+// Inicializar Firebase Admin
+try {
+  initializeApp({
+    // En Render, configura las credenciales de servicio de Google Cloud como una variable de entorno
+    credential: applicationDefault(),
+  });
+} catch (e) {
+  console.log("Firebase ya inicializado o error en credenciales:", e.message);
+}
+const db = getFirestore();
+
+// Configurar cliente de MercadoPago
+const client = new MercadoPagoConfig({
+  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
+});
+const payment = new Payment(client);
+
+// Crear aplicación Express
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middlewares
+app.use(bodyParser.json());
+app.use(cors({
+  origin: ['https://berealclothes.netlify.app', 'http://localhost:5173'], // Asegúrate que el puerto de Vite sea correcto
+}));
+
+// --- RUTAS ---
+
+// Ruta de prueba para verificar que el servidor está vivo
+app.get("/", (req, res) => {
+  res.send("Servidor de BeReal Clothes funcionando.");
+});
+
+// Ruta para crear la preferencia de pago
+app.post("/create_preference", async (req, res) => {
+  try {
+    const { preference } = req.body;
+    if (!preference || !preference.items || !preference.payer || !preference.external_reference) {
+      return res.status(400).json({ error: "Datos de preferencia incompletos." });
+    }
+    const preferenceObj = new Preference(client);
+    const result = await preferenceObj.create({ body: preference });
+    res.json({ id: result.id });
+  } catch (error) {
+    console.error("Error al crear la preferencia:", error);
+    res.status(500).json({ error: "Error interno al crear la preferencia." });
+  }
+});
+
 // Ruta para el webhook de MercadoPago
 app.post("/api/webhook/mercadopago", async (req, res) => {
   try {
-    const { data } = req.body; // MercadoPago envía los datos en data
-    const orderId = data.external_reference;
-    const paymentStatus = data.status;
+    console.log("Webhook recibido:", req.body);
+    const { type, data } = req.body;
 
-    console.log("Webhook recibido:", {
-      orderId,
-      paymentStatus,
-      data: req.body
-    });
+    if (type === "payment") {
+      const paymentInfo = await payment.get({ id: data.id });
+      const orderId = paymentInfo.external_reference;
+      const paymentStatus = paymentInfo.status;
 
-    // 1. Obtener la orden completa de Firestore
-    const orderRef = db.collection("orders").doc(orderId);
-    const orderDoc = await orderRef.get();
-    
-    if (!orderDoc.exists) {
-      console.error("Orden no encontrada:", orderId);
-      return res.status(404).json({ error: "Orden no encontrada" });
-    }
+      if (!orderId) {
+        console.error("No se encontró external_reference en el pago:", data.id);
+        return res.status(200).send("OK (sin external_reference)");
+      }
 
-    const order = orderDoc.data();
+      const orderRef = db.collection("orders").doc(orderId);
+      const orderDoc = await orderRef.get();
 
-    // 2. Actualizar el estado de la orden
-    await orderRef.update({
-      paymentStatus,
-      updatedAt: new Date().toISOString()
-    });
+      if (!orderDoc.exists) {
+        console.error("Orden no encontrada:", orderId);
+        return res.status(404).send("Orden no encontrada");
+      }
 
-    // 3. Si el pago es aprobado, actualizar el stock
-    if (paymentStatus === "approved") {
-      console.log("Iniciando actualización de stock para orden:", orderId);
-        
-      // Actualizar el stock usando una transacción
-      await db.runTransaction(async (transaction) => {
-        for (const item of order.items) {
-        const productRef = db.collection("products").doc(item.productId);
-        const productDoc = await transaction.get(productRef);
-          
-        if (!productDoc.exists) {
-          console.error(`Producto no encontrado: ${item.productId}`);
-          throw new Error(`Producto ${item.productId} no encontrado`);
-        }
+      const order = orderDoc.data();
+      await orderRef.update({ paymentStatus, updatedAt: new Date().toISOString() });
 
-        const size = item.selectedSize.toUpperCase();
-        const fieldPath = `sizesStock.sizes.${size}`;
-        const currentStock = productDoc.data().sizesStock?.sizes?.[size] || 0;
+      if (paymentStatus === "approved" && !order.stockDecremented) {
+        console.log("Pago aprobado. Actualizando stock para orden:", orderId);
+        await db.runTransaction(async (transaction) => {
+          for (const item of order.items) {
+            const productRef = db.collection("products").doc(item.productId);
+            const productDoc = await transaction.get(productRef);
+            if (!productDoc.exists) throw new Error(`Producto ${item.productId} no existe.`);
+            
+            const size = item.selectedSize.toUpperCase();
+            const fieldPath = `sizesStock.sizes.${size}`;
+            const currentStock = productDoc.data().sizesStock?.sizes?.[size] || 0;
 
-        if (currentStock < item.quantity) {
-          console.error(`Stock insuficiente para ${size} en producto ${item.productId}`);
-          throw new Error(`Stock insuficiente para ${size} en producto ${item.productId}`);
-        }
-
-        // Actualizar el stock restando la cantidad comprada
-        transaction.update(productRef, {
-          [fieldPath]: currentStock - item.quantity
-        });
-        
-        console.log(`Stock actualizado: Producto ${item.productId}, Talle ${size}, Nuevo stock: ${currentStock - item.quantity}`);
+            if (currentStock < item.quantity) {
+              throw new Error(`Stock insuficiente para ${item.title} talle ${size}.`);
+            }
+            transaction.update(productRef, { [fieldPath]: currentStock - item.quantity });
           }
+          // Marcar la orden para no descontar el stock dos veces
+          transaction.update(orderRef, { stockDecremented: true });
         });
-    
-        console.log("Stock actualizado exitosamente para orden:", orderId);
+        console.log("Stock actualizado para orden:", orderId);
       }
-
-      res.status(200).json({ success: true });
-      
-    } catch (error) {
-      console.error("Error en webhook:", error);
-      console.error("Stack trace:", error.stack);
-  
-      // Revertir cambios si es necesario
-      if (error.message.includes("Stock insuficiente")) {
-        // Aquí podrías actualizar el estado de la orden a "failed" o similar
-        console.error("Revertiendo cambios por stock insuficiente");
-      }
-  
-      res.status(500).json({ 
-        error: "Error procesando notificación",
-        details: error.message 
-      });
     }
-  });
+    res.status(200).send("OK");
+  } catch (error) {
+    console.error("Error en webhook:", error);
+    res.status(500).json({ error: "Error procesando webhook." });
+  }
+});
 
+// Iniciar servidor
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
 /*
 // server.js
 import express from "express";
