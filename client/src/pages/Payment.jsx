@@ -16,7 +16,7 @@ import { CloseIcon } from '@chakra-ui/icons'
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context";
 import { db } from "../firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, getDoc } from "firebase/firestore";
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { useAuth } from "../context/AuthContext";
 import './Styles/Payment.css';
@@ -77,10 +77,10 @@ const createOrderAndPreference = async () => {
   try {
     // Verificar stock antes de crear la orden
     for (const item of cartState) {
-      const productRef = db.doc(`products/${item.id}`);
-      const productDoc = await productRef.get();
-      if (!productDoc.exists) {
-        throw new Error(`El producto ${item.id} no existe`);
+      const productRef = doc(db, `products/${item.id}`);
+      const productDoc = await getDoc(productRef);
+      if (!productDoc.exists()) {
+        throw new Error(`El producto '${item.title}' ya no está disponible`);
       }
       const productData = productDoc.data();
       const currentStock = productData.sizesStock?.sizes?.[item.selectedSize.toUpperCase()] || 0;
