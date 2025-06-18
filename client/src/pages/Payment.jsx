@@ -79,15 +79,6 @@ const createOrderAndPreference = async () => {
       for (const item of cartState) {
       const productRef = doc(db, "products", item.id);
       const productDoc = await getDoc(productRef);
-
-      //Consulta de Datos del Producto  
-      console.log("Estructura del producto:", {
-        id: item.id,
-        selectedSize: item.selectedSize,
-        productData: productData,
-        sizesStock: productData.sizesStock,
-        sizes: productData.sizesStock?.sizes
-      });
       
       if (!productDoc.exists()) {
         throw new Error(`El producto '${item.title}' ya no está disponible`);
@@ -95,7 +86,17 @@ const createOrderAndPreference = async () => {
 
     const productData = productDoc.data();
     const size = item.selectedSize.toUpperCase();
-  
+      
+    //Consulta de Datos del Producto  
+    console.log("Estructura del producto:", {
+      id: item.id,
+      selectedSize: item.selectedSize,
+      productData: productData,
+      sizesStock: productData.sizesStock,
+      sizes: productData.sizesStock?.sizes
+    });
+
+    
     // Asegurarse de que sizesStock y sizes existan
     if (!productData.sizesStock || !productData.sizesStock.sizes) {
       throw new Error(`El producto '${item.title}' no tiene stock configurado.`);
