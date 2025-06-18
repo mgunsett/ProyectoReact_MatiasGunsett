@@ -74,6 +74,15 @@ const createOrderAndPreference = async () => {
     return;
   }
 
+  //Consulta de Datos del Producto  
+  console.log("Estructura del producto:", {
+    id: item.id,
+    selectedSize: item.selectedSize,
+    productData: productData,
+    sizesStock: productData.sizesStock,
+    sizes: productData.sizesStock?.sizes
+  });
+
   try {
     // Verificar stock antes de crear la orden
       for (const item of cartState) {
@@ -92,7 +101,7 @@ const createOrderAndPreference = async () => {
       throw new Error(`El producto '${item.title}' no tiene stock configurado.`);
     }
 
-    const currentStock = productData.sizesStock.sizes[size] || 0;
+    const currentStock = productData.sizesStock?.sizes?.[size] || 0;
   
     if (currentStock < item.qtyItem) {
       throw new Error(`No hay suficiente stock para el producto ${item.title} (Talle: ${size}). Stock disponible: ${currentStock}`);
