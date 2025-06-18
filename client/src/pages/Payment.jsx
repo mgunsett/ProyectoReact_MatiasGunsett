@@ -76,18 +76,28 @@ const createOrderAndPreference = async () => {
 
   try {
     // Verificar stock antes de crear la orden
-    for (const item of cartState) {
-      const productRef = doc(db, `products/${item.id}`);
+      for (const item of cartState) {
+      const productRef = doc(db, "products", item.id);
       const productDoc = await getDoc(productRef);
+      
       if (!productDoc.exists()) {
         throw new Error(`El producto '${item.title}' ya no está disponible`);
       }
-      const productData = productDoc.data();
-      const currentStock = productData.sizesStock?.sizes?.[item.selectedSize.toUpperCase()] || 0;
-      if (currentStock < item.qtyItem) {
-        throw new Error(`No hay suficiente stock para el producto ${item.id}`);
-      }
+
+    const productData = productDoc.data();
+    const size = item.selectedSize.toUpperCase();
+  
+    // Asegurarse de que sizesStock y sizes existan
+    if (!productData.sizesStock || !productData.sizesStock.sizes) {
+      throw new Error(`El producto '${item.title}' no tiene stock configurado.`);
     }
+
+    const currentStock = productData.sizesStock.sizes[size] || 0;
+  
+    if (currentStock < item.qtyItem) {
+      throw new Error(`No hay suficiente stock para el producto ${item.title} (Talle: ${size}). Stock disponible: ${currentStock}`);
+    }
+  }
 
     // Crear la orden en Firestore
     const orderObj = {
@@ -258,7 +268,7 @@ return (
           _hover={{ bg: "#0077B6" }}
         >
           Cargando <span className="loading-dots">...</span>
-        </Button>
+        </Button>   
       )}
       <Button size="md" onClick={onBack}>
         Ver más productos
