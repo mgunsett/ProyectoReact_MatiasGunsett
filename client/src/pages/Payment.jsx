@@ -74,20 +74,20 @@ const createOrderAndPreference = async () => {
     return;
   }
 
-  //Consulta de Datos del Producto  
-  console.log("Estructura del producto:", {
-    id: item.id,
-    selectedSize: item.selectedSize,
-    productData: productData,
-    sizesStock: productData.sizesStock,
-    sizes: productData.sizesStock?.sizes
-  });
-
   try {
     // Verificar stock antes de crear la orden
       for (const item of cartState) {
       const productRef = doc(db, "products", item.id);
       const productDoc = await getDoc(productRef);
+
+      //Consulta de Datos del Producto  
+      console.log("Estructura del producto:", {
+        id: item.id,
+        selectedSize: item.selectedSize,
+        productData: productData,
+        sizesStock: productData.sizesStock,
+        sizes: productData.sizesStock?.sizes
+      });
       
       if (!productDoc.exists()) {
         throw new Error(`El producto '${item.title}' ya no está disponible`);
