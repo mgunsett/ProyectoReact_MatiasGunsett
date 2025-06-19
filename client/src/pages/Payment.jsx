@@ -15,9 +15,9 @@ import {
 import { CloseIcon } from '@chakra-ui/icons'
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context";
-import { db } from "../firebase";
+import { db } from "../firebase/config";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore";
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { useAuth } from "../context/AuthContext";
 import './Styles/Payment.css';
 import axios from "axios";
@@ -49,17 +49,26 @@ useEffect(() => {
 
  // Inicializar MercadoPago
  useEffect(() => {
-  if (MP_PUBLIC_KEY) {
-    initMercadoPago(MP_PUBLIC_KEY, {
-      locale: 'es-AR',
-      client: {
-        sandbox: false
-      }
+  if (MP_PUBLIC_KEY && typeof window !== 'undefined') {
+    import('@mercadopago/sdk-react').then((module) => {
+      const { initMercadoPago } = module;
+      initMercadoPago(MP_PUBLIC_KEY, {
+        locale: 'es-AR'
+      });
     });
-  } else {
-    console.error("La clave pública de Mercado Pago no está definida.");
   }
 }, [MP_PUBLIC_KEY]);
+//   if (MP_PUBLIC_KEY) {
+//     initMercadoPago(MP_PUBLIC_KEY, {
+//       locale: 'es-AR',
+//       client: {
+//         sandbox: false
+//       }
+//     });
+//   } else {
+//     console.error("La clave pública de Mercado Pago no está definida.");
+//   }
+// }, [MP_PUBLIC_KEY]);
 
 // Crear orden y preferencia
 const createOrderAndPreference = async () => {
