@@ -49,26 +49,17 @@ useEffect(() => {
 
  // Inicializar MercadoPago
  useEffect(() => {
-  if (MP_PUBLIC_KEY && typeof window !== 'undefined') {
-    import('@mercadopago/sdk-react').then((module) => {
-      const { initMercadoPago } = module;
-      initMercadoPago(MP_PUBLIC_KEY, {
-        locale: 'es-AR'
-      });
+  if (MP_PUBLIC_KEY) {
+    initMercadoPago(MP_PUBLIC_KEY, {
+      locale: 'es-AR',
+      client: {
+        sandbox: false
+      }
     });
+  } else {
+    console.error("La clave pública de Mercado Pago no está definida.");
   }
 }, [MP_PUBLIC_KEY]);
-//   if (MP_PUBLIC_KEY) {
-//     initMercadoPago(MP_PUBLIC_KEY, {
-//       locale: 'es-AR',
-//       client: {
-//         sandbox: false
-//       }
-//     });
-//   } else {
-//     console.error("La clave pública de Mercado Pago no está definida.");
-//   }
-// }, [MP_PUBLIC_KEY]);
 
 // Crear orden y preferencia
 const createOrderAndPreference = async () => {
