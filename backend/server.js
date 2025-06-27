@@ -95,13 +95,19 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             const productDoc = await transaction.get(productRef);
             if (!productDoc.exists) throw new Error(`Producto ${item.productId} no existe.`);
             
+            // Get the size stock field path
             const size = item.selectedSize.toUpperCase();
-            const fieldPath = `sizesStock.sizes.${size}`;
-            const currentStock = productDoc.data().sizesStock?.sizes?.[size] || 0;
+            const fieldPath = size;
+            
+            // Get current stock value
+            const productData = productDoc.data();
+            const currentStock = productData[size] || 0;
 
             if (currentStock < item.quantity) {
-              throw new Error(`Stock insuficiente para ${item.title} talle ${size}.`);
+              throw new Error(`Stock insuficiente para ${item.title} talle ${size}. Stock disponible: ${currentStock}`);
             }
+            
+            // Update the stock for the specific size
             transaction.update(productRef, { [fieldPath]: currentStock - item.quantity });
           }
           // Marcar la orden para no descontar el stock dos veces

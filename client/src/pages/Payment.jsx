@@ -47,6 +47,7 @@ useEffect(() => {
 //!--------------------------------------------------------------------
 
 
+
  // Inicializar MercadoPago
  useEffect(() => {
   if (MP_PUBLIC_KEY) {
@@ -76,7 +77,7 @@ const createOrderAndPreference = async () => {
 
   try {
     // Verificar stock antes de crear la orden
-      for (const item of cartState) {
+    for (const item of cartState) {
       const productRef = doc(db, "products", item.id);
       const productDoc = await getDoc(productRef);
       
@@ -84,30 +85,20 @@ const createOrderAndPreference = async () => {
         throw new Error(`El producto '${item.title}' ya no está disponible`);
       }
 
-    const productData = productDoc.data();
-    const size = item.selectedSize.toUpperCase();
+      const productData = productDoc.data();
+      const size = item.selectedSize.toUpperCase();
       
-    //Consulta de Datos del Producto  
-    console.log("Estructura del producto:", {
-      id: item.id,
-      selectedSize: item.selectedSize,
-      productData: productData,
-      sizesStock: productData.sizesStock,
-      sizes: productData.sizesStock?.sizes
-    });
+      // Verificar si el tamaño existe y tiene stock
+      if (!productData[size]) {
+        throw new Error(`El producto '${item.title}' no tiene stock configurado para el tamaño ${size}`);
+      }
 
-    
-    // Asegurarse de que sizesStock y sizes existan
-    if (!productData.sizesStock || !productData.sizesStock.sizes) {
-      throw new Error(`El producto '${item.title}' no tiene stock configurado.`);
+      const currentStock = productData[size];
+      
+      if (currentStock < item.qtyItem) {
+        throw new Error(`No hay suficiente stock para el producto ${item.title} (Talle: ${size}). Stock disponible: ${currentStock}`);
+      }
     }
-
-    const currentStock = productData.sizesStock?.sizes?.[size] || 0;
-  
-    if (currentStock < item.qtyItem) {
-      throw new Error(`No hay suficiente stock para el producto ${item.title} (Talle: ${size}). Stock disponible: ${currentStock}`);
-    }
-  }
 
     // Crear la orden en Firestore
     const orderObj = {
@@ -260,7 +251,7 @@ return (
           onSubmit={(data) => console.log("Pago enviado", data)}
           onApprove={(data) => {
             console.log("Pago aprobado", data);
-            handleCreateOrder();
+            createOrderAndPreference();
           }}
           customization={{
             texts: { valueProp: "smart_option" },
