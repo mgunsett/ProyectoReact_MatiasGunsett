@@ -44,6 +44,21 @@ app.get("/", (req, res) => {
   res.send("Servidor de BeReal Clothes funcionando.");
 });
 
+// Ruta de debug para verificar la estructura de los productos
+app.get("/debug/products", async (req, res) => {
+  try {
+    const products = await db.collection("products").get();
+    const productsData = products.docs.map(doc => ({
+      id: doc.id,
+      data: doc.data()
+    }));
+    res.json({ products: productsData });
+  } catch (error) {
+    console.error("Error al obtener productos:", error);
+    res.status(500).json({ error: "Error al obtener productos" });
+  }
+});
+
 // Ruta para crear la preferencia de pago
 app.post("/create_preference", async (req, res) => {
   try {
@@ -51,12 +66,41 @@ app.post("/create_preference", async (req, res) => {
     if (!preference || !preference.items || !preference.payer || !preference.external_reference) {
       return res.status(400).json({ error: "Datos de preferencia incompletos." });
     }
+
+    // Validar stock antes de crear la preferencia
+    for (const item of preference.items) {
+      const productRef = db.collection("products").doc(item.productId);
+      const productDoc = await productRef.get();
+      
+      if (!productDoc.exists) {
+        throw new Error(`El producto ${item.productId} no existe`);
+      }
+
+      const productData = productDoc.data();
+      const size = item.selectedSize.toUpperCase();
+      
+      // Verificar si el tamaño existe y tiene stock
+      if (!productData || typeof productData !== 'object') {
+        throw new Error(`Error al obtener datos del producto ${item.productId}`);
+      }
+
+      const currentStock = productData[size];
+      
+      if (currentStock === undefined) {
+        throw new Error(`El producto ${item.productId} no tiene stock configurado para el tamaño ${size}`);
+      }
+
+      if (currentStock < item.quantity) {
+        throw new Error(`No hay suficiente stock para el producto ${item.productId} (Talle: ${size}). Stock disponible: ${currentStock}`);
+      }
+    }
+
     const preferenceObj = new Preference(client);
     const result = await preferenceObj.create({ body: preference });
     res.json({ id: result.id });
   } catch (error) {
     console.error("Error al crear la preferencia:", error);
-    res.status(500).json({ error: "Error interno al crear la preferencia." });
+    res.status(500).json({ error: error.message });
   }
 });
 
@@ -101,7 +145,14 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             
             // Get current stock value
             const productData = productDoc.data();
-            const currentStock = productData[size] || 0;
+            if (!productData || typeof productData !== 'object') {
+              throw new Error(`Error al obtener datos del producto ${item.title}`);
+            }
+
+            const currentStock = productData[size];
+            if (currentStock === undefined) {
+              throw new Error(`El producto ${item.title} no tiene stock configurado para el tamaño ${size}`);
+            }
 
             if (currentStock < item.quantity) {
               throw new Error(`Stock insuficiente para ${item.title} talle ${size}. Stock disponible: ${currentStock}`);
@@ -109,6 +160,7 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             
             // Update the stock for the specific size
             transaction.update(productRef, { [fieldPath]: currentStock - item.quantity });
+            console.log(`Stock actualizado para ${item.title} talle ${size}: ${currentStock - item.quantity}`);
           }
           // Marcar la orden para no descontar el stock dos veces
           transaction.update(orderRef, { stockDecremented: true });

@@ -29,43 +29,58 @@ export const ItemDetailContainer = ({ product }) => {
   // Mostrar el contador de cantidad //
   const handleAgregarAlCarrito = () => {
     if (!selectedSize) {
-      // Puedes utilizar un toast o un alert para informar al usuario
       alert("Por favor, selecciona un talle antes de agregar el producto al carrito.");
       return;
     }
-    // Se añade el producto con la propiedad 'selectedSize'
-    addItem({ ...product, selectedSize }, 1);
-    setShowCount(!showCount); 
-  }; 
-  // Si la cantidad es menor al stock, incrementar la cantidad en 1 //
+
+    // Verificar si hay stock disponible para el tamaño seleccionado
+    const sizeStock = product[selectedSize.toUpperCase()];
+    if (!sizeStock || sizeStock <= 0) {
+      alert(`No hay stock disponible para el talle ${selectedSize}`);
+      return;
+    }
+
+    // Añadir al carrito con la cantidad correcta
+    addItem({ ...product, selectedSize }, count);
+    setShowCount(!showCount);
+  };
+
+  // Incrementar la cantidad si hay stock disponible
   const handleIncrement = () => {
-    if (count < product.stock) { 
-      const newCount = count + 1;
-      setCount(newCount);
-      addItem({ ...product, selectedSize }, 1);
+    if (selectedSize) {
+      const sizeStock = product[selectedSize.toUpperCase()];
+      if (count < sizeStock) {
+        const newCount = count + 1;
+        setCount(newCount);
+        addItem({ ...product, selectedSize }, newCount);
+      } else {
+        alert(`No hay suficiente stock para el talle ${selectedSize}. Stock disponible: ${sizeStock}`);
+      }
     }
   };
-  // Si la cantidad es mayor a 0, decrementar la cantidad en 1 //
+
+  // Decrementar la cantidad
   const handleDecrement = () => {
     if (count > 0) {
       const newCount = count - 1;
       setCount(newCount);
-      removeItem({ ...product, selectedSize }); 
+      removeItem({ ...product, selectedSize });
     }
   };
-  // Función para manejar el click en los talles //
+
+  // Función para manejar el click en los talles
   const handleSizeClick = (size) => {
-    setSelectedSize(selectedSize === size ? null : size); // Alterna la selección del talle
-  }; 
-  
-  //! Extraemos los talles desde Firestore usando la nueva estructura:
-  // Si existe product.sizesStore.sizes, extraemos las keys; de lo contrario, usamos un fallback.
-  const sizes =
-    product.sizesStock && product.sizesStock.sizes
-      ? Object.keys(product.sizesStore.sizes)
-      : ["SM", "MD", "LA", "XL"];
-  
-  // Función para manejar el click en las imágenes //
+    setSelectedSize(size);
+    // Resetear la cantidad cuando cambia el talle
+    setCount(1);
+  };
+
+  // Extraer los talles disponibles del producto
+  const sizes = Object.keys(product).filter(key => 
+    ['SM', 'MD', 'LA', 'XL'].includes(key.toUpperCase())
+  );
+
+  // Función para manejar el click en las imágenes
   const handleImageClick = (imageSrc) => {
     setMainImage(imageSrc); 
   };

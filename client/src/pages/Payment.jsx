@@ -49,7 +49,7 @@ useEffect(() => {
 
 
  // Inicializar MercadoPago
- useEffect(() => {
+useEffect(() => {
   if (MP_PUBLIC_KEY) {
     initMercadoPago(MP_PUBLIC_KEY, {
       locale: 'es-AR',
@@ -59,13 +59,20 @@ useEffect(() => {
     });
   } else {
     console.error("La clave pública de Mercado Pago no está definida.");
+    toast({
+      title: 'Error de configuración',
+      description: 'No se pudo inicializar Mercado Pago. Por favor, inténtalo de nuevo más tarde.',
+      status: 'error',
+      duration: 9000,
+      isClosable: true
+    });
   }
 }, [MP_PUBLIC_KEY]);
 
 // Crear orden y preferencia
 const createOrderAndPreference = async () => {
   if (!user) {
-    toast({
+    toast({ 
       title: 'Usuario no autenticado.',
       description: 'Por favor, inicie sesión para continuar con el pago.',
       status: 'warning',
@@ -76,6 +83,11 @@ const createOrderAndPreference = async () => {
   }
 
   try {
+    // Verificar si hay productos en el carrito
+    if (cartState.length === 0) {
+      throw new Error('El carrito está vacío');
+    }
+
     // Verificar stock antes de crear la orden
     for (const item of cartState) {
       const productRef = doc(db, "products", item.id);
@@ -89,13 +101,18 @@ const createOrderAndPreference = async () => {
       const size = item.selectedSize.toUpperCase();
       
       // Verificar si el tamaño existe y tiene stock
-      if (!productData[size]) {
+      if (!productData || typeof productData !== 'object') {
+        throw new Error(`Error al obtener datos del producto ${item.title}`);
+      }
+
+      // Verificar si el tamaño existe en los datos del producto
+      if (!productData.hasOwnProperty(size)) {
         throw new Error(`El producto '${item.title}' no tiene stock configurado para el tamaño ${size}`);
       }
 
       const currentStock = productData[size];
       
-      if (currentStock < item.qtyItem) {
+      if (currentStock === undefined || currentStock < item.qtyItem) {
         throw new Error(`No hay suficiente stock para el producto ${item.title} (Talle: ${size}). Stock disponible: ${currentStock}`);
       }
     }
@@ -145,7 +162,7 @@ const createOrderAndPreference = async () => {
     };
 
     // Crear preferencia en el backend
-    const response = await axios.post('https://proyectoreact-matiasgunsett.onrender.com/create_preference', {
+    const response = await axios.post(`${process.env.REACT_APP_API_URL}/create_preference`, {
       preference
     });
 
