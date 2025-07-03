@@ -3,8 +3,8 @@ import { auth } from "../firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithPopup,
   GoogleAuthProvider,
+  signInWithPopup,
   signOut,
   onAuthStateChanged,
   updateProfile,
@@ -49,10 +49,10 @@ export const AuthProvider = ({ children }) => {
   };
 
   // Inicio de sesión con Google
+  const googleProvider = new GoogleAuthProvider();
   const loginWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
     try {
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, googleProvider);
       setUser(result.user);
     } catch (error) {
       console.error("Error al iniciar sesión con Google:", error);

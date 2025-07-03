@@ -34,7 +34,7 @@ const PORT = process.env.PORT || 3000;
 // Middlewares
 app.use(bodyParser.json());
 app.use(cors({
-  origin: ['https://berealclothes.netlify.app', 'http://localhost:5173'], // Asegúrate que el puerto de Vite sea correcto
+  origin: ['https://berealclothes.netlify.app', 'http://localhost:5173'],
 }));
 
 // --- RUTAS ---
@@ -69,33 +69,36 @@ app.post("/create_preference", async (req, res) => {
 
     // Validar stock antes de crear la preferencia
     for (const item of preference.items) {
-      const productRef = db.collection("products").doc(item.productId);
+      const productRef = db.collection("products").doc(item.metadata?.productId);
       const productDoc = await productRef.get();
       
       if (!productDoc.exists) {
-        throw new Error(`El producto ${item.productId} no existe`);
+        throw new Error(`El producto ${item.metadata?.productId} no existe`);
       }
 
       const productData = productDoc.data();
-      const size = item.selectedSize.toUpperCase();
+      const size = item.metadata?.selectedSize?.toUpperCase();
       
       // Verificar si el tamaño existe y tiene stock
       if (!productData || typeof productData !== 'object') {
-        throw new Error(`Error al obtener datos del producto ${item.productId}`);
+        throw new Error(`Error al obtener datos del producto ${item.metadata?.productId}`);
       }
 
       const currentStock = productData[size];
       
       if (currentStock === undefined) {
-        throw new Error(`El producto ${item.productId} no tiene stock configurado para el tamaño ${size}`);
+        throw new Error(`El producto ${item.metadata?.productId} no tiene stock configurado para el tamaño ${size}`);
       }
 
       if (currentStock < item.quantity) {
-        throw new Error(`No hay suficiente stock para el producto ${item.productId} (Talle: ${size}). Stock disponible: ${currentStock}`);
+        throw new Error(`No hay suficiente stock para el producto ${item.metadata?.productId} (Talle: ${size}). Stock disponible: ${currentStock}`);
       }
     }
 
     const preferenceObj = new Preference(client);
+
+    console.log("Preference enviada a MercadoPago:", JSON.stringify(preference, null, 2));
+
     const result = await preferenceObj.create({ body: preference });
     res.json({ id: result.id });
   } catch (error) {

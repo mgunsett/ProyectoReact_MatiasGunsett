@@ -23,3 +23,4 @@ export const storage = getStorage(app);
 
 // Inicializamos la autenticación
 export const auth = getAuth(app);
+

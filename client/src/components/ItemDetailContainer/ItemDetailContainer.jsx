@@ -228,7 +228,7 @@ export const ItemDetailContainer = ({ product }) => {
                     borderColor: "rgba(237, 237, 78, 0.737)",
                   }}
                   variant="outline"
-                  disabled={product.sizesStock?.sizes?.[size] <= 0} // Si el stock es 0, deshabilita el botón
+                  disabled={product[size] <= 0} // Si el stock es 0, deshabilita el botón
                 >
                   {size}
                 </Button>

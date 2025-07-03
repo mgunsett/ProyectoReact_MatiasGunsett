@@ -32,7 +32,7 @@ const { cartState } = useContext(CartContext);
 const total = cartState.reduce(
 (acc, item) => acc + item.price * item.qtyItem,0);
   
-const MP_PUBLIC_KEY = process.env.REACT_APP_MERCADOPAGO_PUBLIC_KEY || "APP_USR-7f3e4b4c-354e-4e36-b063-e990a53192f3";
+const MP_PUBLIC_KEY = import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY || "APP_USR-7f3e4b4c-354e-4e36-b063-e990a53192f3";
 console.log("Public Key Mercado Pago:", MP_PUBLIC_KEY);
 
 
@@ -147,6 +147,10 @@ const createOrderAndPreference = async () => {
         quantity: item.quantity,
         currency_id: "ARS",
         unit_price: item.price,
+        metadata: {
+          productId: item.productId,       
+          selectedSize: item.selectedSize 
+        }
       })),
       payer: {
         name: user.displayName,
@@ -162,7 +166,7 @@ const createOrderAndPreference = async () => {
     };
 
     // Crear preferencia en el backend
-    const response = await axios.post(`${process.env.REACT_APP_API_URL}/create_preference`, {
+    const response = await axios.post(`${import.meta.env.VITE_REACT_APP_API_URL}/create_preference`, {
       preference
     });
 
