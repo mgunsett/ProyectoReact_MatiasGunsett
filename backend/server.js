@@ -23,13 +23,13 @@ const db = getFirestore();
 
 // Configurar cliente de MercadoPago
 const client = new MercadoPagoConfig({
-  accessToken: import.meta.env.VITE_MERCADOPAGO_ACCESS_TOKEN,
+  accessToken: process.env.VITE_MERCADOPAGO_ACCESS_TOKEN,
 });
 const payment = new Payment(client);
 
 // Crear aplicación Express
 const app = express();
-const PORT = import.meta.env.VITE_PORT || 3000;
+const PORT = process.env.VITE_PORT || 3000;
 
 // Middlewares
 app.use(bodyParser.json());
