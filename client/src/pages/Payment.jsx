@@ -166,7 +166,7 @@ const createOrderAndPreference = async () => {
     };
 
     // Crear preferencia en el backend
-    const response = await axios.post(`https://proyectoreact-matiasgunsett.onrender.com/create_preference`, {
+    const response = await axios.post(`https://api.render.com/deploy/srv-culnvirtq21c73fmavg0?key=5ak-lE05yvQ/create_preference`, {
       preference
     });
 

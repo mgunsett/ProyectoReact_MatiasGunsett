@@ -23,7 +23,7 @@ const db = getFirestore();
 
 // Configurar cliente de MercadoPago
 const client = new MercadoPagoConfig({
-  accessToken: import.meta.env.VITE_MERCADOPAGO_ACCESS_TOKEN || "APP_USR-3383355378043000-122110-2b2b6e4590b3272b27ca5a06417e019d-2170936801",
+  accessToken: import.meta.env.VITE_MERCADOPAGO_ACCESS_TOKEN,
 });
 const payment = new Payment(client);
 
