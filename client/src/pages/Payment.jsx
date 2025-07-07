@@ -32,7 +32,7 @@ const { cartState } = useContext(CartContext);
 const total = cartState.reduce(
 (acc, item) => acc + item.price * item.qtyItem,0);
   
-const MP_PUBLIC_KEY = import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY || "APP_USR-7f3e4b4c-354e-4e36-b063-e990a53192f3";
+const MP_PUBLIC_KEY = import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY;
 console.log("Public Key Mercado Pago:", MP_PUBLIC_KEY);
 
 
