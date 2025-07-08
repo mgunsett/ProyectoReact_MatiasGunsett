@@ -3,18 +3,18 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import { initializeApp, applicationDefault } from "firebase-admin/app";
+import { initializeApp, cert } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { MercadoPagoConfig, Preference, Payment } from "mercadopago"; // Agregamos Payment
 
 // Cargar variables de entorno
 dotenv.config();
-
+const serviceAccount = JSON.parse(process.env.GOOGLE_CREDENTIALS);
 // Inicializar Firebase Admin
 try {
   initializeApp({
     // En Render, configura las credenciales de servicio de Google Cloud como una variable de entorno
-    credential: applicationDefault(),
+    credential: cert(serviceAccount),
   });
 } catch (e) {
   console.log("Firebase ya inicializado o error en credenciales:", e.message);
