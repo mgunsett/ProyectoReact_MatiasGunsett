@@ -2,23 +2,28 @@ import { Heading, Text, Button, Flex, Box } from '@chakra-ui/react'
 import { MdOutlineWhatsapp } from 'react-icons/md'
 import { CheckCircleIcon } from '@chakra-ui/icons'
 import { Link } from 'react-router-dom'
+import './AprobedPay.css'
 
 export const AprobedPay = () => {
   return (
     <Flex
+    className='aprobed-pay'
     textAlign="center" 
-    py={6} 
-    px={6}  
-    background={'transparent'}
-    h={'72vh'}
+    p={'110px'}  
+    mb={'32vh'}
     direction={'column'}
     gap={12}
     alignItems={'center'}
-    //border={'1px solid white'}
     >
       <Box>
         <CheckCircleIcon boxSize={'50px'} color={'green.500'} />
-        <Heading as="h2" size="xl" mt={6} mb={2}>
+        <Heading 
+          as="h2" 
+          size="xl" 
+          mt={6} 
+          mb={2}
+          color={'white'}
+        >
           Muchas Gracias por tu compra!
         </Heading>
         <Text color={'gray.500'}>
@@ -35,7 +40,7 @@ export const AprobedPay = () => {
         fontSize={'sm'}
         rounded={'full'}
         color={'white'}
-        background={'transparent'}
+        background={'#25d365a7'}
         border={'1px solid white'}
         _hover={{ bg: '#25D366' }}
         gap={2}
