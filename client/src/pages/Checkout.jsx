@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState} from "react";
 import { CartDetails, SignIn } from "../components"
 import { Payment } from "./Payment";
 import { Box, Flex, Divider, Stack, useBreakpointValue } from "@chakra-ui/react";
