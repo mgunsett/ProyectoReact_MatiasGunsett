@@ -33,9 +33,11 @@ const PORT = process.env.VITE_PORT || 3000;
 
 // Middlewares
 app.use(bodyParser.json());
-app.use(cors({
-  origin: ['https://berealclothes.netlify.app', 'http://localhost:5173'],
-}));
+app.use(
+  cors({
+    origin: ["https://berealclothes.netlify.app", "http://localhost:5173"],
+  })
+);
 
 // --- RUTAS ---
 
@@ -48,9 +50,9 @@ app.get("/", (req, res) => {
 app.get("/debug/products", async (req, res) => {
   try {
     const products = await db.collection("products").get();
-    const productsData = products.docs.map(doc => ({
+    const productsData = products.docs.map((doc) => ({
       id: doc.id,
-      data: doc.data()
+      data: doc.data(),
     }));
     res.json({ products: productsData });
   } catch (error) {
@@ -63,41 +65,59 @@ app.get("/debug/products", async (req, res) => {
 app.post("/create_preference", async (req, res) => {
   try {
     const { preference } = req.body;
-    if (!preference || !preference.items || !preference.payer || !preference.external_reference) {
-      return res.status(400).json({ error: "Datos de preferencia incompletos." });
+    if (
+      !preference ||
+      !preference.items ||
+      !preference.payer ||
+      !preference.external_reference
+    ) {
+      return res
+        .status(400)
+        .json({ error: "Datos de preferencia incompletos." });
     }
 
     // Validar stock antes de crear la preferencia
     for (const item of preference.items) {
-      const productRef = db.collection("products").doc(item.metadata?.productId);
+      const productRef = db
+        .collection("products")
+        .doc(item.metadata?.productId);
       const productDoc = await productRef.get();
-      
+
       if (!productDoc.exists) {
         throw new Error(`El producto ${item.metadata?.productId} no existe`);
       }
 
       const productData = productDoc.data();
       const size = item.metadata?.selectedSize?.toUpperCase();
-      
+
       // Verificar si el tamaño existe y tiene stock
-      if (!productData || typeof productData !== 'object') {
-        throw new Error(`Error al obtener datos del producto ${item.metadata?.productId}`);
+      if (!productData || typeof productData !== "object") {
+        throw new Error(
+          `Error al obtener datos del producto ${item.metadata?.productId}`
+        );
       }
 
       const currentStock = productData[size];
-      
+
       if (currentStock === undefined) {
-        throw new Error(`El producto ${item.metadata?.productId} no tiene stock configurado para el tamaño ${size}`);
+        throw new Error(
+          `El producto ${item.metadata?.productId} no tiene stock configurado para el tamaño ${size}`
+        );
       }
 
       if (currentStock < item.quantity) {
-        throw new Error(`No hay suficiente stock para el producto ${item.metadata?.productId} (Talle: ${size}). Stock disponible: ${currentStock}`);
+        throw new Error(
+          `No hay suficiente stock para el producto ${item.metadata?.productId} (Talle: ${size}). Stock disponible: ${currentStock}`
+        );
       }
     }
 
     const preferenceObj = new Preference(client);
 
-    console.log("Preference enviada a MercadoPago:", JSON.stringify(preference, null, 2));
+    console.log(
+      "Preference enviada a MercadoPago:",
+      JSON.stringify(preference, null, 2)
+    );
 
     const result = await preferenceObj.create({ body: preference });
     res.json({ id: result.id });
@@ -132,7 +152,10 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
       }
 
       const order = orderDoc.data();
-      await orderRef.update({ paymentStatus, updatedAt: new Date().toISOString() });
+      await orderRef.update({
+        paymentStatus,
+        updatedAt: new Date().toISOString(),
+      });
 
       if (paymentStatus === "approved" && !order.stockDecremented) {
         console.log("Pago aprobado. Actualizando stock para orden:", orderId);
@@ -140,30 +163,43 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
           for (const item of order.items) {
             const productRef = db.collection("products").doc(item.productId);
             const productDoc = await transaction.get(productRef);
-            if (!productDoc.exists) throw new Error(`Producto ${item.productId} no existe.`);
-            
+            if (!productDoc.exists)
+              throw new Error(`Producto ${item.productId} no existe.`);
+
             // Get the size stock field path
             const size = item.selectedSize.toUpperCase();
             const fieldPath = size;
-            
+
             // Get current stock value
             const productData = productDoc.data();
-            if (!productData || typeof productData !== 'object') {
-              throw new Error(`Error al obtener datos del producto ${item.title}`);
+            if (!productData || typeof productData !== "object") {
+              throw new Error(
+                `Error al obtener datos del producto ${item.title}`
+              );
             }
 
             const currentStock = productData[size];
             if (currentStock === undefined) {
-              throw new Error(`El producto ${item.title} no tiene stock configurado para el tamaño ${size}`);
+              throw new Error(
+                `El producto ${item.title} no tiene stock configurado para el tamaño ${size}`
+              );
             }
 
             if (currentStock < item.quantity) {
-              throw new Error(`Stock insuficiente para ${item.title} talle ${size}. Stock disponible: ${currentStock}`);
+              throw new Error(
+                `Stock insuficiente para ${item.title} talle ${size}. Stock disponible: ${currentStock}`
+              );
             }
-            
+
             // Update the stock for the specific size
-            transaction.update(productRef, { [fieldPath]: currentStock - item.quantity });
-            console.log(`Stock actualizado para ${item.title} talle ${size}: ${currentStock - item.quantity}`);
+            transaction.update(productRef, {
+              [fieldPath]: currentStock - item.quantity,
+            });
+            console.log(
+              `Stock actualizado para ${item.title} talle ${size}: ${
+                currentStock - item.quantity
+              }`
+            );
           }
           // Marcar la orden para no descontar el stock dos veces
           transaction.update(orderRef, { stockDecremented: true });

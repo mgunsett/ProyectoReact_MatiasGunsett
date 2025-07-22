@@ -1,4 +1,4 @@
-import { Flex, Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { AprobedPay } from "../components";
 import './Styles/PostPayment.css';
 

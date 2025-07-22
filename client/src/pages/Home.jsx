@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ItemsListContainer, HomeDetailContainer } from "../components";
 import { useItemsCollection } from "../hooks";
 import { 
@@ -245,7 +245,7 @@ export const Home = () => {
         ) : randomProduct ? (
           <HomeDetailContainer product={randomProduct} />
         ) : (
-          <Text>No hay productos destacados</Text>
+          <Text>No hay productos destacados♠</Text>
         )}
       </Flex>
     </Box>

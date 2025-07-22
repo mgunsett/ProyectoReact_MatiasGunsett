@@ -9,7 +9,7 @@ import {
   Spacer,
   Alert,
   AlertIcon,
-  useToast,
+  useToast,  
   Icon
 } from "@chakra-ui/react";
 import { CloseIcon } from '@chakra-ui/icons'
@@ -134,7 +134,7 @@ const createOrderAndPreference = async () => {
       total: total,
       paymentStatus: 'pending',
       createdAt: new Date().toISOString(),
-      orderNumber: `ORD-${Date.now()}`
+      orderNumber: `ORD -  ${Date.now()}`
     };
 
     const ordersCollection = collection(db, "orders");
@@ -265,13 +265,14 @@ return (
       )}
     </Box> 
     <Box className="btn-container-payment"> 
-      {preferenceId ? (
+      {preferenceId ? ( 
         <Wallet
           initialization={{ preferenceId: preferenceId}}
           onReady={() => console.log("Wallet está listo")}
           onSubmit={(data) => console.log("Pago enviado", data)}
           onApprove={(data) => {
             console.log("Pago aprobado", data);
+            window.location.href = "https://berealclothes.netlify.app/postpayment";
             createOrderAndPreference();
           }}
           customization={{
