@@ -273,7 +273,7 @@ return (
           onApprove={(data) => {
             console.log("Pago aprobado", data);
             window.location.href = "https://berealclothes.netlify.app/postpayment";
-            createOrderAndPreference();
+     
           }}
           customization={{
             texts: { valueProp: "smart_option" },
