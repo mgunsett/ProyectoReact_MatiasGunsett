@@ -157,7 +157,7 @@ const createOrderAndPreference = async () => {
         email: user.email,
       },
       back_urls: {
-        success: `https://berealclothes.netlify.app`,
+        success: `https://berealclothes.netlify.app/postpayment`,
         failure: `https://berealclothes.netlify.app/checkout`,
         pending: `https://berealclothes.netlify.app/checkout`,
       },
