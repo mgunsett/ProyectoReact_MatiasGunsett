@@ -157,7 +157,7 @@ const createOrderAndPreference = async () => {
         email: user.email,
       },
       back_urls: {
-        success: `https://berealclothes.netlify.app/category/remeras`,
+        success: `https://berealclothes.netlify.app`,
         failure: `https://berealclothes.netlify.app/checkout`,
         pending: `https://berealclothes.netlify.app/checkout`,
       },
@@ -273,8 +273,13 @@ return (
           onApprove={(data) => {
             console.log("Pago aprobado", data);
             createOrderAndPreference();
-            // Redirigir al usuario a la página de éxito
-            window.location.href = "https://berealclothes.netlify.app/category/remeras";
+            toast({
+              title: 'Pago aprobado',
+              description: `Gracias por tu compra! Tu número de orden es: ${data.external_reference}`,
+              status: 'success',
+              duration: 9000,
+              isClosable: true,
+            });
           }}
           customization={{
             texts: { valueProp: "smart_option" },
