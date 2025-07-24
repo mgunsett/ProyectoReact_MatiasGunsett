@@ -93,8 +93,8 @@ export const Home = () => {
           <Button 
             variant='solid'
             colorScheme='teal'
-            padding={{ base: '10px', sm: '10px', md: '15px', lg: '15px' }}
-            fontSize={{ base: '10px', sm: '12px', md: '15px', lg: '15px' }}
+            padding={{ base: '10px', sm: '10px', md: '15px', lg: '25px' }}
+            fontSize={{ base: '10px', sm: '12px', md: '15px', lg: '16px' }}
           > 
             Suscribirme
           </Button>
@@ -251,61 +251,3 @@ export const Home = () => {
     </Box>
   );
 };
-
-{/* <Grid
-        w={'85%'}
-        templateRows='repeat(2, 1fr)'
-        templateColumns='repeat(5, 1fr)'
-        gap={1}
-        margin={'auto'}
-      >
-        <GridItem 
-          rowSpan={2} 
-          colSpan={2}
-          sx={{
-            transition: "all 0.3s ease-in-out",
-            _hover: { gridColumn: "span 4" }, // Expande la columna al pasar el mouse
-          }}
-        >
-          <Img
-          className="fotoMain1" 
-          src={fotoMain1}
-          objectFit={'cover'} 
-          height={'500px'}
-          width={'100%'} 
-          alt="imagen 1"
-          transition="all 0.3s ease-in-out"
-          _hover={{ transform: "scale(1.1)" }}
-          />
-        </GridItem>
-        <GridItem rowSpan={2} colSpan={1}>
-          <Img 
-          className="fotoMain2"
-          src={fotoMain5}
-          objectFit={'cover'} 
-          height={'500px'}
-          width={'100%'} 
-          alt="imagen 2"
-          />
-        </GridItem>
-        <GridItem  rowSpan={1} colSpan={2} >
-          <Img 
-          className="fotoMain3"
-          src={fotoMain2} 
-          objectFit={'cover'}  
-          height={'250px'}
-          width={'100%'}
-          alt="imagen 3"
-          />
-        </GridItem>
-        <GridItem rowSpan={1} colSpan={2}>
-          <Img 
-          className="fotoMain4"
-          src={fotoMain4} 
-          objectFit={'cover'}
-          height={'250px'} 
-          width={'100%'}
-          alt="imagen 4" 
-          />  
-        </GridItem>
-      </Grid> */}

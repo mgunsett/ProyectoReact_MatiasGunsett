@@ -16,15 +16,22 @@ export const AprobedPay = () => {
     alignItems={'center'}
     >
       <Box>
-        <CheckCircleIcon boxSize={'50px'} color={'green.500'} />
+        <CheckCircleIcon 
+          boxSize={{ base: '40px', sm: '50px' }} 
+          color={'green.500'} 
+        />
         <Heading 
           as="h2" 
-          size="xl" 
+          size={{ base: 'lg', sm: 'xl'}} 
           mt={6} 
           mb={2}
           color={'white'}
+          fontFamily={'"Lacquer", system-ui, sans-serif'}
+          width={{ base: '250px', sm: '400px' }}
+          
         >
-          Muchas Gracias por tu compra!
+          Muchas Gracias <br />
+          por tu compra!
         </Heading>
         <Text color={'gray.500'}>
           Tu pago fue realizado con éxito! 
