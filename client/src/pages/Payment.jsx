@@ -266,6 +266,9 @@ return (
     </Box> 
     <Box className="btn-container-payment"> 
       {preferenceId ? ( 
+        console.log("Preference ID:", preferenceId),
+        console.log("Clave pública:", import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY),
+
         <Wallet
           initialization={{ preferenceId: preferenceId}}
           onReady={() => console.log("Wallet está listo")}
