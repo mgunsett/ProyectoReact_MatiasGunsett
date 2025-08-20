@@ -23,6 +23,12 @@ export const SlidersCards = ({ products }) => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollAmount = 600;
 
+  // Estados para drag/swipe
+  const [isDragging, setIsDragging] = useState(false);
+  const startXRef = useRef(0);
+  const startScrollLeftRef = useRef(0);
+  const hasDraggedRef = useRef(false);
+
   // Función para desplazar a la izquierda
   const scrollLeft = () => {
     setScrollPosition((prevPosition) => prevPosition - scrollAmount);   
@@ -41,6 +47,64 @@ export const SlidersCards = ({ products }) => {
       });
     }
   }, [scrollPosition]);
+
+  // Handlers de drag (mouse)
+  const onMouseDown = (e) => {
+    if (!containerRef.current) return;
+    setIsDragging(true);
+    hasDraggedRef.current = false;
+    startXRef.current = e.pageX - containerRef.current.offsetLeft;
+    startScrollLeftRef.current = containerRef.current.scrollLeft;
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDragging || !containerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = x - startXRef.current; // distancia arrastrada
+    if (Math.abs(walk) > 3) hasDraggedRef.current = true; // umbral pequeño
+    containerRef.current.scrollLeft = startScrollLeftRef.current - walk;
+  };
+
+  const endMouseDrag = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+    // No hacemos nada más; hasDraggedRef se usa para bloquear clics si hubo arrastre
+  };
+
+  // Handlers de touch (mobile)
+  const onTouchStart = (e) => {
+    if (!containerRef.current) return;
+    setIsDragging(true);
+    hasDraggedRef.current = false;
+    const touch = e.touches[0];
+    startXRef.current = touch.pageX - containerRef.current.offsetLeft;
+    startScrollLeftRef.current = containerRef.current.scrollLeft;
+  };
+
+  const onTouchMove = (e) => {
+    if (!isDragging || !containerRef.current) return;
+    const touch = e.touches[0];
+    const x = touch.pageX - containerRef.current.offsetLeft;
+    const walk = x - startXRef.current;
+    if (Math.abs(walk) > 3) hasDraggedRef.current = true;
+    containerRef.current.scrollLeft = startScrollLeftRef.current - walk;
+  };
+
+  const onTouchEnd = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+  };
+
+  // Bloquear clics cuando se arrastró para evitar navegaciones accidentales
+  const onClickCapture = (e) => {
+    if (hasDraggedRef.current) {
+      e.preventDefault();
+      e.stopPropagation();
+      // Reset para permitir próximos clics
+      hasDraggedRef.current = false;
+    }
+  };
 
   return (
     <Box position="relative" display="flex" alignItems="center">
@@ -65,6 +129,15 @@ export const SlidersCards = ({ products }) => {
           padding="1rem"
           maxW="100%"
           minW="100%"
+          cursor={isDragging ? 'grabbing' : 'grab'}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={endMouseDrag}
+          onMouseLeave={endMouseDrag}
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+          onClickCapture={onClickCapture}
         >
           {products.map((product) => (
             <Card 
