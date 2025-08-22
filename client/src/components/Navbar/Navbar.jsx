@@ -147,6 +147,7 @@ export const Navbar = () => {
                       <Stack key={category.slug} spacing={2}>
                         <Link
                           to={`/category/${category.slug}`}
+                          onClick={onClose}
                         >
                           {category.name}
                         </Link>
@@ -156,7 +157,7 @@ export const Navbar = () => {
                 </AccordionItem>
                 <AccordionItem>
                   <AccordionButton color={'white'} mt={'10px'}>
-                  <Link to="/contacto">
+                  <Link to="/contacto" onClick={onClose}>
                     Contacto
                   </Link>
                   </AccordionButton>

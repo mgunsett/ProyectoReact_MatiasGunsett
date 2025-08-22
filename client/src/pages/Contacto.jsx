@@ -49,55 +49,17 @@ export const Contacto = () => {
           <Flex
               flexDirection={'column'}
               alignItems={'flex-start'}
-              gap={6}
-              paddingTop={5}
+              paddingTop={3}
               marginLeft={{base:'-15px'}}
             >
             <Heading
-              fontSize={{ base: '2xl', sm: '4xl', md: '4xl', lg: '5xl' }}
+              fontSize={{ base: '32px', sm: '4xl', md: '4xl', lg: '5xl' }}
               color="white"
               fontFamily={'"Lacquer", system-ui, sans-serif'}
+              alignSelf={'center'}
             >
               Contacto
             </Heading>
-            <Text mt={{ sm: 3, md: 3, lg: 5 }} color="white">
-              Nuestros medios de Contacto:
-            </Text>
-            
-              <Button
-                size={{ base: 'md', sm: 'lg' }}
-                variant="ghost"
-                color="#DCE2FF"
-                _hover={{
-                  bg: 'transparent'
-                }}
-                leftIcon={<MdPhone color="rgb(240, 240, 42)" size="20px"/>}
-              >
-                +54-342-111-1111
-              </Button>
-              <Button
-                size="md"
-                variant="ghost"
-                color="#DCE2FF"
-                _hover={{
-                  bg: 'transparent'
-                }}
-                leftIcon={<MdEmail color="rgb(240, 240, 42)" size="20px" />}
-              >
-                be-realclothes@gmail.com
-              </Button>
-              <Button
-                size="md"
-                variant="ghost"
-                color="#DCE2FF"
-                _hover={{
-                  bg: 'transparent'
-                }}
-                leftIcon={<MdLocationOn color="rgb(240, 240, 42)" size="20px" />}
-              >
-                Santa Fe, Argentina
-              </Button>
-
             <HStack
               mt={{ lg: 10, md: 8, base: 6 }}
               mb={{base: 10}}
@@ -141,13 +103,13 @@ export const Contacto = () => {
             </HStack>
           </Flex>
           <Box
-            bg="white"
+            className='contacto-form'
             p={7}
             w={{ base: '280px', sm: '50%' }}
             h={'auto'}
           >
               <VStack spacing={3}>
-                <FormControl id="name">
+                <FormControl>
                   <FormLabel>Nombre</FormLabel>
                   <InputGroup borderColor="#E0E1E7">
                     <InputLeftElement pointerEvents="none">
@@ -176,7 +138,12 @@ export const Contacto = () => {
                   />
                 </FormControl>
                 <FormControl id="name" float="right">
-                  <Button variant="solid" bg="#0D74FF" color="white" _hover={{ bg: '#1C6FEB' }}>
+                  <Button 
+                    variant="solid" 
+                    bg="#0D74FF" 
+                    color="white" 
+                    _hover={{ bg: '#1C6FEB' }}
+                  >
                     Enviar Mensaje
                   </Button>
                 </FormControl>

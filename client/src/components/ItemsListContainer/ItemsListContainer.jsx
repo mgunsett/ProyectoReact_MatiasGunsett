@@ -31,6 +31,7 @@ export const ItemsListContainer = ({ title, products }) => {
       fontWeight={600}
       fontSize= {{ base: "30px", sm: "30px", md: '35px' , lg: "40px" }}
       fontFamily={'"Lacquer", system-ui'}
+      justifyContent={{ base: 'center', sm: 'center', md: 'flex-start' }}
       >{primeraMayuscula(title)}</Heading>
 
       <SlidersCards products={products}/>
