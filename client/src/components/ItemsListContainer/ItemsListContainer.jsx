@@ -10,7 +10,7 @@ export const ItemsListContainer = ({ title, products }) => {
   }
 
   return (
-    <Flex  margin={'auto'} flexDirection={'column'} gap={'20px'} backgroundColor={('gray.200', 'gray.700')}>
+    <Flex  margin={'auto'} flexDirection={'column'} gap={'20px'} backgroundColor={'white'}>
       <Box className='titleContainer' position={'relative'}>
         <Image
           className='banner'
@@ -19,18 +19,19 @@ export const ItemsListContainer = ({ title, products }) => {
           alt='Banner'
           opacity={0.9}
           margin={'auto'}
-          marginTop={{ base: '80px', sm: '80px', lg: '50px' }}
+          marginTop={{ base: '80px', sm: '80px', lg: '80px' }}
           boxSize={{ base: '220px', sm: '250px', lg: '450px' }}	
         />
       </Box>
       <Heading 
       className='title2-container'
       as={'h1'}
-      color={"rgba(237, 237, 78, 0.737)"}
+      color={'black'}
       lineHeight={1.1}
-      fontWeight={600}
-      fontSize= {{ base: "30px", sm: "30px", md: '35px' , lg: "40px" }}
-      fontFamily={'"Lacquer", system-ui'}
+      fontWeight={400}
+      fontSize= {{ base: "50px", sm: "30px", md: '45px' , lg: "50px" }}
+      fontFamily={'"Bebas Neue", system-ui'}
+      fontStyle={'normal'}
       justifyContent={{ base: 'center', sm: 'center', md: 'flex-start' }}
       >{primeraMayuscula(title)}</Heading>
 

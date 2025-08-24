@@ -52,7 +52,7 @@ export const Home = () => {
   return loading ? (
     <SkeletonLoading />   
   ) : (
-    <Box backgroundColor={('gray.200', 'gray.700')} height={'100%'} paddingBottom={'150px'}>
+    <Box backgroundColor={'white'} height={'100%'} paddingBottom={'140px'}>
       <ItemsListContainer title={"Productos"} products={items} />
       <Flex className="promociones" gap={5}>
           <Img 
@@ -110,7 +110,6 @@ export const Home = () => {
         <Flex
           flexDirection={'column'}
           alignItems={'flex-start'}
-          color={'white'}
         >
             <Heading 
               as={"h2"} 
@@ -130,7 +129,7 @@ export const Home = () => {
           <Text 
             className="quienesSomos-text-p"
             lineHeight={{base: '20px', sm: '30px', md: '40px'}}
-            fontSize={{base:'15px' ,sm:'20px',md:'25px'}}
+            fontSize={{base:'25px' ,sm:'20px',md:'25px'}}
             height={{base: '250px'}}
             margin={{base: 'none', sm: '10px', md: '20px'}}
           >
@@ -185,9 +184,9 @@ export const Home = () => {
             m={'auto'}
           />
           <Text 
-            fontSize={{ base: '12px', sm: '15px', md: '16px'}}
+            fontSize={{ base: '15px', sm: '17px', md: '16px'}}
             mt={3}
-            fontFamily={'"Lacquer", system-ui, sans-serif'}
+            fontFamily={'"Bebas Neue", system-ui'}
             maxWidth={{ base: '80px', sm: '90px', md: '150px'}}
           >
             Envios a todo el País
@@ -201,9 +200,9 @@ export const Home = () => {
             m={'auto'}
           />
           <Text 
-            fontSize={{ base: '12px', sm: '15px', md: '16px'}}
+            fontSize={{ base: '15px', sm: '17px', md: '16px'}}
             mt={3}
-            fontFamily={'"Lacquer", system-ui, sans-serif'}
+            fontFamily={'"Bebas Neue", system-ui'}
             maxWidth={{ base: '80px', sm: '90px', md: '150px'}}
           >
             3 Cuotas sin Interes!
@@ -217,9 +216,9 @@ export const Home = () => {
             m={'auto'}
           />
           <Text 
-            fontSize={{ base: '12px', sm: '15px', md: '16px'}}
+            fontSize={{ base: '15px', sm: '17px', md: '16px'}}
             mt={4}
-            fontFamily={'"Lacquer", system-ui, sans-serif'}
+            fontFamily={'"Bebas Neue", system-ui'}
             maxWidth={{ base: '80px', sm: '90px', md: '150px'}}
           >
             Atención 24/7

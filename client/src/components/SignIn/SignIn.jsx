@@ -115,10 +115,10 @@ export const SignIn = () => {
           width="full"
           mt={4}
           mb={4}
-          bg="#4285F4"
+          bg="#000000"
           color="white"
-          borderColor="#4285F4"
-          _hover={{ bg: "#357ae8", borderColor: "#357ae8" }}
+          borderColor="#000000"
+          _hover={{ bg: "#222222", borderColor: "#222222" }}
           onClick={loginWithGoogle}
         >
           <Image 

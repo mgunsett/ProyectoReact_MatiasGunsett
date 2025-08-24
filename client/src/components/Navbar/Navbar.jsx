@@ -21,7 +21,6 @@ import {
   useBreakpointValue,
   Icon,
   Stack,
-  Divider
 } from "@chakra-ui/react";
 import { CartWidget } from "../../components";
 import logoBeReal from "../../assets/logo-BeReal.png";
@@ -119,7 +118,7 @@ export const Navbar = () => {
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent 
-            backgroundColor="rgba(74, 85, 104, 0.35)" 
+            backgroundColor="rgba(0, 0, 0, 0.35)" 
             backdropFilter="blur(10px)"
             color="white"
             fontFamily={'"Lacquer", system-ui, sans-serif'}
@@ -142,7 +141,7 @@ export const Navbar = () => {
                     </Box>
                     <AccordionIcon />
                   </AccordionButton>
-                  <AccordionPanel backgroundColor="rgba(74, 85, 104, 0.35)">
+                  <AccordionPanel backgroundColor="rgba(0, 0, 0, 0.35)">
                     {items.map((category) => (
                       <Stack key={category.slug} spacing={2}>
                         <Link

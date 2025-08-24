@@ -145,7 +145,7 @@ export const SlidersCards = ({ products }) => {
             minW={{ base: "140", sm: "160" , md: "210", lg: "260" }}
             height={{ base: "360", sm: "380px" , md: "430", lg: "480" }}
             flex="0 0 auto"
-            backgroundColor={('rgba(0, 0, 0, 0.381)')}>
+            backgroundColor={'rgba(0, 0, 0, 0.87)'}>
               <CardBody>
                 <Link to={`/item/${product.id}`}>
                   <Image
@@ -167,10 +167,10 @@ export const SlidersCards = ({ products }) => {
                   >{product.title}</Heading>
                   <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
                   <Text
-                    color="blue.500"
-                    fontSize="18px"
-                    fontFamily={"fantasy"}
-                    fontWeight={"100"}
+                    color="white"
+                    fontSize={{ base: "25px", sm: "22px", md: "26px", lg: "33px" }}
+                    fontFamily={'"Bebas Neue", system-ui'}
+                    fontWeight={"400"}
                   >
                     ${product.price}
                   </Text>

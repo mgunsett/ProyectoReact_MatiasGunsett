@@ -68,7 +68,7 @@ export const ProductsList = ({ title, products }) => {
               </Heading>
               <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
               <Text
-                color="blue.500"
+                color="white"
                 fontSize="18px"
                 fontFamily={"fantasy"}
                 fontWeight={"100"}

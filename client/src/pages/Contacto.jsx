@@ -2,7 +2,6 @@ import {
   Flex,
   Box,
   Heading,
-  Text,
   IconButton,
   Button,
   VStack,
@@ -15,9 +14,6 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import {
-  MdPhone,
-  MdEmail,
-  MdLocationOn,
   MdFacebook,
   MdOutlineEmail,
 } from 'react-icons/md'
@@ -140,9 +136,9 @@ export const Contacto = () => {
                 <FormControl id="name" float="right">
                   <Button 
                     variant="solid" 
-                    bg="#0D74FF" 
+                    bg="#000000" 
                     color="white" 
-                    _hover={{ bg: '#1C6FEB' }}
+                    _hover={{ bg: '#222222' }}
                   >
                     Enviar Mensaje
                   </Button>
