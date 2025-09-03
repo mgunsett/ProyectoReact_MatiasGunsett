@@ -8,7 +8,7 @@ firebase-debug.log*
 firebase-debug.*.log*
 
 # Firebase cache
-.firebase/
+
 
 # Firebase config
 
@@ -42,7 +42,7 @@ bower_components
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+
 
 # Dependency directories
 node_modules/
@@ -63,7 +63,7 @@ node_modules/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+
 
 # dataconnect generated files
 .dataconnect
