@@ -24,15 +24,16 @@ export const ItemsListContainer = ({ title, products }) => {
         />
       </Box>
       <Heading 
-      className='title2-container'
+      display={'flex'}
       as={'h1'}
       color={'black'}
-      lineHeight={1.1}
+      lineHeight={1}
       fontWeight={400}
-      fontSize= {{ base: "50px", sm: "30px", md: '45px' , lg: "50px" }}
+      fontSize= {{ base: "80px", sm: "90px", md: '100px' , lg: "110px" }}
       fontFamily={'"Bebas Neue", system-ui'}
-      fontStyle={'normal'}
-      justifyContent={{ base: 'center', sm: 'center', md: 'flex-start' }}
+      justifyContent={'flex-start'}
+      mb={'-30px'}
+      ml={'15px'}
       >{primeraMayuscula(title)}</Heading>
 
       <SlidersCards products={products}/>

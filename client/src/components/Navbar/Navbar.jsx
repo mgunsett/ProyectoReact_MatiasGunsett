@@ -121,10 +121,9 @@ export const Navbar = () => {
             backgroundColor="rgba(0, 0, 0, 0.35)" 
             backdropFilter="blur(10px)"
             color="white"
-            fontFamily={'"Lacquer", system-ui, sans-serif'}
+            fontFamily={'"Bebas Neue", system-ui'}
           >
             <DrawerHeader
-              fontFamily={'"Lacquer", system-ui, sans-serif'}
               color={"rgba(237, 237, 78, 0.737)"}
               fontSize={'25px'}
               m={0}

@@ -5,8 +5,6 @@ import {
     Stack,
     CardBody,
     Divider,
-    CardFooter,
-    ButtonGroup,
     Image,
     Text,
     Flex,
@@ -142,8 +140,8 @@ export const SlidersCards = ({ products }) => {
           {products.map((product) => (
             <Card 
             key={product.id}  
-            minW={{ base: "140", sm: "160" , md: "210", lg: "260" }}
-            height={{ base: "360", sm: "380px" , md: "430", lg: "480" }}
+            minW={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
+            height={{ base: "355px", sm: "380px" , md: "430px", lg: "480px" }}
             flex="0 0 auto"
             backgroundColor={'rgba(0, 0, 0, 0.87)'}>
               <CardBody>
@@ -152,7 +150,7 @@ export const SlidersCards = ({ products }) => {
                     src={product.imageUrl}
                     alt={product.title}
                     borderRadius="md"
-                    boxSize={{ base: "130px", sm: "150px", md: "200px", lg: "250px" }}
+                    boxSize={{ base: "180px", md: "200px", lg: "250px" }}
                     objectFit="cover"
                     maxW={"20rem"}
                     transition={"transform 0.3s ease"}
@@ -160,11 +158,14 @@ export const SlidersCards = ({ products }) => {
                   />
                 </Link>
                 <Stack textAlign={"left"} mt="6" spacing="2">
+                <Link to={`/item/${product.id}`}>
                   <Heading 
-                    size="sm"  
+                    fontSize={"18px"} 
                     color={'white'}
-                    width={{ base: "130px", sm: "150px", md: "200px", lg: "250px" }}
+                    width={{ base: "150px", sm: "150px", md: "200px", lg: "250px" }}
+                    _hover={{ color: "rgba(235, 248, 55, 0.8)" }}
                   >{product.title}</Heading>
+                  </Link>
                   <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
                   <Text
                     color="white"
@@ -177,19 +178,6 @@ export const SlidersCards = ({ products }) => {
                 </Stack>
               </CardBody>
               <Divider color={'white'}/>
-              <CardFooter>
-                <ButtonGroup spacing="3" color={'white'} _hover={{
-                    backgroundColor: "rgba(237, 237, 78, 0.737)",
-                    transform: "scale(1.1)",
-                    borderRadius: "2px",
-                    height: "25px",
-                    width: "110px",
-                    color: "black",
-                    paddingLeft: "10px",
-                  }}>
-                  <Link to={`/item/${product.id}`}>+ Ir a Detalle</Link>
-                </ButtonGroup>
-              </CardFooter>
             </Card>
           ))}
         </Flex>

@@ -7,15 +7,14 @@
     background-position:center;
     margin-top: -65px;
     height: 100vh;
+    mask-image: linear-gradient( 
+        rgb(76, 76, 76) 70%,
+        transparent
+        );
 }
 @media screen and (max-width: 500px) {
     .titleContainer {
         height: 80vh;
     }
     
-}
-.title2-container {
-    display: flex;
-    gap: 1rem;
-    margin: 1rem 0 0 1rem;    
 }

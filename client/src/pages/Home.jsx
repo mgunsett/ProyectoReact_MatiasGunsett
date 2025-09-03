@@ -26,6 +26,7 @@ import './Styles/Mediaquerys.css';
 import { SkeletonLoading } from "../components/SkeletonLoading";
 
 export const Home = () => {
+
   //y aca le pasamos como parametro a la hooks que customizamos el nombre de la "Coleccion" //
   const { items, loading } = useItemsCollection("products"); 
   
@@ -38,6 +39,7 @@ export const Home = () => {
       setRandomProduct(items[randomIndex]);
     }
   }, [ loading, items ]);
+
 // --------------------------------------------------------------------- //
   
 // Estado para manejar Hover de las imagenes ---------------------------//

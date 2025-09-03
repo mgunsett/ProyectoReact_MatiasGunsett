@@ -4,12 +4,15 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import { initializeApp, cert } from "firebase-admin/app";
+import fs from "fs";
 import { getFirestore } from "firebase-admin/firestore";
 import { MercadoPagoConfig, Preference, Payment } from "mercadopago"; // Agregamos Payment
 
 // Cargar variables de entorno
 dotenv.config();
-const serviceAccount = JSON.parse(process.env.GOOGLE_CREDENTIALS);
+
+const serviceAccount = JSON.parse(fs.readFileSync("./be-real-matiasgunsett-firebase-adminsdk-m1ug4-089c9a7124.json", "utf-8"));
+
 // Inicializar Firebase Admin
 try {
   initializeApp({
@@ -44,6 +47,19 @@ app.use(
 // Ruta de prueba para verificar que el servidor está vivo
 app.get("/", (req, res) => {
   res.send("Servidor de BeReal Clothes funcionando.");
+});
+
+// Ruta de pre-warm para reducir cold starts (Render/Firestore)
+app.get("/warm", async (req, res) => {
+  try {
+    // Ping muy liviano a Firestore para calentar conexión
+    await db.listCollections();
+    res.status(200).send("warm-ok");
+  } catch (e) {
+    console.error("Warmup error:", e.message);
+    // Aun si falla, devolvemos 200 para no bloquear al cliente
+    res.status(200).send("warm-error");
+  }
 });
 
 // Ruta de debug para verificar la estructura de los productos

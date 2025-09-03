@@ -17,11 +17,10 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context";
 import { db } from "../firebase/config";
 import { collection, addDoc, doc, getDoc } from "firebase/firestore";
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
+import { Wallet } from '@mercadopago/sdk-react';
 import { useAuth } from "../context/AuthContext";
 import './Styles/Payment.css';
 import axios from "axios";
-
 
 export const Payment = ({ onBack }) => {
 
@@ -31,10 +30,6 @@ const [preferenceId, setPreferenceId] = useState(null)
 const { cartState } = useContext(CartContext);
 const total = cartState.reduce(
 (acc, item) => acc + item.price * item.qtyItem,0);
-  
-const MP_PUBLIC_KEY = import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY;
-console.log("Public Key Mercado Pago:", MP_PUBLIC_KEY);
-
 
 //! Al montar el componente, bloqueamos el scroll del body-------------
 useEffect(() => {
@@ -46,28 +41,15 @@ useEffect(() => {
 }, []);
 //!--------------------------------------------------------------------
 
-
-
- // Inicializar MercadoPago
+// Pre-warm del backend para evitar cold start de Render
 useEffect(() => {
-  if (MP_PUBLIC_KEY) {
-    initMercadoPago(MP_PUBLIC_KEY, {
-      locale: 'es-AR',
-      client: {
-        sandbox: false
-      }
-    });
-  } else {
-    console.error("La clave pública de Mercado Pago no está definida.");
-    toast({
-      title: 'Error de configuración',
-      description: 'No se pudo inicializar Mercado Pago. Por favor, inténtalo de nuevo más tarde.',
-      status: 'error',
-      duration: 9000,
-      isClosable: true
-    });
-  }
-}, [MP_PUBLIC_KEY]);
+  // Hacemos un ping no bloqueante; si falla, no interrumpe el flujo
+  fetch('https://proyectoreact-matiasgunsett.onrender.com/warm', {
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-store',
+  }).catch(() => {});
+}, []);
 
 // Crear orden y preferencia
 const createOrderAndPreference = async () => {
@@ -89,33 +71,35 @@ const createOrderAndPreference = async () => {
     }
 
     // Verificar stock antes de crear la orden
-    for (const item of cartState) {
-      const productRef = doc(db, "products", item.id);
-      const productDoc = await getDoc(productRef);
-      
-      if (!productDoc.exists()) {
-        throw new Error(`El producto '${item.title}' ya no está disponible`);
-      }
+    await Promise.all(
+      cartState.map(async (item) => {
+        const productRef = doc(db, "products", item.id);
+        const productDoc = await getDoc(productRef);
+        
+        if (!productDoc.exists()) {
+          throw new Error(`El producto '${item.title}' ya no está disponible`);
+        }
 
-      const productData = productDoc.data();
-      const size = item.selectedSize.toUpperCase();
-      
-      // Verificar si el tamaño existe y tiene stock
-      if (!productData || typeof productData !== 'object') {
-        throw new Error(`Error al obtener datos del producto ${item.title}`);
-      }
+        const productData = productDoc.data();
+        const size = item.selectedSize.toUpperCase();
+        
+        // Verificar si el tamaño existe y tiene stock
+        if (!productData || typeof productData !== 'object') {
+          throw new Error(`Error al obtener datos del producto ${item.title}`);
+        }
 
-      // Verificar si el tamaño existe en los datos del producto
-      if (!productData.hasOwnProperty(size)) {
-        throw new Error(`El producto '${item.title}' no tiene stock configurado para el tamaño ${size}`);
-      }
+        // Verificar si el tamaño existe en los datos del producto
+        if (!Object.prototype.hasOwnProperty.call(productData, size)) {
+          throw new Error(`El producto '${item.title}' no tiene stock configurado para el tamaño ${size}`);
+        }
 
-      const currentStock = productData[size];
-      
-      if (currentStock === undefined || currentStock < item.qtyItem) {
-        throw new Error(`No hay suficiente stock para el producto ${item.title} (Talle: ${size}). Stock disponible: ${currentStock}`);
-      }
-    }
+        const currentStock = productData[size];
+        
+        if (currentStock === undefined || currentStock < item.qtyItem) {
+          throw new Error(`No hay suficiente stock para el producto ${item.title} (Talle: ${size}). Stock disponible: ${currentStock}`);
+        }
+      })
+    );
 
     // Crear la orden en Firestore
     const orderObj = {
@@ -266,16 +250,12 @@ return (
     </Box> 
     <Box className="btn-container-payment"> 
       {preferenceId ? ( 
-        console.log("Preference ID:", preferenceId),
-        console.log("Clave pública:", import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY),
-
         <Wallet
           initialization={{ preferenceId: preferenceId}}
           onReady={() => console.log("Wallet está listo")}
           onSubmit={(data) => console.log("Pago enviado", data)}
           onApprove={(data) => {
             console.log("Pago aprobado", data);
-            createOrderAndPreference();
             toast({
               title: 'Pago aprobado',
               description: `Gracias por tu compra! Tu número de orden es: ${data.external_reference}`,
@@ -314,7 +294,6 @@ return (
   // const [name, setName] = useState("");
   // const [lastName, setLastName] = useState("");
   // const [email, setEmail] = useState("");
-
  {/* <div className="form-container">
         <input
             type="text"
