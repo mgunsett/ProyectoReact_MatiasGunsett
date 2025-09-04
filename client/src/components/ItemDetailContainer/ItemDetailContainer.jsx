@@ -167,25 +167,25 @@ export const ItemDetailContainer = ({ product }) => {
         <Stack alignSelf={'start'} p={{ base: 1, sm: 2 }}>  
           <Box as={"header"} marginBottom={{ base: 9, sm: 14 }}>
             <Heading
-              color={"rgba(237, 237, 78, 0.737)"}
-              lineHeight={1.1}
+              color={'black'}
+              lineHeight={1}
               fontWeight={600}
-              fontSize={{ base: "25px", sm: "30px", lg: "40px" }}
-              fontFamily={'"Lacquer", system-ui'}
+              fontSize= {{ base: "35px", sm: "30px", lg: "40px" }}
+              fontFamily={'"Bebas Neue", system-ui'}
             >
               {product.title}
             </Heading>
             <Text
               color={'white'}
               fontWeight={300}
-              fontSize={"2xl"}
+              fontSize={{ base: "25px", sm: "30px", lg: "40px" }}
               marginBottom={2}
             >
               {product.description}
             </Text>
             <Text
-              color={"rgba(237, 237, 78, 0.737)"}
-              fontSize={"2xl"}
+              color={'black'}
+              fontSize={{ base: "35px", sm: "45px", lg: "55px" }}
               alignSelf={'flex-start'}
               fontFamily={'fantasy'}
             >
@@ -194,23 +194,16 @@ export const ItemDetailContainer = ({ product }) => {
           </Box>
 
           <Stack
-            spacing={{ base: 4, sm: 6 }}
+            spacing={2}
             direction={["column", "row"]}
             alignItems={"flex-start"}
           >
-            <VStack spacing={{ base: 2, sm: 6 }}>
-              <Text
-                color={'white'}
-                fontSize={{ base: "20px", sm: "25px" }}
-                fontWeight={"300"}
-                alignSelf={'flex-start'}
-              >
-                Cantidad disponible: {product.stock}
-              </Text>
+            <VStack spacing={2}>
               <Text 
                 color={'white'}
                 fontSize={"20px"}
                 fontWeight={"300"}
+                fontFamily={'"Bebas Neue", system-ui'}
                 alignSelf={'flex-start'}
               >
                 Talle :
@@ -219,7 +212,7 @@ export const ItemDetailContainer = ({ product }) => {
               {sizes.map((size) => (
                 <Button
                   key={size}
-                  size={{ base: "xs", sm: "md" }}
+                  size={{ base: "sm", sm: "md" }}
                   onClick={() => handleSizeClick(size)}
                   border="2px solid"
                   borderColor={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "gray.300"}
@@ -238,7 +231,7 @@ export const ItemDetailContainer = ({ product }) => {
           </Stack>
 
           <Button
-            maxW={{ base: "100%", sm: "60%" }}
+            maxW={{ base: "100%", sm: "100%" }}
             size={"lg"}
             py={"7"}
             backgroundColor={"rgba(0, 0, 0, 0.745)"}

@@ -51,7 +51,7 @@ export const SignIn = () => {
       mx="auto"
       boxSize={{ base: "80%", sm: "md", md: 'lg'}}
       color={"white"}
-      background={"rgba(33, 33, 65, 0.621)"}
+      background={"rgba(58, 58, 58, 0.9)"}
       borderRadius={8}
       backdropFilter={"blur(2px)"}
       boxShadow={"1px 2px 19px -8px rgba(0,0,0,0.75)"}
@@ -59,10 +59,10 @@ export const SignIn = () => {
       <Heading
         as="h1"
         mb={6}
-        lineHeight={1.1}
-        fontWeight={600}
-        fontSize={{ base: "20px", sm: "20px", lg: "30px" }}
-        fontFamily={'"Lacquer", system-ui'}
+        lineHeight={1.2}
+        fontWeight={400}
+        fontSize={{ base: "30px", sm: "40px", lg: "50px" }}
+        fontFamily={'"Bebas Neue", system-ui'}
       >
         {isRegistering ? "Registrarse" : "Ingresar"}
       </Heading>
@@ -111,14 +111,12 @@ export const SignIn = () => {
         <Button
           size={{ base: "sm", sm: "md"}}
           type="button"
-          variant="outline"
           width="full"
           mt={4}
           mb={4}
-          bg="#000000"
+          bg="rgb(66 133 244 / 0.9)"
           color="white"
-          borderColor="#000000"
-          _hover={{ bg: "#222222", borderColor: "#222222" }}
+          _hover={{ bg: "rgba(66, 133, 244, 0.6)" }}
           onClick={loginWithGoogle}
         >
           <Image 
@@ -137,6 +135,7 @@ export const SignIn = () => {
           fontSize={{ base: "12px", sm: "20px"}}
           variant="link" 
           onClick={() => setIsRegistering(!isRegistering)}
+          color="white"
         >
           {isRegistering
             ? "¿Ya tienes una cuenta? Inicia sesión"

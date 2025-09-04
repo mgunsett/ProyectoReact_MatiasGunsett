@@ -24,12 +24,22 @@ export const ProductsList = ({ title, products }) => {
     return (
     <Box 
       className='CategoryPage' 
-      backgroundColor={('gray.200', 'gray.700')}
+      backgroundColor={'rgba(255, 255, 255, 0.87)'}
       paddingTop={16}
       marginTop={-16}
     >
     <Box className='Banner'></Box>
-    <Text className='TitleHeader'>{primeraMayuscula(title)}</Text>
+    <Text 
+    as={'h1'}
+    color={'black'}
+    lineHeight={1}
+    fontWeight={400}
+    fontSize= {{ base: "80px", sm: "90px", md: '100px' , lg: "110px" }}
+    fontFamily={'"Bebas Neue", system-ui'}
+    ml={{ base: "15px", md: "120px" }}
+    >
+    {primeraMayuscula(title)}
+    </Text>
     <Flex
       wrap="wrap"
       gap={2}
@@ -40,10 +50,10 @@ export const ProductsList = ({ title, products }) => {
       {products.map((product) => (
         <Card 
         key={product.id} 
-        minW={{ base: "140px", sm: "160px" , md: "210px", lg: "260px" }} 
-        height={{ base: "360px", sm: "380px" , md: "430px", lg: "480px" }}
+        minW={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
+        height={{ base: "330px", sm: "380px" , md: "430px", lg: "480px" }}
         flex="0 0 auto"
-        backgroundColor={('rgba(0, 0, 0, 0.381)')}
+        backgroundColor={'rgba(0, 0, 0, 0.87)'}
         >
           <CardBody>
             <Link to={`/item/${product.id}`}>
@@ -52,6 +62,7 @@ export const ProductsList = ({ title, products }) => {
                 alt={product.title}
                 borderRadius="md"
                 boxSize={{ base: "140px", sm: "150px", md: "200px", lg: "250px" }}
+                height={{ base: "170px", sm: "150px", md: "200px", lg: "250px" }}
                 objectFit="cover"
                 maxW={"21rem"}
                 transition={"transform 0.3s ease"}
@@ -59,13 +70,16 @@ export const ProductsList = ({ title, products }) => {
               />
             </Link>
             <Stack textAlign={"left"} mt="6" spacing="2">
+            <Link to={`/item/${product.id}`}>
               <Heading 
                 size="sm" 
                 color={'white'} 
                 width={{ base: "130px", sm: "150px", md: "200px", lg: "250px" }}
+                _hover={{ color: "rgba(235, 248, 55, 0.8)" }}
               >
                 {product.title}
               </Heading>
+            </Link>
               <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
               <Text
                 color="white"
@@ -77,22 +91,6 @@ export const ProductsList = ({ title, products }) => {
               </Text>
             </Stack>
           </CardBody>
-          <Divider color={'white'}/>
-          <CardFooter>
-            <ButtonGroup 
-            color={'white'} 
-            _hover={{
-                backgroundColor: "rgba(237, 237, 78, 0.737)",
-                transform: "scale(1.1)",
-                borderRadius: "2px",
-                height: "25px",
-                width: "110px",
-                color: "black",
-                paddingLeft: "10px",
-              }}>
-              <Link to={`/item/${product.id}`}>+ Ir a Detalle</Link>
-            </ButtonGroup>
-          </CardFooter>
         </Card>
       ))}
     </Flex>

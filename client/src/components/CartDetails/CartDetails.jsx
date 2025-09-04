@@ -37,12 +37,11 @@ export const CartDetails = ({onContinue}) => {
       <Heading 
       as="h2" 
       size="lg" 
-      mb={6} 
-      color={'white'}
-      lineHeight={1.1}
-      fontWeight={600}
-      fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
-      fontFamily={'"Lacquer", system-ui'}
+      color={'black'}
+      lineHeight={1.2}
+      fontWeight={400}
+      fontSize={{base: "50px", sm: "60px", lg: "70px"}}
+      fontFamily={'"Bebas Neue", system-ui'}
       > 
         TU CARRITO
       </Heading>
@@ -53,7 +52,12 @@ export const CartDetails = ({onContinue}) => {
           Tu carrito está vacío.
         </Alert>
       ) : (
-        <Box w={{ base: "330px", md: "90%" }}>
+        <Box 
+        w={{ base: "330px", md: "90%" }}
+        boxShadow="md"
+        borderRadius="md"
+        bg={'rgba(36, 34, 34, 0.9)'}
+        >
           {cartState.map((item) => (  
             <Flex
               key={item.id + item.selectedSize}
@@ -70,6 +74,7 @@ export const CartDetails = ({onContinue}) => {
                 boxSize="90px"
                 objectFit="cover"
                 borderRadius="md"
+                boxShadow="md"
                 mr={4}
                 h={'110px'}
               />
@@ -84,12 +89,19 @@ export const CartDetails = ({onContinue}) => {
                 >
                   {item.title}
                 </Text>
-                  <Text color={'white'}>
-                    Precio:
-                  </Text>
-                  <Text color={'white'}>
-                    ${item.price}
-                  </Text>
+                <Text 
+                  fontSize={{ base: "xs", md: "sm" }}
+                  color={'rgba(237, 237, 78, 0.737)'}
+                  fontWeight="semibold"
+                >
+                  Talle: {item.selectedSize}
+                </Text>
+                <Text 
+                  color={'white'}
+                  fontWeight="semibold"
+                >
+                  ${item.price}
+                </Text>
               </Box>
               <Spacer />
               <HStack>

@@ -23,7 +23,7 @@ export const Item = () => {
   ) : (
     <Box 
       className="container" 
-      backgroundColor={('gray.200', 'gray.700')}
+      backgroundColor="white"
       paddingTop={20}
       marginTop={-16}
     >

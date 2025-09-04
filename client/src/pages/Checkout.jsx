@@ -23,7 +23,7 @@ export const Checkout = () => {
       height={{ base: '100%', md: '100vh' }} 
       paddingTop={20}
       marginTop={-16}
-      backgroundColor={('gray.200', 'gray.700')}
+      backgroundColor= "white "
     >
       <Flex
         flexDirection={{ base: 'column', md: 'row' }}

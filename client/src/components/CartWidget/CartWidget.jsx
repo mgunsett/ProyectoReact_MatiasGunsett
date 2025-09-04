@@ -13,9 +13,15 @@ export const CartWidget = () => {
 
     return (
         <Flex justifyContent={'center'} alignItems={'center'}>
-            <CgShoppingCart size={'25px'} />
+            <CgShoppingCart 
+            size={'25px'} 
+            color={'black'}
+            />
             <Link to='/checkout'>
-            <Text padding={'5px'}>{qtyTotalItems}</Text>
+            <Text 
+            padding={'5px'}
+            color={'black'}
+            >{qtyTotalItems}</Text>
             </Link>
         </Flex>
     )
