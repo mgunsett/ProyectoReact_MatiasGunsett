@@ -12,7 +12,7 @@ export const ItemsListContainer = ({ title, products }) => {
   return (
     <Flex  margin={'auto'} flexDirection={'column'} gap={'20px'} backgroundColor={'white'}>
       <Box className='titleContainer' position={'relative'}>
-        <Image
+        {/*<Image
           className='banner'
           src={bannerNuevo}
           objectFit={'contain'}
@@ -21,7 +21,7 @@ export const ItemsListContainer = ({ title, products }) => {
           margin={'auto'}
           marginTop={{ base: '80px', sm: '80px', lg: '80px' }}
           boxSize={{ base: '220px', sm: '250px', lg: '450px' }}	
-        />
+        />*/}
       </Box>
       <Heading 
       display={'flex'}

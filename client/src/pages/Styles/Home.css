@@ -1,6 +1,7 @@
 
 .promociones {
-    background: rgb(45, 45, 119);
+    background-color: rgb(0, 0, 0);
+    font-family: "Bebas Neue", system-ui;
     opacity: 0.9;
     justify-content: center;
     align-items: center;

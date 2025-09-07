@@ -150,9 +150,9 @@ export const SlidersCards = ({ products }) => {
                     src={product.imageUrl}
                     alt={product.title}
                     borderRadius="md"
-                    boxSize={{ base: "180px", md: "200px", lg: "250px" }}
+                    w={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
+                    h={{ base: "170px", sm: "180px" , md: "250px", lg: "310px" }}
                     objectFit="cover"
-                    maxW={"20rem"}
                     transition={"transform 0.3s ease"}
                     _hover={{ transform: "scale(1.1)" }}
                   />

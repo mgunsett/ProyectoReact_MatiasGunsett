@@ -56,7 +56,10 @@ export const Home = () => {
   ) : (
     <Box backgroundColor={'white'} height={'100%'} paddingBottom={'140px'}>
       <ItemsListContainer title={"Productos"} products={items} />
-      <Flex className="promociones" gap={5}>
+      <Flex 
+      className="promociones" 
+      gap={5}
+      >
           <Img 
             src={logoAngel} 
             alt="Logo principal" 
@@ -87,20 +90,18 @@ export const Home = () => {
           alignItems={{ base: 'center', sm: 'flex-start', md: 'center', lg: 'center'}}
           flexDirection={'row'}
         >
-          <Input 
-            variant='filled' 
-            placeholder='Introducir E-mail' 
-            size={{ base: 'sm', sm: 'md', md: 'md', lg: 'lg' }}
-          />
           <Button 
-            variant='solid'
-            colorScheme='teal'
-            padding={{ base: '10px', sm: '10px', md: '15px', lg: '25px' }}
-            fontSize={{ base: '10px', sm: '12px', md: '15px', lg: '16px' }}
+            variant='outline'
+            colorScheme='whiteAlpha'
+            padding={{ base: '10px', sm: '10px', md: '15px', lg: '50px' }}
+            fontSize={{ base: '10px', sm: '12px', md: '15px', lg: '30px' }}
+            fontFamily={'"Bebas Neue", system-ui'}
+            fontWeight={600}
+            color={'white'}
           > 
-            Suscribirme
+            SALE ➡️
           </Button>
-        </Flex>
+        </Flex> 
       </Flex>
       <Flex 
         gap={{ base: 0, sm: 2, md: 10, lg: 10 }}
