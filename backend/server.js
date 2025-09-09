@@ -12,28 +12,47 @@ import { MercadoPagoConfig, Preference, Payment } from "mercadopago"; // Agregam
 // Cargar variables de entorno
 dotenv.config();
 
-
-const serviceAccount = JSON.parse(fs.readFileSync("./be-real-matiasgunsett-firebase-adminsdk-m1ug4-089c9a7124.json", "utf-8"));
+// Configurar credenciales de Firebase para desarrollo y producción
+let serviceAccount;
+try {
+  if (process.env.NODE_ENV === 'production') {
+    // En producción, usar variables de entorno
+    serviceAccount = {
+      type: "service_account",
+      project_id: process.env.FIREBASE_PROJECT_ID,
+      private_key_id: process.env.FIREBASE_PRIVATE_KEY_ID,
+      private_key: process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
+      client_email: process.env.FIREBASE_CLIENT_EMAIL,
+      client_id: process.env.FIREBASE_CLIENT_ID,
+      auth_uri: "https://accounts.google.com/o/oauth2/auth",
+      token_uri: "https://oauth2.googleapis.com/token",
+      auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+      client_x509_cert_url: process.env.FIREBASE_CLIENT_X509_CERT_URL,
+      universe_domain: "googleapis.com"
+    };
+  } else {
+    // En desarrollo, usar el archivo JSON
+    serviceAccount = JSON.parse(fs.readFileSync("./be-real-matiasgunsett-firebase-adminsdk-m1ug4-089c9a7124.json", "utf-8"));
+  }
+} catch (error) {
+  console.error("Error al cargar credenciales de Firebase:", error.message);
+  process.exit(1);
+}
 
 // Inicializar Firebase Admin
 try {
   initializeApp({
-    // En Render, configura las credenciales de servicio de Google Cloud como una variable de entorno
     credential: cert(serviceAccount), 
   });
+  console.log("Firebase Admin inicializado correctamente");
 } catch (e) {
   console.log("Firebase ya inicializado o error en credenciales:", e.message);
 }
 const db = getFirestore();
 
-console.log("TOKEN MERCADOPAGO (Render):", process.env.MERCADOPAGO_ACCESS_TOKEN?.slice(0, 15));
-
 // Configurar cliente de MercadoPago
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
-  options: {
-    timeout: 10000, 
-  },
 });
 const payment = new Payment(client);
 
