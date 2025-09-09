@@ -8,8 +8,10 @@ import fs from "fs";
 import { getFirestore } from "firebase-admin/firestore";
 import { MercadoPagoConfig, Preference, Payment } from "mercadopago"; // Agregamos Payment
 
+
 // Cargar variables de entorno
 dotenv.config();
+
 
 const serviceAccount = JSON.parse(fs.readFileSync("./be-real-matiasgunsett-firebase-adminsdk-m1ug4-089c9a7124.json", "utf-8"));
 
@@ -17,16 +19,21 @@ const serviceAccount = JSON.parse(fs.readFileSync("./be-real-matiasgunsett-fireb
 try {
   initializeApp({
     // En Render, configura las credenciales de servicio de Google Cloud como una variable de entorno
-    credential: cert(serviceAccount),
+    credential: cert(serviceAccount), 
   });
 } catch (e) {
   console.log("Firebase ya inicializado o error en credenciales:", e.message);
 }
 const db = getFirestore();
 
+console.log("TOKEN MERCADOPAGO (Render):", process.env.MERCADOPAGO_ACCESS_TOKEN?.slice(0, 15));
+
 // Configurar cliente de MercadoPago
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN,
+  options: {
+    timeout: 10000, 
+  },
 });
 const payment = new Payment(client);
 
