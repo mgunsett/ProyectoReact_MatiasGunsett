@@ -1,5 +1,5 @@
 .titleContainer {
-    height: 90vh;
+    height: 110vh;
     background-image: url('../../assets/banner_dami2.jpg');
     background-attachment:fixed;
     background-size: cover;
@@ -7,14 +7,10 @@
     background-position:center;
     margin-top: -65px;
     height: 100vh;
-    mask-image: linear-gradient( 
-        rgb(76, 76, 76) 70%,
-        transparent
-        );
 }
 @media screen and (max-width: 500px) {
     .titleContainer {
-        height: 80vh;
+        height: 87vh;
     }
     
 }
