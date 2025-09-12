@@ -1,16 +1,15 @@
 .titleContainer {
-    height: 110vh;
-    background-image: url('../../assets/banner_dami2.jpg');
+    background-image: url('../../assets/Banner_dami5.png');
     background-attachment:fixed;
     background-size: cover;
     background-repeat: no-repeat;
     background-position:center;
     margin-top: -65px;
-    height: 100vh;
+    height: 110vh;
 }
 @media screen and (max-width: 500px) {
     .titleContainer {
-        height: 87vh;
+        background-image: url('../../assets/banner_dami2.jpg');
+        height: 85vh;
     }
-    
 }

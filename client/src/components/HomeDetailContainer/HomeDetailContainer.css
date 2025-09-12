@@ -1,8 +1,8 @@
 .HomeDetailContiner {
-    margin-bottom: 80px;
+    margin-bottom: 90px;
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 0.5px solid rgba(9, 9, 9, 0.315);
+    border: 0.5px solid rgba(9, 9, 9, 0.767);
     box-shadow: 37px 35px 6px 3px rgba(0,0,0,0.78);
     -webkit-box-shadow: 37px 35px 6px 3px rgba(0,0,0,0.78);
     -moz-box-shadow: 37px 35px 6px 3px rgba(0,0,0,0.78);

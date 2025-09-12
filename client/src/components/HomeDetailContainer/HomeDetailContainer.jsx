@@ -141,16 +141,16 @@ export const HomeDetailContainer = ({ product }) => {
           p={2} >
           <Box as={"header"} marginBottom={6}>
             <Heading
-                color={"rgba(237, 237, 78, 0.737)"}
+                color={'black'}
+                fontFamily={'"Bebas Neue", system-ui'}
                 lineHeight={1.1}
-                fontWeight={600}
-                fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
-                fontFamily={'"Lacquer", system-ui'}
+                fontWeight={200}
+                fontSize={{ base: "20px", sm: "30px", lg: "60px" }}
             >
               {product.title}
             </Heading>
             <Text
-              color={'white'}
+              color={'black'}
               fontWeight={300}
               fontSize={"2xl"}
               marginBottom={2}
@@ -158,10 +158,11 @@ export const HomeDetailContainer = ({ product }) => {
               {product.description}
             </Text>
             <Text
-              color={"rgba(237, 237, 78, 0.737)"}
-              fontSize={"2xl"}
+              color={'black'}
+              fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
               alignSelf={'flex-start'}
-              fontFamily={'fantasy'}
+              fontFamily={'"Bebas Neue", system-ui'}
+              fontWeight={600}
             >
               ${product.price}
             </Text>
@@ -174,8 +175,8 @@ export const HomeDetailContainer = ({ product }) => {
           >
             <VStack spacing={{ base: 2, sm: 6 }}>
               <Text 
-                color={'white'}
-                fontSize={"20px"}
+                color={'black'}
+                fontSize={"2xl"}
                 fontWeight={"300"}
                 alignSelf={'flex-start'}
               >
@@ -185,11 +186,12 @@ export const HomeDetailContainer = ({ product }) => {
               {sizes.map((size) => (
                 <Button
                   key={size}
+                  
                   size={{ base: "sm", sm: "md" }}
                   onClick={() => handleSizeClick(size)}
                   border="3px solid"
                   borderColor={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "gray.300"}
-                  color={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "white"}
+                  color={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "black"}
                   _hover={{
                     borderColor: "rgba(237, 237, 78, 0.737)",
                   }}
@@ -204,9 +206,11 @@ export const HomeDetailContainer = ({ product }) => {
           </Stack>
 
           <Button
-            maxW={{ base: "100%", sm: "60%" }}
+            maxW={{ base: "100%", sm: "40%" }}
             size={"lg"}
             py={"7s"}
+            fontFamily={'"Bebas Neue", system-ui'}
+            fontWeight={200}
             backgroundColor={"rgba(0, 0, 0, 0.745)"}
             color={useColorModeValue("white", "gray.900")}
             textTransform={"uppercase"}
@@ -217,7 +221,7 @@ export const HomeDetailContainer = ({ product }) => {
               color: "black",
             }}
             onClick={ handleAgregarAlCarrito }
-            fontSize={{ base: "12px", sm: "15px" }}
+            fontSize={{ base: "12px", sm: "20px" }}
           >
             Agregar al carrito
           </Button>
@@ -227,18 +231,18 @@ export const HomeDetailContainer = ({ product }) => {
                 boxSize={{ base: '28px', sm: '33px' }}
                 onClick={handleDecrement}
                 bg={'transparent'}
-                color={'white'}
-                border={'1px solid white'}
-                _hover={{ bg: 'white', color: 'black' }} 
+                color={'black'}
+                border={'1px solid black'}
+                _hover={{ bg: 'black', color: 'white' }} 
               >-</Button>
-              <Text color={'white'} fontSize="lg">{count}</Text>
+              <Text color={'black'} fontSize="lg">{count}</Text>
               <Button 
                 onClick={handleIncrement}
                 boxSize={{ base: '28px', sm: '33px' }}
                 bg={'transparent'}
-                color={'white'}
-                border={'1px solid white'}
-                _hover={{ bg: 'white', color: 'black' }} 
+                color={'black'}
+                border={'1px solid black'}
+                _hover={{ bg: 'black', color: 'white' }} 
               >+</Button>
             </Stack>
           )}

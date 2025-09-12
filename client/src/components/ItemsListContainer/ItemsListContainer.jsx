@@ -11,17 +11,10 @@ export const ItemsListContainer = ({ title, products }) => {
 
   return (
     <Flex  margin={'auto'} flexDirection={'column'} gap={'20px'} backgroundColor={'white'}>
-      <Box className='titleContainer' position={'relative'}>
-        {/*<Image
-          className='banner'
-          src={bannerNuevo}
-          objectFit={'contain'}
-          alt='Banner'
-          opacity={0.9}
-          margin={'auto'}
-          marginTop={{ base: '80px', sm: '80px', lg: '80px' }}
-          boxSize={{ base: '220px', sm: '250px', lg: '450px' }}	
-        />*/}
+      <Box 
+      className='titleContainer'
+      position={'relative'}
+      > 
       </Box>
       <Heading 
       display={'flex'}
