@@ -177,7 +177,7 @@ export const Home = () => {
         flexDirection={{ base: 'column', sm: 'column', md: 'row', lg: 'row' }}
         justifyContent={'space-between'}
         border={'1px solid black'}
-        height={'700px'}
+        height={{ base: '750px', md: '700px' }}
         backgroundColor={'rgb(0, 0, 0)'}
         mb={'90px'}
       >
@@ -220,14 +220,15 @@ export const Home = () => {
           </Text>
         </Flex>
         <Box
-          width={'50%'}
+          width={{ base: '100%', sm: '100%', md: '50%', lg: '50%' }}
+          mt={'-120px'}
         >
         <Img
-          height={'700px'}
+          height={{ base: '500px', md: '700px' }}
           width={'100%'}
           src={fotoFamily}
           alt='Logo BeReal'
-          objectFit={'cover'}
+          objectFit={{ base: 'contain', md: 'cover' }}
         />
         </Box>
       </Flex>

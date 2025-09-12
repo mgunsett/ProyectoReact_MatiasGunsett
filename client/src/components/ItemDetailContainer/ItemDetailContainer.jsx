@@ -88,20 +88,17 @@ export const ItemDetailContainer = ({ product }) => {
   return (
     <Box 
       className="detail-container"
-      w={{ base: "100%", lg: "90%" }}
-      m={"auto"}
-
+      width={{ base: "90%", sm: "80%", md: "80%"}}
+      margin={"auto"}
+      marginBottom={"90px"}
+      pt={"15px"}
     >
-      <Box className="detail-guia">
-        <Link className="guia-hover" to="/">Inicio</Link> /
-        <Link className="guia-hover" to={`/category/${product.category}`}> {product.category} </Link> /
-        <Link className="guia-hover" to={`/item/${product.id}`}> {product.title}</Link>
-      </Box>
+      
       <SimpleGrid
         alignSelf={'start'}
         justifyContent={'center'}
         alignItems={'center'}
-        columns={{ sm: 1, md: 2 }}
+        columns={{ base: 1, sm: 1, md: 2 }}
         spacing={2} 
         p={1} 
       > 
@@ -160,34 +157,46 @@ export const ItemDetailContainer = ({ product }) => {
             alt={product.title}
             src={mainImage} // Usar el estado mainImage
             fit={'cover'}
-            w={"76%"}
+            w={"80%"}
             h={{ base: "320px", sm: "400px", lg: "650px" }}
           />    
         </Flex>
+        
         <Stack alignSelf={'start'} p={{ base: 1, sm: 2 }}>  
           <Box as={"header"} marginBottom={{ base: 9, sm: 14 }}>
+            <Flex
+              gap={2}
+              alignItems={'center'}
+              fontSize={{ base: "12px", sm: "15px" }}
+              color={'black'}
+            >
+              <Link className="guia-hover" to="/">Inicio</Link> /
+              <Link className="guia-hover" to={`/category/${product.category}`}> {product.category} </Link> /
+              <Link className="guia-hover" to={`/item/${product.id}`}> {product.title}</Link>
+            </Flex>
             <Heading
               color={'black'}
-              lineHeight={1}
-              fontWeight={600}
-              fontSize= {{ base: "35px", sm: "30px", lg: "40px" }}
               fontFamily={'"Bebas Neue", system-ui'}
+              lineHeight={1.1}
+              fontWeight={200}
+              fontSize={{ base: "40px", sm: "30px", lg: "60px" }}
             >
               {product.title}
             </Heading>
             <Text
-              color={'white'}
+              color={'black'}
               fontWeight={300}
-              fontSize={{ base: "25px", sm: "30px", lg: "40px" }}
+              fontSize={"2xl"}
               marginBottom={2}
             >
               {product.description}
             </Text>
             <Text
               color={'black'}
-              fontSize={{ base: "35px", sm: "45px", lg: "55px" }}
+              fontSize={{ base: "20px", sm: "30px", lg: "50px" }}
               alignSelf={'flex-start'}
-              fontFamily={'fantasy'}
+              fontFamily={'"Bebas Neue", system-ui'}
+              fontWeight={600}
             >
               ${product.price}
             </Text>
@@ -200,10 +209,9 @@ export const ItemDetailContainer = ({ product }) => {
           >
             <VStack spacing={2}>
               <Text 
-                color={'white'}
-                fontSize={"20px"}
+                color={'black'}
+                fontSize={"2xl"}
                 fontWeight={"300"}
-                fontFamily={'"Bebas Neue", system-ui'}
                 alignSelf={'flex-start'}
               >
                 Talle :
@@ -216,7 +224,7 @@ export const ItemDetailContainer = ({ product }) => {
                   onClick={() => handleSizeClick(size)}
                   border="2px solid"
                   borderColor={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "gray.300"}
-                  color={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "white"}
+                  color={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "black"}
                   _hover={{
                     borderColor: "rgba(237, 237, 78, 0.737)",
                   }}
@@ -231,7 +239,7 @@ export const ItemDetailContainer = ({ product }) => {
           </Stack>
 
           <Button
-            maxW={{ base: "100%", sm: "100%" }}
+            maxW={{ base: "100%", sm: "40%" }}
             size={"lg"}
             py={"7"}
             backgroundColor={"rgba(0, 0, 0, 0.745)"}

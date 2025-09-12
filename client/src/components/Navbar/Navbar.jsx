@@ -10,7 +10,6 @@ import {
   AccordionButton,
   AccordionIcon,
   AccordionPanel,
-  IconButton,
   Drawer,
   DrawerOverlay,
   DrawerContent,
@@ -80,13 +79,18 @@ export const Navbar = () => {
                 <img width={"70px"} height={"70px"} src={logoBeReal} alt="Logo principal" />
               </Link>
             </Box>
-            <Menu>
-              <MenuButton className="menuButton" as={Link} color={"white"}>
+            <Menu
+            color={'black'}
+            _hover={{ cursor: "pointer", color: "white" }}
+            >
+              <MenuButton 
+              as={Link} 
+              >
                 Productos <ChevronDownIcon />
               </MenuButton>
-              <MenuList backgroundColor={"gray.700"} border={"1px solid white"}>
+              <MenuList backgroundColor={'black'} border={"1px solid white"}>
                 {items.map((category) => (
-                  <MenuItem key={category.slug} backgroundColor={"gray.700"}>
+                  <MenuItem key={category.slug} backgroundColor={'black'}>
                     <Link to={`/category/${category.slug}`} className="menuButton2">
                       {category.name}
                     </Link>

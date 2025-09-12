@@ -185,8 +185,7 @@ export const HomeDetailContainer = ({ product }) => {
               <Flex  gap={{ base: 1, sm: 4 }}>
               {sizes.map((size) => (
                 <Button
-                  key={size}
-                  
+                  key={size}    
                   size={{ base: "sm", sm: "md" }}
                   onClick={() => handleSizeClick(size)}
                   border="3px solid"

@@ -1,7 +1,6 @@
 .navbar {
   background: transparent;
   transition: background 0.5s ease-in-out, backdrop-filter 0.5s ease-in-out;
-  color: white;
 }
 
 .navbar.scrolled {
