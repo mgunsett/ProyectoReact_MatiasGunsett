@@ -141,29 +141,32 @@ export const SlidersCards = ({ products }) => {
             <Card 
             key={product.id}  
             minW={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
-            height={{ base: "355px", sm: "380px" , md: "430px", lg: "480px" }}
+            height={{ base: "360px", sm: "380px" , md: "430px", lg: "480px" }}
             flex="0 0 auto"
-            backgroundColor={'rgba(0, 0, 0, 0.87)'}>
-              <CardBody>
+            backgroundColor={'rgba(0, 0, 0, 0.87)'}
+            >
+              <CardBody
+              p={{ base: "10px", sm: "1rem" , md: "1rem", lg: "1rem" }}
+              >
                 <Link to={`/item/${product.id}`}>
                   <Image
                     src={product.imageUrl}
                     alt={product.title}
                     borderRadius="md"
                     w={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
-                    h={{ base: "170px", sm: "180px" , md: "250px", lg: "310px" }}
+                    h={{ base: "220px", sm: "180px" , md: "250px", lg: "310px" }}
                     objectFit="cover"
                     transition={"transform 0.3s ease"}
-                    _hover={{ transform: "scale(1.1)" }}
+                    _hover={{ transform: "scale(1.05)" }}
                   />
                 </Link>
-                <Stack textAlign={"left"} mt="6" spacing="2">
+                <Stack textAlign={"left"} mt={2} spacing={2}>
                 <Link to={`/item/${product.id}`}>
                   <Heading 
-                    fontSize={"18px"} 
+                    fontSize={{ base: "18px", sm: "20px", md: "25px", lg: "30px" }} 
                     color={'white'}
                     width={{ base: "150px", sm: "150px", md: "200px", lg: "250px" }}
-                    _hover={{ color: "rgba(235, 248, 55, 0.8)" }}
+                    _hover={{ color: "rgba(222, 230, 121, 0.8)" }}
                   >{product.title}</Heading>
                   </Link>
                   <Text maxW={"16rem"} color={'white'}>{product.description}</Text>

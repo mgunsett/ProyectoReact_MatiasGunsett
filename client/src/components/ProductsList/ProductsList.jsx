@@ -51,30 +51,34 @@ export const ProductsList = ({ title, products }) => {
         <Card 
         key={product.id} 
         minW={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
-        height={{ base: "330px", sm: "380px" , md: "430px", lg: "480px" }}
+        height={{ base: "370px", sm: "380px" , md: "430px", lg: "480px" }}
         flex="0 0 auto"
         backgroundColor={'rgba(0, 0, 0, 0.87)'}
         >
-          <CardBody>
+          <CardBody
+          p={{ base: "10px", sm: "1rem" , md: "1rem", lg: "1rem" }}
+          >
             <Link to={`/item/${product.id}`}>
               <Image
                 src={product.imageUrl}
                 alt={product.title}
                 borderRadius="md"
-                boxSize={{ base: "140px", sm: "150px", md: "200px", lg: "250px" }}
-                height={{ base: "170px", sm: "150px", md: "200px", lg: "250px" }}
+                boxSize={{ base: "160px", sm: "150px", md: "200px", lg: "250px" }}
+                height={{ base: "220px", sm: "150px", md: "200px", lg: "250px" }}
                 objectFit="cover"
                 maxW={"21rem"}
                 transition={"transform 0.3s ease"}
-                _hover={{ transform: "scale(1.1)" }}
+                _hover={{ transform: "scale(1.05)" }}
               />
             </Link>
-            <Stack textAlign={"left"} mt="6" spacing="2">
+            <Stack textAlign={"left"} mt={2} spacing={0}>
             <Link to={`/item/${product.id}`}>
               <Heading 
-                size="sm" 
+                fontSize={{ base: "25px", sm: "25px", md: "25px", lg: "30px" }} 
+                fontFamily={'"Bebas Neue", system-ui'}
+                fontWeight={400}
                 color={'white'} 
-                width={{ base: "130px", sm: "150px", md: "200px", lg: "250px" }}
+                width={{ base: "150px", sm: "150px", md: "200px", lg: "250px" }}
                 _hover={{ color: "rgba(235, 248, 55, 0.8)" }}
               >
                 {product.title}
@@ -83,9 +87,9 @@ export const ProductsList = ({ title, products }) => {
               <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
               <Text
                 color="white"
-                fontSize="18px"
-                fontFamily={"fantasy"}
-                fontWeight={"100"}
+                fontSize={{ base: "25px", sm: "25px", md: "40px" }}
+                fontFamily={'"Bebas Neue", system-ui'}
+                fontWeight={400}
               >
                 ${product.price}
               </Text>
