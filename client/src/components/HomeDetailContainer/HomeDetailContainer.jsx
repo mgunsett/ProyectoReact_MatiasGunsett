@@ -74,18 +74,19 @@ export const HomeDetailContainer = ({ product }) => {
       className="HomeDetailContiner"
       width={{ base: "100%", sm: "80%", md: "80%"}}
       margin={"auto"}
-      p={4}
+      marginBottom={"80px"}
+      p={'5px'}
     >
       <SimpleGrid
         className="detail-card"
         columns={{ base:1, sm: 1, md: 2 }}
         spacing={1} 
-        p={1} 
+        p={1}
       > 
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
-          gap={6}
+          gap={{ base: 4, sm: 6 }}
         >
           <Flex 
             flexDirection={'column'} 
@@ -97,7 +98,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageUrl}
             fit={'cover'}
-            boxSize={{ base: '60px', sm: '80px', md: '120px', lg: '150px' }}
+            boxSize={{ base: '70px', sm: '80px', md: '120px', lg: '150px' }}
             onClick={() => handleImageClick(product.imageUrl)}
             _hover={{ cursor: "pointer" }}
             />
@@ -105,7 +106,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageTwo}
             fit={'cover'}
-            boxSize={{base: '60px', sm: '80px', md: '120px', lg: '150px'}}
+            boxSize={{base: '70px', sm: '80px', md: '120px', lg: '150px'}}
             onClick={() => handleImageClick(product.imageTwo)}
             _hover={{ cursor: "pointer" }}
             />
@@ -113,7 +114,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageThree}
             fit={'cover'}
-            boxSize={{base: '60px', sm: '80px', md: '120px', lg: '150px'}}
+            boxSize={{base: '70px', sm: '80px', md: '120px', lg: '150px'}}
             onClick={() => handleImageClick(product.imageThree)} 
             _hover={{ cursor: "pointer" }}
             />
@@ -121,7 +122,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={product.imageFour}
             fit={'cover'}
-            boxSize={{base: '60px', sm: '80px', md: '120px', lg: '150px'}}
+            boxSize={{base: '70px', sm: '80px', md: '120px', lg: '150px'}}
             onClick={() => handleImageClick(product.imageFour)} 
             _hover={{ cursor: "pointer" }}
             />
@@ -132,7 +133,7 @@ export const HomeDetailContainer = ({ product }) => {
             alt={product.title}
             src={mainImage} // Usa el estado mainImage
             fit={'cover'}
-            w={"70%"}
+            w={"75%"}
             h={{ base: "320px", sm: "400px", lg: "650px" }}
           />    
         </Flex>
@@ -145,21 +146,21 @@ export const HomeDetailContainer = ({ product }) => {
                 fontFamily={'"Bebas Neue", system-ui'}
                 lineHeight={1.1}
                 fontWeight={200}
-                fontSize={{ base: "20px", sm: "30px", lg: "60px" }}
+                fontSize={{ base: "40px", sm: "30px", lg: "60px" }}
             >
               {product.title}
             </Heading>
             <Text
               color={'black'}
               fontWeight={300}
-              fontSize={"2xl"}
+              fontSize={{ base: "15px", sm: "20px", lg: "25px" }}
               marginBottom={2}
             >
               {product.description}
             </Text>
             <Text
               color={'black'}
-              fontSize={{ base: "20px", sm: "30px", lg: "40px" }}
+              fontSize={{ base: "25px", sm: "30px", lg: "40px" }}
               alignSelf={'flex-start'}
               fontFamily={'"Bebas Neue", system-ui'}
               fontWeight={600}
@@ -169,14 +170,14 @@ export const HomeDetailContainer = ({ product }) => {
           </Box>
 
           <Stack
-            spacing={{ base: 4, sm: 6 }}
+            spacing={2}
             direction={["column", "row"]}
             alignItems={"flex-start"}
           >
-            <VStack spacing={{ base: 2, sm: 6 }}>
+            <VStack spacing={2}>
               <Text 
                 color={'black'}
-                fontSize={"2xl"}
+                fontSize={{ base: "15px", sm: "20px", lg: "25px" }}
                 fontWeight={"300"}
                 alignSelf={'flex-start'}
               >
@@ -220,7 +221,7 @@ export const HomeDetailContainer = ({ product }) => {
               color: "black",
             }}
             onClick={ handleAgregarAlCarrito }
-            fontSize={{ base: "12px", sm: "20px" }}
+            fontSize={{ base: "18px", sm: "20px" }}
           >
             Agregar al carrito
           </Button>

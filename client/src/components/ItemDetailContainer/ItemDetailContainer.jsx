@@ -91,7 +91,7 @@ export const ItemDetailContainer = ({ product }) => {
       width={{ base: "90%", sm: "80%", md: "80%"}}
       margin={"auto"}
       marginBottom={"90px"}
-      pt={"15px"}
+      p={"5px"}
     >
       
       <SimpleGrid
@@ -101,7 +101,7 @@ export const ItemDetailContainer = ({ product }) => {
         columns={{ base: 1, sm: 1, md: 2 }}
         spacing={2} 
         p={1} 
-      > 
+      >   
         <Flex
           justifyContent={"center"}
           alignItems={"center"}
@@ -157,8 +157,8 @@ export const ItemDetailContainer = ({ product }) => {
             alt={product.title}
             src={mainImage} // Usar el estado mainImage
             fit={'cover'}
-            w={"80%"}
-            h={{ base: "320px", sm: "400px", lg: "650px" }}
+            w={"75%"}
+            h={{ base: "320px", sm: "400px", lg: "690px" }}
           />    
         </Flex>
         
@@ -186,7 +186,7 @@ export const ItemDetailContainer = ({ product }) => {
             <Text
               color={'black'}
               fontWeight={300}
-              fontSize={"2xl"}
+              fontSize={{ base: "15px", sm: "20px", lg: "25px" }}
               marginBottom={2}
             >
               {product.description}
@@ -210,7 +210,7 @@ export const ItemDetailContainer = ({ product }) => {
             <VStack spacing={2}>
               <Text 
                 color={'black'}
-                fontSize={"2xl"}
+                fontSize={{ base: "15px", sm: "20px", lg: "25px" }}
                 fontWeight={"300"}
                 alignSelf={'flex-start'}
               >
@@ -251,7 +251,7 @@ export const ItemDetailContainer = ({ product }) => {
               boxShadow: "lg",
             }}
             onClick={handleAgregarAlCarrito}
-            fontSize={{ base: "12px", sm: "15px" }}
+            fontSize={{ base: "18px", sm: "20px" }}
           >
             Agregar al carrito
           </Button>
@@ -271,8 +271,8 @@ export const ItemDetailContainer = ({ product }) => {
                 boxSize={'33px'}
                 bg={'transparent'}
                 color={'white'}
-                border={'1px solid white'}
-                _hover={{ bg: 'white', color: 'black' }} 
+                border={'1px solid black'}
+                _hover={{ bg: 'black', color: 'white' }} 
               >+</Button>
             </Stack>
           )}

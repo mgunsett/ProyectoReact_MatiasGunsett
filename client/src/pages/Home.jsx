@@ -109,7 +109,7 @@ export const Home = () => {
       >
         <Heading
           as="h2"
-          fontSize={{ base: '20px', sm: '25px', md: '30px', lg: '135px' }}
+          fontSize={{ base: '100px', sm: '25px', md: '30px', lg: '135px' }}
           mt={8}
           fontFamily={'"Bebas Neue", system-ui'}
           fontWeight={200}
