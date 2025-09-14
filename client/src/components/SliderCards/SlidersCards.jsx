@@ -137,11 +137,11 @@ export const SlidersCards = ({ products }) => {
           onTouchEnd={onTouchEnd}
           onClickCapture={onClickCapture}
         >
-          {products.map((product) => (
+          {products && products.length > 0 ? products.map((product) => (
             <Card 
             key={product.id}  
             minW={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
-            height={{ base: "360px", sm: "380px" , md: "430px", lg: "480px" }}
+            height={{ base: "360px", sm: "380px" , md: "480px", lg: "500px" }}
             flex="0 0 auto"
             backgroundColor={'rgba(0, 0, 0, 0.87)'}
             >
@@ -182,7 +182,11 @@ export const SlidersCards = ({ products }) => {
               </CardBody>
               <Divider color={'white'}/>
             </Card>
-          ))}
+          )) : (
+            <Text color="white" textAlign="center" width="100%">
+              No hay productos disponibles
+            </Text>
+          )}
         </Flex>
         <IconButton
           aria-label="Scroll Right"

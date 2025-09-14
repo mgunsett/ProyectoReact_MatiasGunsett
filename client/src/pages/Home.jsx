@@ -6,9 +6,7 @@ import {
   Box,
   Img,
   Heading,
-  Input,
   Text,
-  Button,
   Grid,
   GridItem
 } from "@chakra-ui/react";
@@ -19,6 +17,7 @@ import fotoMain5 from '../assets/fotoMain5.jpg';
 import fotoMain6 from '../assets/fotoMain6.jpg';
 import fotoFamily from '../assets/fotoFamily.jpg';
 import { FaTruckArrowRight } from "react-icons/fa6";
+import {BsChevronCompactRight} from "react-icons/bs";
 import './Styles/Home.css';
 import './Styles/Mediaquerys.css';
 import { SkeletonLoading } from "../components/SkeletonLoading";
@@ -55,51 +54,53 @@ export const Home = () => {
     <Box backgroundColor={'white'} height={'100%'} paddingBottom={'140px'}>
       <ItemsListContainer title={"Productos"} products={items} />
       <Flex
-        className="promociones"
-        gap={5}
+        backgroundColor={'black'}
+        color={'white'}
+        justifyContent={'space-around'}
+        alignItems={'center'}
+        pt={'60px'}
+        pb={'60px'}
+        margin={'100px auto'}
       >
         <Img
           src={logoAngel}
           alt="Logo principal"
-          width={{ base: '70px', sm: '80px' }}
-          height={{ base: '70px', sm: '80px' }}
+          width={{ base: '70px', sm: '100px' }}
+          height={{ base: '70px', sm: '100px' }}
         />
         <Box
-          maxW={{ base: '50%', sm: '60%', md: '40%', lg: '35%' }}
-          textAlign={'left'}
-          pl={{ base: 0, sm: 1, md: 5 }}
+          _hover={{
+            transform: 'translateX(20px)',
+            cursor: 'pointer',
+            borderLeft: '1px solid white',
+            paddingLeft: '20px',
+            transition:'all 0.5s linear',
+            color:'rgba(243, 241, 128, 0.8)',
+          }}
         >
           <Heading
             as='h2'
-            fontSize={{ base: '15px', sm: '15px', md: '20px', lg: '25px' }}
-          >
-            15% DE DESCUENTO EN TU PRIMERA COMPRA ONLINE!
-          </Heading>
-          <Text
-            fontSize={{ sm: '12px', md: '15px', lg: '20px' }}
-            display={{ base: 'none', sm: 'block' }}
-          >Suscríbete ahora para recibir las ultimas informaciones y ofertas exclusivas.</Text>
-        </Box>
-        <Flex
-          justifyContent={{ base: 'flex-start', sm: 'flex-start', md: 'center', lg: 'center' }}
-          paddingLeft={{ base: '20px', sm: '30px', md: '40px' }}
-          paddingBottom={'20px'}
-          gap={2}
-          alignItems={{ base: 'center', sm: 'flex-start', md: 'center', lg: 'center' }}
-          flexDirection={'row'}
-        >
-          <Button
-            variant='outline'
-            colorScheme='whiteAlpha'
-            padding={{ base: '10px', sm: '10px', md: '15px', lg: '50px' }}
-            fontSize={{ base: '10px', sm: '12px', md: '15px', lg: '30px' }}
+            fontSize={{ base: '15px', sm: '15px', md: '20px', lg: '65px' }}
             fontFamily={'"Bebas Neue", system-ui'}
             fontWeight={600}
-            color={'white'}
           >
-            SALE ➡️
-          </Button>
-        </Flex>
+            CLOTHES SALE!🔥
+          </Heading>
+
+          <Text
+            fontSize={{ sm: '12px', md: '15px', lg: '20px' }}
+            fontFamily={'"Bebas Neue", system-ui'}
+            fontWeight={400}
+            display={{ base: 'none', sm: 'block' }}
+          >ingresá a ver nuestros modelos en Promoción</Text>
+          
+        </Box>
+        <Img
+          src={logoAngel}
+          alt="Logo principal"
+          width={{ base: '70px', sm: '100px' }}
+          height={{ base: '70px', sm: '100px' }}
+        />
       </Flex>
       <Flex
         direction="column"
@@ -115,6 +116,7 @@ export const Home = () => {
           fontWeight={200}
           lineHeight={1}
           color={'black'}
+          alignItems={'center'}
         >
           Destacado
         </Heading>
@@ -221,7 +223,7 @@ export const Home = () => {
         </Flex>
         <Box
           width={{ base: '100%', sm: '100%', md: '50%', lg: '50%' }}
-          mt={'-120px'}
+          mt={{base: '-120px', md:'0px'}}
         >
         <Img
           height={{ base: '500px', md: '700px' }}

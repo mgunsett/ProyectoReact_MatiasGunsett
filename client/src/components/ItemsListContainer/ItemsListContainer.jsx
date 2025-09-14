@@ -1,6 +1,5 @@
 import { Heading, Box, Image, Flex} from '@chakra-ui/react';
 import './ListContainer.css';
-import bannerNuevo from '../../assets/bannerNuevo.png'
 import { SlidersCards } from '../SliderCards';
 
 export const ItemsListContainer = ({ title, products }) => {
