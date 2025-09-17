@@ -7,8 +7,6 @@ import {
   Img,
   Heading,
   Text,
-  Grid,
-  GridItem
 } from "@chakra-ui/react";
 import logoAngel from "../assets/logoAngel.png";
 import fotoMain1 from '../assets/fotoMain1.jpg';
@@ -69,18 +67,18 @@ export const Home = () => {
           height={{ base: '70px', sm: '100px' }}
         />
         <Box
+          transition='all 0.7s ease-in-out'
           _hover={{
-            transform: 'translateX(20px)',
+            transform: { base: 'translateX(10px)', sm: 'translateX(20px)' },
             cursor: 'pointer',
             borderLeft: '1px solid white',
-            paddingLeft: '20px',
-            transition:'all 0.5s linear',
+            paddingLeft: { base: '10px', sm: '20px' },
             color:'rgba(243, 241, 128, 0.8)',
           }}
         >
           <Heading
             as='h2'
-            fontSize={{ base: '15px', sm: '15px', md: '20px', lg: '65px' }}
+            fontSize={{ base: '40px', md: '50px', lg: '65px' }}
             fontFamily={'"Bebas Neue", system-ui'}
             fontWeight={600}
           >
@@ -88,10 +86,9 @@ export const Home = () => {
           </Heading>
 
           <Text
-            fontSize={{ sm: '12px', md: '15px', lg: '20px' }}
+            fontSize={{ base: '12px', md: '20px', lg: '20px' }}
             fontFamily={'"Bebas Neue", system-ui'}
             fontWeight={400}
-            display={{ base: 'none', sm: 'block' }}
           >ingresá a ver nuestros modelos en Promoción</Text>
           
         </Box>
@@ -100,10 +97,11 @@ export const Home = () => {
           alt="Logo principal"
           width={{ base: '70px', sm: '100px' }}
           height={{ base: '70px', sm: '100px' }}
+          display={{ base: 'none', sm: 'block' }}
         />
       </Flex>
       <Flex
-        direction="column"
+        direction="column" 
         align="center"
         justify="center"
         p={5}
@@ -234,22 +232,22 @@ export const Home = () => {
         />
         </Box>
       </Flex>
-      <Grid
-        w={'90%'} 
-        templateRows='repeat(2, 1fr)'
-        templateColumns='repeat(8, 1fr)'
+      <Flex
+        w={'100%'} 
         gap={1}
         margin={'auto'}
         mt={5}
+        height={'500px'}
       >
         {images.map((image, index) => (
-          <GridItem
+          <Box
             key={index}
             onMouseEnter={() => setHoveredIndex(index)}
             onMouseLeave={() => setHoveredIndex(null)}
-            rowSpan={2}
-            colSpan={hoveredIndex === null ? 2 : hoveredIndex === index ? 5 : 1}
             overflow={'hidden'}
+            transition="all 0.7s ease-in-out"
+            flex={hoveredIndex === null ? 1 : hoveredIndex === index ? {base: 2, md: 1.5} : {base: 0.5, md: 1}}
+            cursor="pointer"
           >
             <Img
               src={image.src}
@@ -258,9 +256,9 @@ export const Home = () => {
               width={'100%'}
               alt={image.alt}
             />
-          </GridItem>
+          </Box>
         ))}
-      </Grid>
+      </Flex>
     </Box>
   );
 };

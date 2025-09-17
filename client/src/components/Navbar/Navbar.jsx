@@ -133,7 +133,7 @@ export const Navbar = () => {
               fontSize={'25px'}
               m={0}
             >
-                Menú 👇
+             <br/>                   
             </DrawerHeader>
             <DrawerCloseButton color="white" />
             <DrawerBody textAlign={'left'}>

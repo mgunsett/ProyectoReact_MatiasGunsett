@@ -27,17 +27,17 @@ export const Contacto = () => {
     <Box 
     paddingTop={16}
     marginTop={-16}
-    backgroundColor={('gray.200', 'gray.700')}
+    backgroundColor={'white'}
+    height={'86vh'}
+    mt={8}
+    mb={{base:'116px', md: 6}}
     >
-      <Box 
-      className='contacto'
-      overflow= 'auto'
-      >
-        <Flex
+          <Flex
           className='contacto-container'
           w={{ base: '90%', sm: '90%', md: '60%'}}
-          margin={'60px auto'}
-          p={{ base: 5, sm: 5, md: 10, lg: 10 }}
+          h={'640px'}
+          mx="auto"
+          p={{ base: 5, md: 10}}
           direction={{ base: 'column', sm: 'column', md: 'row', lg: 'row' }}
           alignItems="center"
           justifyContent={{ base: 'center', sm: 'center', md: 'space-evenly'}}
@@ -49,23 +49,23 @@ export const Contacto = () => {
               marginLeft={{base:'-15px'}}
             >
             <Heading
-              fontSize={{ base: '32px', sm: '4xl', md: '4xl', lg: '5xl' }}
-              color="white"
-              fontFamily={'"Lacquer", system-ui, sans-serif'}
+              fontSize={{ base: '80px',md: "90px", lg: "100px" }}
+              fontWeight={400}
+              color="black"
+              fontFamily= {'"Bebas Neue", system-ui, sans-serif'}
               alignSelf={'center'}
             >
               Contacto
             </Heading>
             <HStack
-              mt={{ lg: 10, md: 8, base: 6 }}
+              mt={{ lg: 10, md: 8, base: 2 }}
               mb={{base: 10}}
               spacing={5}
-              px={5}
-              alignItems="flex-start"
+              px={10}
             >
               <Link to='https://www.facebook.com/' target='_blank'>
                 <IconButton
-                  color='white'
+                  color='black'
                   aria-label="facebook"
                   variant="ghost"
                   size="lg"
@@ -76,7 +76,7 @@ export const Contacto = () => {
               </Link>
               <Link to='https://www.instagram.com/bereal.sf/' target='_blank'>
                 <IconButton
-                  color='white'
+                  color='black'
                   aria-label="instagram"
                   variant="ghost"
                   size="lg"
@@ -87,7 +87,7 @@ export const Contacto = () => {
               </Link>
               <Link to='https://wa.link/oyoj7s' target='_blank'>
                 <IconButton
-                  color='white'
+                  color='black'
                   aria-label="discord"
                   variant="ghost"
                   size="lg"
@@ -147,6 +147,5 @@ export const Contacto = () => {
           </Box> 
         </Flex>
       </Box>
-    </Box>
   )
 }

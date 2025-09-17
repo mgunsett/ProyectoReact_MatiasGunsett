@@ -193,7 +193,7 @@ export const ItemDetailContainer = ({ product }) => {
             </Text>
             <Text
               color={'black'}
-              fontSize={{ base: "20px", sm: "30px", lg: "50px" }}
+              fontSize={{ base: "30px", sm: "30px", lg: "50px" }}
               alignSelf={'flex-start'}
               fontFamily={'"Bebas Neue", system-ui'}
               fontWeight={600}
@@ -251,7 +251,7 @@ export const ItemDetailContainer = ({ product }) => {
               boxShadow: "lg",
             }}
             onClick={handleAgregarAlCarrito}
-            fontSize={{ base: "18px", sm: "20px" }}
+            fontSize={{ base: "15px", sm: "20px" }}
           >
             Agregar al carrito
           </Button>
@@ -263,7 +263,7 @@ export const ItemDetailContainer = ({ product }) => {
                 bg={'transparent'}
                 color={'white'}
                 border={'1px solid white'}
-                _hover={{ bg: 'white', color: 'black' }} 
+                _hover={{ border: '1px solid rgba(237, 237, 78, 0.737)', color: 'black' }} 
               >-</Button>
               <Text color={'white'} fontSize="lg">{count}</Text>
               <Button 
@@ -272,7 +272,7 @@ export const ItemDetailContainer = ({ product }) => {
                 bg={'transparent'}
                 color={'white'}
                 border={'1px solid black'}
-                _hover={{ bg: 'black', color: 'white' }} 
+                _hover={{ border: '1px solid rgba(237, 237, 78, 0.737)', color: 'black' }} 
               >+</Button>
             </Stack>
           )}
