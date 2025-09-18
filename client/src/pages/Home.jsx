@@ -15,15 +15,17 @@ import fotoMain5 from '../assets/fotoMain5.jpg';
 import fotoMain6 from '../assets/fotoMain6.jpg';
 import fotoFamily from '../assets/fotoFamily.jpg';
 import { FaTruckArrowRight } from "react-icons/fa6";
-import {BsChevronCompactRight} from "react-icons/bs";
 import './Styles/Home.css';
 import './Styles/Mediaquerys.css';
 import { SkeletonLoading } from "../components/SkeletonLoading";
+import { Link } from "react-router-dom";
+
 
 export const Home = () => {
 
   //y aca le pasamos como parametro a la hooks que customizamos el nombre de la "Coleccion" //
   const { items, loading } = useItemsCollection("products");
+  const { itemsCategories } = useItemsCollection("categories");  
 
   // Estado para mostrar un producto aleatorio ---------------------------//
   const [randomProduct, setRandomProduct] = useState(null);
@@ -66,6 +68,7 @@ export const Home = () => {
           width={{ base: '70px', sm: '100px' }}
           height={{ base: '70px', sm: '100px' }}
         />
+        <Link to={`/category/sale`}>
         <Box
           transition='all 0.7s ease-in-out'
           _hover={{
@@ -92,6 +95,7 @@ export const Home = () => {
           >ingresá a ver nuestros modelos en Promoción</Text>
           
         </Box>
+        </Link>
         <Img
           src={logoAngel}
           alt="Logo principal"

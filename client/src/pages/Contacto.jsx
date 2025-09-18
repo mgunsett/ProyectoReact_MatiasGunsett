@@ -22,6 +22,7 @@ import './Styles/Contacto.css'
 import { Link } from 'react-router-dom'
 import './Styles/Mediaquerys.css'
 
+
 export const Contacto = () => {
   return (
     <Box 
@@ -30,7 +31,7 @@ export const Contacto = () => {
     backgroundColor={'white'}
     height={'86vh'}
     mt={8}
-    mb={{base:'116px', md: 6}}
+    mb={{base:'170px', md: 6}}
     >
           <Flex
           className='contacto-container'
