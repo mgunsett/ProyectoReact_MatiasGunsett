@@ -51,38 +51,6 @@ export const Item = () => {
       >
         Recomendados
       </Text>
-      <Image 
-      src={abeja}
-      alt="abeja"
-      width={{base: "250px", md: "350px"}}
-      height={{base: "250px", md: "350px"}}
-      position={'absolute'}
-      top={"-30px"}
-      left={"-50px"}
-      zIndex={1}
-      display={{base: "none", md: "block"}}
-      />
-      <Image 
-      src={abeja}
-      alt="abeja"
-      width={{base: "350px", md: "350px"}}
-      height={{base: "350px", md: "350px"}}
-      position={'absolute'}
-      bottom={"650px"}
-      right={"-130px"}
-      zIndex={1}
-      />
-      <Image 
-      src={abeja}
-      alt="abeja"
-      width={{base: "250px", md: "350px"}}
-      height={{base: "250px", md: "350px"}}
-      position={'absolute'}
-      bottom={"0px"}
-      left={"-60px"}
-      zIndex={1}
-      display={{base: "none", md: "block"}}
-      />
       <Box
       w={{base: "100%", md: "82%"}}
       p={2}

@@ -77,7 +77,7 @@ export const ItemDetailContainer = ({ product }) => {
 
   // Extraer los talles disponibles del producto
   const sizes = Object.keys(product).filter(key => 
-    ['SM', 'MD', 'LA', 'XL'].includes(key.toUpperCase())
+    ['SM', 'MD', 'LA', 'XL', '2XL'].includes(key.toUpperCase())
   );
 
   // Función para manejar el click en las imágenes
@@ -216,24 +216,29 @@ export const ItemDetailContainer = ({ product }) => {
               >
                 Talle :
               </Text>
-              <Flex  gap={{ base: 1 , sm: 4 }}>
-              {sizes.map((size) => (
-                <Button
-                  key={size}
-                  size={{ base: "sm", sm: "md" }}
-                  onClick={() => handleSizeClick(size)}
-                  border="2px solid"
-                  borderColor={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "gray.300"}
-                  color={selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "black"}
-                  _hover={{
-                    borderColor: "rgba(237, 237, 78, 0.737)",
-                  }}
-                  variant="outline"
-                  disabled={product[size] <= 0} // Si el stock es 0, deshabilita el botón
-                >
-                  {size}
-                </Button>
-              ))}
+              <Flex gap={{ base: 1 , sm: 4 }}>
+              {sizes.map((size) => {
+                const isOutOfStock = product[size] <= 0;
+                return (
+                  <Button
+                    key={size}
+                    size={{ base: "sm", sm: "md" }}
+                    onClick={() => !isOutOfStock && handleSizeClick(size)}
+                    border="2px solid"
+                    borderColor={isOutOfStock ? "gray.400" : selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "gray.300"}
+                    color={isOutOfStock ? "gray.500" : selectedSize === size ? "rgba(237, 237, 78, 0.737)" : "black"}
+                    backgroundColor={isOutOfStock ? "gray.100" : "transparent"}
+                    opacity={isOutOfStock ? 0.6 : 1}
+                    textDecoration={isOutOfStock ? "line-through" : "none"}
+                    _hover={isOutOfStock? {} : { borderColor: "rgba(237, 237, 78, 0.737)",}}
+                    cursor={isOutOfStock ? "not-allowed" : "pointer"}
+                    variant="outline"
+                    position="relative"
+                  >
+                    {size}
+                  </Button>
+                );
+              })}
               </Flex>
             </VStack>
           </Stack>
@@ -261,16 +266,16 @@ export const ItemDetailContainer = ({ product }) => {
                 boxSize={'33px'}
                 onClick={handleDecrement}
                 bg={'transparent'}
-                color={'white'}
-                border={'1px solid white'}
+                color={'black'}
+                border={'1px solid black'}
                 _hover={{ border: '1px solid rgba(237, 237, 78, 0.737)', color: 'black' }} 
               >-</Button>
-              <Text color={'white'} fontSize="lg">{count}</Text>
+              <Text color={'black'} fontSize="lg">{count}</Text>
               <Button 
                 onClick={handleIncrement}
                 boxSize={'33px'}
                 bg={'transparent'}
-                color={'white'}
+                color={'black'}
                 border={'1px solid black'}
                 _hover={{ border: '1px solid rgba(237, 237, 78, 0.737)', color: 'black' }} 
               >+</Button>

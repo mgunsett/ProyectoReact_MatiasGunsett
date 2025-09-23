@@ -7,13 +7,15 @@ import './AprobedPay.css'
 export const AprobedPay = () => {
   return (
     <Flex
-    className='aprobed-pay'
     textAlign="center" 
     p={'110px'}  
     mb={'32vh'}
     direction={'column'}
     gap={12}
     alignItems={'center'}
+    backgroundColor='white'
+    borderTop={'1px solid black'}
+    borderBottom={'1px solid black'}
     >
       <Box>
         <CheckCircleIcon 
@@ -22,21 +24,23 @@ export const AprobedPay = () => {
         />
         <Heading 
           as="h2" 
-          size={{ base: 'lg', sm: 'xl'}} 
           mt={6} 
           mb={2}
-          color={'white'}
-          fontFamily={'"Lacquer", system-ui, sans-serif'}
-          width={{ base: '250px', sm: '400px' }}
+          color={'black'}
+          lineHeight={'1'}
+          fontFamily={'"Bebas Neue", system-ui, sans-serif'}
+          fontWeight={'400'}
+          fontSize={{ base: '50px', sm: '80px' }}
+          width={{ base: '300px', sm: '600px' }}
           
         >
           Muchas Gracias <br />
           por tu compra!
         </Heading>
-        <Text color={'gray.500'}>
+        <Text color={'black'}>
           Tu pago fue realizado con éxito! 
         </Text>
-        <Text color={'gray.500'}>
+        <Text color={'black'}>
           Comunicate con uno de nosotros para coordinar tu envio 👇
         </Text>
       </Box>
@@ -44,11 +48,11 @@ export const AprobedPay = () => {
         <Link to='https://wa.link/oyoj7s' target='_blank'>
         <Button
         px={4}
-        fontSize={'sm'}
+        fontSize={{ base: 'sm', sm: 'md' }}
         rounded={'full'}
-        color={'white'}
+        color={'black'}
         background={'#25d365a7'}
-        border={'1px solid white'}
+        border={'1px solid black'}
         _hover={{ bg: '#25D366' }}
         gap={2}
         >   

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ItemsListContainer, HomeDetailContainer } from "../components";
+import { ItemsListContainer, ItemDetailContainer} from "../components";
 import { useItemsCollection } from "../hooks";
 import {
   Flex,
@@ -19,7 +19,7 @@ import './Styles/Home.css';
 import './Styles/Mediaquerys.css';
 import { SkeletonLoading } from "../components/SkeletonLoading";
 import { Link } from "react-router-dom";
-
+  
 
 export const Home = () => {
 
@@ -125,7 +125,7 @@ export const Home = () => {
         {loading ? (
           <Spinner size="xl" />
         ) : randomProduct ? (
-          <HomeDetailContainer product={randomProduct} />
+          <ItemDetailContainer product={randomProduct} />
         ) : (
           <Text>No hay productos destacados♠</Text>
         )}

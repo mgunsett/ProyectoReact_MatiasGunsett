@@ -9,5 +9,4 @@ export * from "./SliderCards";
 export * from "./ProductsList";
 export * from "./SignIn";
 export * from "./InicialLogin";
-export * from "./HomeDetailContainer";
 export * from "./AprobedPay";

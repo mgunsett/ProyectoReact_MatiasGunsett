@@ -4,6 +4,7 @@ import {
     Card,
     Stack,
     CardBody,
+    CardFooter,
     Divider,
     Image,
     Text,
@@ -123,8 +124,8 @@ export const SlidersCards = ({ products }) => {
           ref={containerRef}
           className="cardsContainer"
           overflowX="hidden" // Oculta el overflow
-          gap="1rem"
-          padding="1rem"
+          gap={2}
+          padding={2}
           maxW="100%"
           minW="100%"
           cursor={isDragging ? 'grabbing' : 'grab'}
@@ -156,31 +157,35 @@ export const SlidersCards = ({ products }) => {
                     w={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
                     h={{ base: "220px", sm: "180px" , md: "250px", lg: "310px" }}
                     objectFit="cover"
+                    maxW={"21rem"}
                     transition={"transform 0.3s ease"}
                     _hover={{ transform: "scale(1.05)" }}
                   />
                 </Link>
-                <Stack textAlign={"left"} mt={2} spacing={2}>
+                <Stack textAlign={"left"} mt={2} spacing={1}>
                 <Link to={`/item/${product.id}`}>
                   <Heading 
-                    fontSize={{ base: "18px", sm: "20px", md: "25px", lg: "30px" }} 
+                    fontSize={{ base: "18px", sm: "20px", md: "25px", lg: "33px" }} 
+                    fontFamily={'"Bebas Neue", system-ui'}
+                    fontWeight={400}
                     color={'white'}
                     width={{ base: "150px", sm: "150px", md: "200px", lg: "250px" }}
                     _hover={{ color: "rgba(222, 230, 121, 0.8)" }}
                   >{product.title}</Heading>
                   </Link>
                   <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
-                  <Text
-                    color="white"
-                    fontSize={{ base: "25px", sm: "22px", md: "26px", lg: "33px" }}
-                    fontFamily={'"Bebas Neue", system-ui'}
-                    fontWeight={"400"}
-                  >
-                    ${product.price}
-                  </Text>
                 </Stack>
               </CardBody>
-              <Divider color={'white'}/>
+              <CardFooter>
+                <Text
+                  color="white"
+                  fontSize={{ base: "25px", sm: "25px", md: "40px" }}
+                  fontFamily={'"Bebas Neue", system-ui'}
+                  fontWeight={400}
+                > 
+                  ${product.price}
+                </Text>
+              </CardFooter>
             </Card>
           )) : (
             <Text color="white" textAlign="center" width="100%">

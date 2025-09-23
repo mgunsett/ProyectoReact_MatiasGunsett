@@ -6,8 +6,6 @@ Image,
 Stack,
 Heading,
 Text,
-Divider,
-ButtonGroup,
 Flex,
 Box
 } from '@chakra-ui/react';
@@ -36,7 +34,7 @@ export const ProductsList = ({ title, products }) => {
     fontWeight={400}
     fontSize= {{ base: "80px", sm: "90px", md: '100px' , lg: "110px" }}
     fontFamily={'"Bebas Neue", system-ui'}
-    ml={{ base: "15px", md: "120px" }}
+    ml={{ base: "15px", md: "90px" }}
     >
     {primeraMayuscula(title)}
     </Text>
@@ -51,7 +49,7 @@ export const ProductsList = ({ title, products }) => {
         <Card 
         key={product.id} 
         minW={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
-        height={{ base: "370px", sm: "380px" , md: "430px", lg: "480px" }}
+        height={{ base: "360px", sm: "380px" , md: "480px", lg: "500px" }}
         flex="0 0 auto"
         backgroundColor={'rgba(0, 0, 0, 0.87)'}
         >
@@ -63,18 +61,18 @@ export const ProductsList = ({ title, products }) => {
                 src={product.imageUrl}
                 alt={product.title}
                 borderRadius="md"
-                boxSize={{ base: "160px", sm: "150px", md: "200px", lg: "250px" }}
-                height={{ base: "220px", sm: "150px", md: "200px", lg: "250px" }}
+                boxSize={{ base: "160px", sm: "170px", md: "210px", lg: "260px" }}
+                height={{ base: "220px", sm: "180px", md: "250px", lg: "310px" }}
                 objectFit="cover"
                 maxW={"21rem"}
                 transition={"transform 0.3s ease"}
                 _hover={{ transform: "scale(1.05)" }}
               />
             </Link>
-            <Stack textAlign={"left"} mt={2} spacing={0}>
+            <Stack textAlign={"left"} mt={2} spacing={2}>
             <Link to={`/item/${product.id}`}>
               <Heading 
-                fontSize={{ base: "25px", sm: "25px", md: "25px", lg: "30px" }} 
+                fontSize={{ base: "25px", sm: "25px", md: "25px", lg: "33px" }} 
                 fontFamily={'"Bebas Neue", system-ui'}
                 fontWeight={400}
                 color={'white'} 
@@ -85,16 +83,18 @@ export const ProductsList = ({ title, products }) => {
               </Heading>
             </Link>
               <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
-              <Text
-                color="white"
-                fontSize={{ base: "25px", sm: "25px", md: "40px" }}
-                fontFamily={'"Bebas Neue", system-ui'}
-                fontWeight={400}
-              >
-                ${product.price}
-              </Text>
             </Stack>
           </CardBody>
+          <CardFooter>
+            <Text
+              color="white"
+              fontSize={{ base: "25px", sm: "25px", md: "40px" }}
+              fontFamily={'"Bebas Neue", system-ui'}
+              fontWeight={400}
+            >
+              ${product.price}
+            </Text>
+          </CardFooter>
         </Card>
       ))}
     </Flex>

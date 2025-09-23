@@ -7,10 +7,9 @@ export const PostPayment = () => {
         <Box
         paddingTop={16}
         marginTop={-16}
-        backgroundColor={('gray.200', 'gray.700')}
+        backgroundColor= {'white'}
         >
             <Box
-            className="post-payment"
             overflow="auto"
             >
                 <AprobedPay />
