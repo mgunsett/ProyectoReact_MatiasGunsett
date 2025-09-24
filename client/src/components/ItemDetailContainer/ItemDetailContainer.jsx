@@ -122,33 +122,54 @@ export const ItemDetailContainer = ({ product }) => {
             onClick={() => handleImageClick(product.imageUrl)}
             _hover={{ cursor: "pointer" }}
             />
-            <Image
-            rounded={"sm"}
-            alt={product.title}
-            src={product.imageTwo}
-            fit={'cover'}
-            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
-            onClick={() => handleImageClick(product.imageTwo)}
-            _hover={{ cursor: "pointer" }}
-            />
-            <Image
-            rounded={"sm"}
-            alt={product.title}
-            src={product.imageThree}
-            fit={'cover'}
-            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
-            onClick={() => handleImageClick(product.imageThree)} 
-            _hover={{ cursor: "pointer" }}
-            />
-            <Image
-            rounded={"sm"}
-            alt={product.title}
-            src={product.imageFour}
-            fit={'cover'}
-            boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
-            onClick={() => handleImageClick(product.imageFour)} 
-            _hover={{ cursor: "pointer" }}
-            />
+            {product.imageTwo ? (
+              <Image
+                rounded={"sm"}
+                alt={product.title}
+                src={product.imageTwo}
+                fit={'cover'}
+                boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+                onClick={() => handleImageClick(product.imageTwo)}
+                _hover={{ cursor: "pointer" }}
+              />
+            ) : (
+              <Box
+                rounded={"sm"}
+                boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+              />
+            )}
+            {product.imageThree ? (
+              <Image
+                rounded={"sm"}
+                alt={product.title}
+                src={product.imageThree}
+                fit={'cover'}
+                boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+                onClick={() => handleImageClick(product.imageThree)} 
+                _hover={{ cursor: "pointer" }}
+              />
+            ) : (
+              <Box
+                rounded={"sm"}
+                boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+              />
+            )}
+            {product.imageFour ? (
+              <Image
+                rounded={"sm"}
+                alt={product.title}
+                src={product.imageFour}
+                fit={'cover'}
+                boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+                onClick={() => handleImageClick(product.imageFour)} 
+                _hover={{ cursor: "pointer" }}
+              />
+            ) : (
+              <Box
+                rounded={"sm"}
+                boxSize={{base: '70px', sm: '90px', md: '120px', lg: '150px'}}
+              />
+            )}
           </Flex>
           <Image
             id="detail-image"
@@ -191,6 +212,18 @@ export const ItemDetailContainer = ({ product }) => {
             >
               {product.description}
             </Text>
+            {product.prevprice ? (
+            <Text
+              color={'red'}
+              fontSize={{ base: "25px", sm: "25px", lg: "45px" }}
+              alignSelf={'flex-start'}
+              fontFamily={'"Bebas Neue", system-ui'}
+              fontWeight={400}
+              textDecoration="line-through"
+            >
+              ${product.prevprice}
+            </Text>
+            ) : ( null) }
             <Text
               color={'black'}
               fontSize={{ base: "30px", sm: "30px", lg: "50px" }}

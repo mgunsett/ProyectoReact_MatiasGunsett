@@ -86,6 +86,10 @@ export const ProductsList = ({ title, products }) => {
             </Stack>
           </CardBody>
           <CardFooter>
+            <Flex
+            justifyContent={'space-between'}
+            alignItems={'center'}
+            >
             <Text
               color="white"
               fontSize={{ base: "25px", sm: "25px", md: "40px" }}
@@ -94,6 +98,19 @@ export const ProductsList = ({ title, products }) => {
             >
               ${product.price}
             </Text>
+            {product.prevprice ? (
+            <Text
+              color={'red'}
+              fontSize={{ base: "20px", sm: "20px", lg: "35px" }}
+              fontFamily={'"Bebas Neue", system-ui'}
+              fontWeight={400}
+              textDecoration="line-through"
+              ml={4}
+            >
+              ${product.prevprice}
+            </Text>
+            ) : ( null) }
+            </Flex>
           </CardFooter>
         </Card>
       ))}

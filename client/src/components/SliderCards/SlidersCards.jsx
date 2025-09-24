@@ -162,7 +162,7 @@ export const SlidersCards = ({ products }) => {
                     _hover={{ transform: "scale(1.05)" }}
                   />
                 </Link>
-                <Stack textAlign={"left"} mt={2} spacing={1}>
+                <Stack textAlign={"left"} mt={2} spacing={0}>
                 <Link to={`/item/${product.id}`}>
                   <Heading 
                     fontSize={{ base: "18px", sm: "20px", md: "25px", lg: "33px" }} 
@@ -177,6 +177,10 @@ export const SlidersCards = ({ products }) => {
                 </Stack>
               </CardBody>
               <CardFooter>
+              <Flex
+                justifyContent={'space-between'}
+                alignItems={'center'}
+                >
                 <Text
                   color="white"
                   fontSize={{ base: "25px", sm: "25px", md: "40px" }}
@@ -185,6 +189,19 @@ export const SlidersCards = ({ products }) => {
                 > 
                   ${product.price}
                 </Text>
+                {product.prevprice ? (
+                <Text
+                  color={'red'}
+                  fontSize={{ base: "20px", sm: "20px", lg: "35px" }}
+                  fontFamily={'"Bebas Neue", system-ui'}
+                  fontWeight={400}
+                  textDecoration="line-through"
+                  ml={4}
+                >
+                  ${product.prevprice}
+                </Text>
+                ) : ( null) }
+                </Flex>
               </CardFooter>
             </Card>
           )) : (
