@@ -11,7 +11,7 @@ import {
   SimpleGrid,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Link } from "react-router-dom";  
+import { Link, useLocation } from "react-router-dom";  
 import { CartContext } from "../../context/CartContext";
 import './ItemDetailContainer.css'
 
@@ -84,6 +84,11 @@ export const ItemDetailContainer = ({ product }) => {
   const handleImageClick = (imageSrc) => {
     setMainImage(imageSrc); 
   };
+
+  // Detectar categoría desde la navegación (si se pasó por state) o usar la primera
+  const location = useLocation();
+  const fromCategory = location.state?.fromCategory;
+  const activeCategory = fromCategory ?? (product.categories?.[0] ?? '');
 
   return (
     <Box 
@@ -192,7 +197,7 @@ export const ItemDetailContainer = ({ product }) => {
               color={'black'}
             >
               <Link className="guia-hover" to="/">Inicio</Link> /
-              <Link className="guia-hover" to={`/category/${product.category}`}> {product.category} </Link> /
+              <Link className="guia-hover" to={`/category/${activeCategory}`} state={{ fromCategory: activeCategory }}> {activeCategory} </Link> /
               <Link className="guia-hover" to={`/item/${product.id}`}> {product.title}</Link>
             </Flex>
             <Heading

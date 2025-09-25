@@ -5,7 +5,6 @@ import {
     Stack,
     CardBody,
     CardFooter,
-    Divider,
     Image,
     Text,
     Flex,
@@ -20,13 +19,48 @@ export const SlidersCards = ({ products }) => {
 
   const containerRef = useRef(null); 
   const [scrollPosition, setScrollPosition] = useState(0);
-  const scrollAmount = 600;
+  const scrollAmount = 900;
+  const animationRef = useRef(null);
 
   // Estados para drag/swipe
   const [isDragging, setIsDragging] = useState(false);
   const startXRef = useRef(0);
   const startScrollLeftRef = useRef(0);
   const hasDraggedRef = useRef(false);
+
+  // Animación personalizada de scroll con duración controlable
+  const animateScrollTo = (target, duration = 700) => {
+    if (!containerRef.current) return;
+
+    // Cancelar animación previa si existe
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
+
+    const start = containerRef.current.scrollLeft;
+    const change = target - start;
+    const startTime = performance.now();
+
+    // Easing: easeInOutQuad
+    const easeInOutQuad = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+
+    const step = (now) => {
+      // Detener si el usuario está arrastrando
+      if (isDragging || !containerRef.current) return;
+      const elapsed = now - startTime;
+      const t = Math.min(elapsed / duration, 1);
+      const eased = easeInOutQuad(t);
+      containerRef.current.scrollLeft = start + change * eased;
+      if (t < 1) {
+        animationRef.current = requestAnimationFrame(step);
+      } else {
+        animationRef.current = null;
+      }
+    };
+
+    animationRef.current = requestAnimationFrame(step);
+  };
 
   // Función para desplazar a la izquierda
   const scrollLeft = () => {
@@ -40,12 +74,16 @@ export const SlidersCards = ({ products }) => {
 
   useEffect(() => {
     if (containerRef.current) {  // Acceder al contenedor de forma directa
-      containerRef.current.scrollTo({
-        left: scrollPosition,
-        behavior: 'smooth',
-      });
+      animateScrollTo(scrollPosition, 900); // Ajusta 700ms a tu gusto (ej. 600-900)
     }
   }, [scrollPosition]);
+
+  // Limpiar animación al desmontar
+  useEffect(() => {
+    return () => {
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    };
+  }, []);
 
   // Handlers de drag (mouse)
   const onMouseDown = (e) => {
@@ -54,6 +92,11 @@ export const SlidersCards = ({ products }) => {
     hasDraggedRef.current = false;
     startXRef.current = e.pageX - containerRef.current.offsetLeft;
     startScrollLeftRef.current = containerRef.current.scrollLeft;
+    // Cancelar animación si el usuario comienza a arrastrar
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
   };
 
   const onMouseMove = (e) => {
@@ -79,6 +122,11 @@ export const SlidersCards = ({ products }) => {
     const touch = e.touches[0];
     startXRef.current = touch.pageX - containerRef.current.offsetLeft;
     startScrollLeftRef.current = containerRef.current.scrollLeft;
+    // Cancelar animación si el usuario comienza a arrastrar con touch
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+      animationRef.current = null;
+    }
   };
 
   const onTouchMove = (e) => {
@@ -138,7 +186,10 @@ export const SlidersCards = ({ products }) => {
           onTouchEnd={onTouchEnd}
           onClickCapture={onClickCapture}
         >
-          {products && products.length > 0 ? products.map((product) => (
+          {products && products.filter(p => !(p.categories || []).includes('accesorios')).length > 0
+            ? products
+                .filter(p => !(p.categories || []).includes('accesorios'))
+                .map((product) => (
             <Card 
             key={product.id}  
             minW={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
@@ -204,7 +255,8 @@ export const SlidersCards = ({ products }) => {
                 </Flex>
               </CardFooter>
             </Card>
-          )) : (
+          ))
+            : (
             <Text color="white" textAlign="center" width="100%">
               No hay productos disponibles
             </Text>

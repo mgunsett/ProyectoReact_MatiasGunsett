@@ -25,15 +25,20 @@ export const Home = () => {
 
   //y aca le pasamos como parametro a la hooks que customizamos el nombre de la "Coleccion" //
   const { items, loading } = useItemsCollection("products");
-  const { itemsCategories } = useItemsCollection("categories");  
+   
 
   // Estado para mostrar un producto aleatorio ---------------------------//
   const [randomProduct, setRandomProduct] = useState(null);
 
   useEffect(() => {
     if (!loading && items.length > 0) {
-      const randomIndex = Math.floor(Math.random() * items.length);
-      setRandomProduct(items[randomIndex]);
+      const filtered = items.filter(p => !(p.categories || []).includes('accesorios'));
+      if (filtered.length > 0) {
+        const randomIndex = Math.floor(Math.random() * filtered.length);
+        setRandomProduct(filtered[randomIndex]);
+      } else {
+        setRandomProduct(null);
+      }
     }
   }, [loading, items]);
 
@@ -127,7 +132,7 @@ export const Home = () => {
         ) : randomProduct ? (
           <ItemDetailContainer product={randomProduct} />
         ) : (
-          <Text>No hay productos destacados♠</Text>
+          <Text>No hay productos destacados ♠</Text>
         )}
       </Flex>
       <Flex className="bannerInfo">

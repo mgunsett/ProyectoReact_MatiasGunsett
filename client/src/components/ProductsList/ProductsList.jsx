@@ -49,7 +49,7 @@ export const ProductsList = ({ title, products }) => {
         <Card 
         key={product.id} 
         minW={{ base: "160px", sm: "170px" , md: "210px", lg: "260px" }}
-        height={{ base: "360px", sm: "380px" , md: "480px", lg: "500px" }}
+        height={{ base: "365px", sm: "380px" , md: "480px", lg: "500px" }}
         flex="0 0 auto"
         backgroundColor={'rgba(0, 0, 0, 0.87)'}
         >
@@ -72,17 +72,24 @@ export const ProductsList = ({ title, products }) => {
             <Stack textAlign={"left"} mt={2} spacing={2}>
             <Link to={`/item/${product.id}`}>
               <Heading 
-                fontSize={{ base: "25px", sm: "25px", md: "25px", lg: "33px" }} 
+                fontSize={{ base: "22px", sm: "25px", md: "25px", lg: "33px" }} 
                 fontFamily={'"Bebas Neue", system-ui'}
                 fontWeight={400}
                 color={'white'} 
-                width={{ base: "150px", sm: "150px", md: "200px", lg: "250px" }}
+                width={{ base: "160px", sm: "160px", md: "200px", lg: "250px" }}
                 _hover={{ color: "rgba(235, 248, 55, 0.8)" }}
               >
                 {product.title}
               </Heading>
             </Link>
-              <Text maxW={"16rem"} color={'white'}>{product.description}</Text>
+              <Text 
+              maxW={"16rem"} 
+              color={'white'}
+              fontSize={{ base: "13px", sm: "15px", lg: "20px" }}
+              mt={'-10px'}
+              >
+                {product.description}
+              </Text>
             </Stack>
           </CardBody>
           <CardFooter>
@@ -92,7 +99,7 @@ export const ProductsList = ({ title, products }) => {
             >
             <Text
               color="white"
-              fontSize={{ base: "25px", sm: "25px", md: "40px" }}
+              fontSize={{ base: "27px", sm: "25px", md: "40px" }}
               fontFamily={'"Bebas Neue", system-ui'}
               fontWeight={400}
             >
@@ -101,7 +108,7 @@ export const ProductsList = ({ title, products }) => {
             {product.prevprice ? (
             <Text
               color={'red'}
-              fontSize={{ base: "20px", sm: "20px", lg: "35px" }}
+              fontSize={{ base: "23px", sm: "20px", lg: "35px" }}
               fontFamily={'"Bebas Neue", system-ui'}
               fontWeight={400}
               textDecoration="line-through"

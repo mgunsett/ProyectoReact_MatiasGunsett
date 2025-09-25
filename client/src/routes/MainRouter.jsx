@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Category, Home, Item, Checkout, Contacto, Payment, PostPayment } from "../pages";
 import { Navbar, Footer } from "../components";
+import { ScrollToTop } from "./ScrollToTop";
 
 
 export const MainRouter = () => {
@@ -8,6 +9,7 @@ export const MainRouter = () => {
   //Parametro de URL: es un dato dinamico que se puede pasar a una ruta
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
