@@ -42,19 +42,18 @@ export const SignIn = () => {
 
   return (
     <Flex
-      p={{ base: 7, sm: 6}}
-      pt={{ base: 4, sm: 3}}
+      className="sign-in"
+      p={{ base: 7, sm: 2}}
+      pt={{ base: 4, sm: 2}}
       justifyContent="center"
       flexDirection="column"
       alignItems="center"
       maxWidth="700px"
       mx="auto"
-      boxSize={{ base: "80%", sm: "md", md: 'lg'}}
-      color={"white"}
-      background={"rgba(58, 58, 58, 0.9)"}
-      borderRadius={8}
-      backdropFilter={"blur(2px)"}
-      boxShadow={"1px 2px 19px -8px rgba(0,0,0,0.75)"}
+      mb={6}
+      boxSize={{ base: "80%", sm: "md", md: 'xl'}}
+      color={"black"}
+      background={"rgba(255, 255, 255, 0.9)"}     
     >
       <Heading
         as="h1"
@@ -76,6 +75,10 @@ export const SignIn = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            focusBorderColor="black"
+            placeholder="Ingrese su email"
+            _placeholder={{ color: "gray.500" }}
+            
           />
         </FormControl>
         <FormControl id="password" mb={6}>
@@ -86,6 +89,8 @@ export const SignIn = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            placeholder="Ingrese su contraseña"
+            _placeholder={{ color: "gray.500" }}
           />
         </FormControl>
         {isRegistering && (
@@ -97,12 +102,20 @@ export const SignIn = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
+              placeholder="Nombre de usuario"
+              _placeholder={{ color: "gray.500" }}
             />
           </FormControl>
         )}
         <Button 
           type="submit" 
-          colorScheme="teal" 
+          bg="transparent"
+          color="white"
+          background="rgba(0, 0, 0, 0.95)"
+          _hover={{ 
+              bg: "rgba(247, 240, 141, 0.88)", 
+              color: "black",
+            }}
           width="full"
           size={{ base: "sm", sm: "md"}}
         >
@@ -114,9 +127,13 @@ export const SignIn = () => {
           width="full"
           mt={4}
           mb={4}
-          bg="rgb(66 133 244 / 0.9)"
-          color="white"
-          _hover={{ bg: "rgba(66, 133, 244, 0.6)" }}
+          bg="transparent"
+          color="black"
+          border="1px solid black"
+          _hover={{ 
+              bg: "rgba(66, 133, 244, 0.6)", 
+              border: "none",
+            }}
           onClick={loginWithGoogle}
         >
           <Image 
@@ -135,7 +152,7 @@ export const SignIn = () => {
           fontSize={{ base: "12px", sm: "20px"}}
           variant="link" 
           onClick={() => setIsRegistering(!isRegistering)}
-          color="white"
+          color="black"
         >
           {isRegistering
             ? "¿Ya tienes una cuenta? Inicia sesión"

@@ -7,6 +7,7 @@ import './Styles/Checkout.css';
 export const Checkout = () => {
 
   const [showPayment, setShowPayment] = useState(false);
+  
 
   const handleContinuePurchase = () => {
     setShowPayment(true);
@@ -42,7 +43,7 @@ export const Checkout = () => {
         opacity={0.5}
       />
        ) : (
-        <Stack direction='row' h='600px' p={4}>
+        <Stack direction='row' h='600px' p={5}>
           <Divider orientation='vertical' />
         </Stack>
         )}
