@@ -34,6 +34,7 @@ export const ItemDetailContainer = ({ product }) => {
         icon: 'warning',
         title: 'SELECCIONA UN TALLE!',
         text: 'Por favor, selecciona un talle antes de agregar el producto al carrito.',
+        confirmButtonColor: 'black',
       });
       return;
     }
@@ -45,6 +46,7 @@ export const ItemDetailContainer = ({ product }) => {
         icon: 'warning',
         title: 'ATENCION!',
         text: `No hay stock disponible para el talle: ${selectedSize}. \n Stock disponible: ${sizeStock}`,
+        confirmButtonColor: 'black',
       });
       return;
     }
@@ -67,6 +69,7 @@ export const ItemDetailContainer = ({ product }) => {
           icon: 'warning',
           title: 'ATENCION!',
           text: `No hay suficiente stock para el talle: ${selectedSize}. \n Stock disponible: ${sizeStock}`,
+          confirmButtonColor: 'black',
         });
         return;
       }

@@ -16,20 +16,23 @@ import { CloseIcon } from '@chakra-ui/icons'
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context";
 import { db } from "../firebase/config";
-import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { Wallet } from '@mercadopago/sdk-react';
 import { useAuth } from "../context/AuthContext";
 import './Styles/Payment.css';
 import axios from "axios";
+import Swal from 'sweetalert2';
+import { MdOutlineWhatsapp } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export const Payment = ({ onBack }) => {
 
 const { user } = useAuth();
-const toast = useToast();
 const [preferenceId, setPreferenceId] = useState(null)  
 const { cartState } = useContext(CartContext);
 const total = cartState.reduce(
 (acc, item) => acc + item.price * item.qtyItem,0);
+ const toast = useToast();
 
 //! Al montar el componente, bloqueamos el scroll del body-------------
 useEffect(() => {
@@ -51,15 +54,14 @@ useEffect(() => {
   }).catch(() => {});
 }, []);
 
-// Crear orden y preferencia
-const createOrderAndPreference = async () => {
+// Crear orden rápidamente y luego la preferencia para renderizar la Wallet cuanto antes
+const createPreferenceFast = async () => {
   if (!user) {
-    toast({ 
+    Swal.fire({
       title: 'Usuario no autenticado.',
       description: 'Por favor, inicie sesión para continuar con el pago.',
-      status: 'warning',
-      duration: 9000,
-      isClosable: true,
+      icon: 'error',
+      confirmButtonColor: 'black',
     });
     return;
   }
@@ -70,72 +72,42 @@ const createOrderAndPreference = async () => {
       throw new Error('El carrito está vacío');
     }
 
-    // Verificar stock antes de crear la orden
-    await Promise.all(
-      cartState.map(async (item) => {
-        const productRef = doc(db, "products", item.id);
-        const productDoc = await getDoc(productRef);
-        
-        if (!productDoc.exists()) {
-          throw new Error(`El producto '${item.title}' ya no está disponible`);
-        }
-
-        const productData = productDoc.data();
-        const size = item.selectedSize.toUpperCase();
-        
-        // Verificar si el tamaño existe y tiene stock
-        if (!productData || typeof productData !== 'object') {
-          throw new Error(`Error al obtener datos del producto ${item.title}`);
-        }
-
-        // Verificar si el tamaño existe en los datos del producto
-        if (!Object.prototype.hasOwnProperty.call(productData, size)) {
-          throw new Error(`El producto '${item.title}' no tiene stock configurado para el tamaño ${size}`);
-        }
-
-        const currentStock = productData[size];
-        
-        if (currentStock === undefined || currentStock < item.qtyItem) {
-          throw new Error(`No hay suficiente stock para el producto ${item.title} (Talle: ${size}). Stock disponible: ${currentStock}`);
-        }
-      })
-    );
-
-    // Crear la orden en Firestore
+    // 1) Crear orden en Firestore (rápido, sin lecturas cliente)
     const orderObj = {
       buyer: {
         name: user.displayName,
         email: user.email,
       },
-      items: cartState.map(item => ({
+      items: cartState.map((item) => ({
         productId: item.id,
         title: item.title,
-        selectedSize: item.selectedSize.toUpperCase(),
+        selectedSize: item.selectedSize?.toUpperCase(),
         imageUrl: item.imageUrl,
         price: item.price,
         quantity: item.qtyItem,
       })),
       total: total,
       paymentStatus: 'pending',
-      createdAt: new Date().toISOString(),
-      orderNumber: `ORD -  ${Date.now()}`
+      createdAt: new Date ().toISOString(),
+      orderNumber: `ORD -  ${Date .now()}`,
     };
-
-    const ordersCollection = collection(db, "orders");
+    const ordersCollection = collection(db, 'orders');
     const orderDoc = await addDoc(ordersCollection, orderObj);
 
-    // Crear preferencia de pago
+    // 2) Crear preferencia apuntando a esa orden (external_reference)
+    const items = cartState.map((item) => ({
+      title: item.title,
+      quantity: item.qtyItem,
+      currency_id: 'ARS',
+      unit_price: item.price,
+      metadata: {
+        productId: item.id,
+        selectedSize: item.selectedSize?.toUpperCase(),
+      },
+    }));
+
     const preference = {
-      items: orderObj.items.map(item => ({
-        title: item.title,
-        quantity: item.quantity,
-        currency_id: "ARS",
-        unit_price: item.price,
-        metadata: {
-          productId: item.productId,       
-          selectedSize: item.selectedSize 
-        }
-      })),
+      items,
       payer: {
         name: user.displayName,
         email: user.email,
@@ -146,29 +118,20 @@ const createOrderAndPreference = async () => {
         pending: `https://berealclothes.netlify.app/checkout`,
       },
       external_reference: orderDoc.id,
-      auto_return: "approved"
+      auto_return: 'approved',
     };
 
-    // Crear preferencia en el backend
-    const response = await axios.post(`https://proyectoreact-matiasgunsett.onrender.com/create_preference`, {
-      preference
-    });
+    const response = await axios.post(
+      `https://proyectoreact-matiasgunsett.onrender.com/create_preference`,
+      { preference }
+    );
 
     const { id } = response.data;
     setPreferenceId(id);
-
-    toast({
-      title: 'Su pedido se realizó con éxito!',
-      description: `Su número de orden es: ${orderDoc.id}`,
-      status: 'success',
-      duration: 9000,
-      isClosable: true,
-      position: 'top',
-    });
   } catch (error) {
-    console.error("Error al procesar el pago:", error);
+    console.error('Error al crear la preferencia:', error);
     toast({
-      title: 'Error al procesar el pago',
+      title: 'Error al iniciar el pago',
       description: error.message,
       status: 'error',
       duration: 9000,
@@ -180,7 +143,8 @@ const createOrderAndPreference = async () => {
 // Iniciar pago cuando hay items en el carrito
 useEffect(() => {
   if (!preferenceId && cartState.length > 0) {
-    createOrderAndPreference();
+    // Crear preferencia lo antes posible (sin bloqueos de Firestore cliente)
+    createPreferenceFast();
   }
 }, [preferenceId, cartState]);
 
@@ -256,13 +220,6 @@ return (
           onSubmit={(data) => console.log("Pago enviado", data)}
           onApprove={(data) => {
             console.log("Pago aprobado", data);
-            toast({
-              title: 'Pago aprobado',
-              description: `Gracias por tu compra! Tu número de orden es: ${data.external_reference}`,
-              status: 'success',
-              duration: 9000,
-              isClosable: true,
-            });
           }}
           customization={{
             texts: { valueProp: "smart_option" },
@@ -282,6 +239,20 @@ return (
           Cargando <span className="loading-dots">...</span>
         </Button>   
       )}
+      <Link to='https://wa.link/oyoj7s' target='_blank'>
+        <Button
+          px={4}
+          fontSize={{ base: 'sm', sm: 'md' }}
+          color={'black'}
+          background={'#25d365a7'}
+          border={'1px solid black'}
+          _hover={{ bg: '#25D366' }}
+          gap={2}
+        >   
+          <MdOutlineWhatsapp size={'22px'}/>
+          Transferencia - 10%OFF
+        </Button>
+      </Link>
       <Button size="md" onClick={onBack}>
         Ver más productos
       </Button>
@@ -294,7 +265,7 @@ return (
   // const [name, setName] = useState("");
   // const [lastName, setLastName] = useState("");
   // const [email, setEmail] = useState("");
- {/* <div className="form-container">
+{/* <div className="form-container">
         <input
             type="text"
             placeholder="Nombre" 

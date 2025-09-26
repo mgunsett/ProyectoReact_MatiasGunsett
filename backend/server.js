@@ -7,6 +7,7 @@ import { initializeApp, cert } from "firebase-admin/app";
 import fs from "fs";
 import { getFirestore } from "firebase-admin/firestore";
 import { MercadoPagoConfig, Preference, Payment } from "mercadopago"; // Agregamos Payment
+import compression from "compression";
 
 
 // Cargar variables de entorno
@@ -52,6 +53,7 @@ const PORT = process.env.PORT || 3000;
 
 // Middlewares
 app.use(bodyParser.json());
+app.use(compression());
 app.use(
   cors({
     origin: ["https://berealclothes.netlify.app", "http://localhost:5173"],
@@ -108,41 +110,43 @@ app.post("/create_preference", async (req, res) => {
         .json({ error: "Datos de preferencia incompletos." });
     }
 
-    // Validar stock antes de crear la preferencia
-    for (const item of preference.items) {
-      const productRef = db
-        .collection("products")
-        .doc(item.metadata?.productId);
-      const productDoc = await productRef.get();
+    // Validar stock antes de crear la preferencia (en paralelo)
+    await Promise.all(
+      preference.items.map(async (item) => {
+        const productRef = db
+          .collection("products")
+          .doc(item.metadata?.productId);
+        const productDoc = await productRef.get();
 
-      if (!productDoc.exists) {
-        throw new Error(`El producto ${item.metadata?.productId} no existe`);
-      }
+        if (!productDoc.exists) {
+          throw new Error(`El producto ${item.metadata?.productId} no existe`);
+        }
 
-      const productData = productDoc.data();
-      const size = item.metadata?.selectedSize?.toUpperCase();
+        const productData = productDoc.data();
+        const size = item.metadata?.selectedSize?.toUpperCase();
 
-      // Verificar si el tamaño existe y tiene stock
-      if (!productData || typeof productData !== "object") {
-        throw new Error(
-          `Error al obtener datos del producto ${item.metadata?.productId}`
-        );
-      }
+        // Verificar si el tamaño existe y tiene stock
+        if (!productData || typeof productData !== "object") {
+          throw new Error(
+            `Error al obtener datos del producto ${item.metadata?.productId}`
+          );
+        }
 
-      const currentStock = productData[size];
+        const currentStock = productData[size];
 
-      if (currentStock === undefined) {
-        throw new Error(
-          `El producto ${item.metadata?.productId} no tiene stock configurado para el tamaño ${size}`
-        );
-      }
+        if (currentStock === undefined) {
+          throw new Error(
+            `El producto ${item.metadata?.productId} no tiene stock configurado para el tamaño ${size}`
+          );
+        }
 
-      if (currentStock < item.quantity) {
-        throw new Error(
-          `No hay suficiente stock para el producto ${item.metadata?.productId} (Talle: ${size}). Stock disponible: ${currentStock}`
-        );
-      }
-    }
+        if (currentStock < item.quantity) {
+          throw new Error(
+            `No hay suficiente stock para el producto ${item.metadata?.productId} (Talle: ${size}). Stock disponible: ${currentStock}`
+          );
+        }
+      })
+    );
 
     const preferenceObj = new Preference(client);
 
