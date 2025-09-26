@@ -151,7 +151,10 @@ useEffect(() => {
 return (
   <Box className="container-payment" marginTop={16}>
     <Box className="header-payment">
-      <Text className="title">Realizar Pedido</Text>
+      <Text 
+      className="title"
+      fontFamily={"'bebas neue', sans-serif"}
+      >Realizar Pedido</Text>
       <Icon
         as={CloseIcon}
         onClick={onBack}
