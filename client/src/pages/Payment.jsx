@@ -82,7 +82,6 @@ const createPreferenceFast = async () => {
         productId: item.id,
         title: item.title,
         selectedSize: item.selectedSize?.toUpperCase(),
-        imageUrl: item.imageUrl,
         price: item.price,
         quantity: item.qtyItem,
       })),

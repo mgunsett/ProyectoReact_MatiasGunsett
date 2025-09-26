@@ -9,10 +9,14 @@ const MP_PUBLIC_KEY = import.meta.env.VITE_MERCADOPAGO_PUBLIC_KEY;
 if (!MP_PUBLIC_KEY) {
   console.error("VITE_MERCADOPAGO_PUBLIC_KEY no está definido en .env");
 } else {
-  initMercadoPago(MP_PUBLIC_KEY, {
-    locale: 'es-AR',
-    client: { sandbox: false },
-  });
+  // Evitar inicializaciones múltiples en desarrollo (HMR/StrictMode)
+  if (!window.__MP_INITIALIZED__) {
+    initMercadoPago(MP_PUBLIC_KEY, {
+      locale: 'es-AR',
+      client: { sandbox: false },
+    });
+    window.__MP_INITIALIZED__ = true;
+  }
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
