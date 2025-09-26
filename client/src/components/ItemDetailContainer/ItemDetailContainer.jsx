@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";  
 import { CartContext } from "../../context/CartContext";
+import Swal from 'sweetalert2';
 import './ItemDetailContainer.css'
 
 export const ItemDetailContainer = ({ product }) => {
@@ -29,14 +30,22 @@ export const ItemDetailContainer = ({ product }) => {
   // Mostrar el contador de cantidad //
   const handleAgregarAlCarrito = () => {
     if (!selectedSize) {
-      alert("Por favor, selecciona un talle antes de agregar el producto al carrito.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'SELECCIONA UN TALLE!',
+        text: 'Por favor, selecciona un talle antes de agregar el producto al carrito.',
+      });
       return;
     }
 
     // Verificar si hay stock disponible para el tamaño seleccionado
     const sizeStock = product[selectedSize.toUpperCase()];
     if (!sizeStock || sizeStock <= 0) {
-      alert(`No hay stock disponible para el talle ${selectedSize}`);
+      Swal.fire({
+        icon: 'warning',
+        title: 'ATENCION!',
+        text: `No hay stock disponible para el talle: ${selectedSize}. \n Stock disponible: ${sizeStock}`,
+      });
       return;
     }
 
@@ -54,7 +63,12 @@ export const ItemDetailContainer = ({ product }) => {
         setCount(newCount);
         addItem({ ...product, selectedSize }, newCount);
       } else {
-        alert(`No hay suficiente stock para el talle ${selectedSize}. Stock disponible: ${sizeStock}`);
+        Swal.fire({
+          icon: 'warning',
+          title: 'ATENCION!',
+          text: `No hay suficiente stock para el talle: ${selectedSize}. \n Stock disponible: ${sizeStock}`,
+        });
+        return;
       }
     }
   };
