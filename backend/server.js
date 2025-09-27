@@ -19,11 +19,9 @@ try {
   if (process.env.GOOGLE_CREDENTIALS) {
     // En producción, usar la variable GOOGLE_CREDENTIALS
     serviceAccount = JSON.parse(process.env.GOOGLE_CREDENTIALS);
-    console.log("Usando credenciales de Firebase desde GOOGLE_CREDENTIALS");
   } else {
     // En desarrollo, usar el archivo JSON
     serviceAccount = JSON.parse(fs.readFileSync("./be-real-matiasgunsett-firebase-adminsdk-m1ug4-089c9a7124.json", "utf-8"));
-    console.log("Usando credenciales de Firebase desde archivo local");
   }
 } catch (error) {
   console.error("Error al cargar credenciales de Firebase:", error.message);
@@ -35,7 +33,6 @@ try {
   initializeApp({
     credential: cert(serviceAccount), 
   });
-  console.log("Firebase Admin inicializado correctamente");
 } catch (e) {
   console.log("Firebase ya inicializado o error en credenciales:", e.message);
 }

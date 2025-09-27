@@ -87,7 +87,7 @@ const createPreferenceFast = async () => {
       })),
       total: total,
       paymentStatus: 'pending',
-      createdAt: new Date ().toISOString(),
+      createdAt: new Date ().toISOString(), 
       orderNumber: `ORD -  ${Date .now()}`,
     };
     const ordersCollection = collection(db, 'orders');

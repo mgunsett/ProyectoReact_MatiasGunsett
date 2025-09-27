@@ -1,0 +1,19 @@
+{
+  "name": "bereal-functions",
+  "description": "Cloud Functions for BeReal Clothes (order emails via SendGrid)",
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "scripts": {
+    "build": "echo 'No build step'",
+    "deploy": "firebase deploy --only functions",
+    "serve": "firebase emulators:start --only functions"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "^8.1.0",
+    "firebase-admin": "^11.11.1",
+    "firebase-functions": "^4.4.1"
+  },
+  "private": true
+}

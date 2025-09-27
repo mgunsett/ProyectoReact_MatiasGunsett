@@ -26,7 +26,7 @@ export const CartDetails = ({onContinue}) => {
   const handleDeleteItem = (item) => { deleteItem(item); };
 
   return (
-    <Flex direction="column" h={{ base: "100dvh", md: "80vh" }}>
+    <Flex direction="column" h={{ base: "70dvh", md: "80vh" }}>
     <Box 
       p={{ base: 0, md: 4 }} 
       maxW={{ base: "100%", md: "600px" }} 
