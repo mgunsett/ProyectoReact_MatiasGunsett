@@ -110,9 +110,7 @@ app.post("/create_preference", async (req, res) => {
     // Validar stock antes de crear la preferencia (en paralelo)
     await Promise.all(
       preference.items.map(async (item) => {
-        const productRef = db
-          .collection("products")
-          .doc(item.metadata?.productId);
+        const productRef = db.collection("products").doc(item.metadata?.productId);
         const productDoc = await productRef.get();
 
         if (!productDoc.exists) {
@@ -147,6 +145,18 @@ app.post("/create_preference", async (req, res) => {
 
     const preferenceObj = new Preference(client);
 
+    // Asegurar que la preferencia tenga notification_url para recibir webhooks
+    try {
+      const defaultWebhook = "https://proyectoreact-matiasgunsett.onrender.com/api/webhook/mercadopago";
+      const webhookUrl = process.env.MP_WEBHOOK_URL || defaultWebhook;
+      if (!preference.notification_url) {
+        preference.notification_url = webhookUrl;
+      }
+      console.log("notification_url de la preferencia:", preference.notification_url);
+    } catch (e) {
+      console.warn("No se pudo establecer notification_url en la preferencia:", e.message);
+    }
+
     console.log(
       "Preference enviada a MercadoPago:",
       JSON.stringify(preference, null, 2)
@@ -156,90 +166,85 @@ app.post("/create_preference", async (req, res) => {
     res.json({ id: result.id });
   } catch (error) {
     console.error("Error al crear la preferencia:", error);
-    res.status(500).json({ error: error.message });
   }
 });
 
 // Ruta para el webhook de MercadoPago
 app.post("/api/webhook/mercadopago", async (req, res) => {
   try {
-    console.log("Webhook recibido:", req.body);
-    const { type, data } = req.body;
+    console.log("Webhook recibido:", { body: req.body, query: req.query });
+    const { type, data } = req.body || {};
 
-    if (type === "payment") {
-      const paymentInfo = await payment.get({ id: data.id });
-      const orderId = paymentInfo.external_reference;
-      const paymentStatus = paymentInfo.status;
-
-      if (!orderId) {
-        console.error("No se encontró external_reference en el pago:", data.id);
-        return res.status(200).send("OK (sin external_reference)");
-      }
-
-      const orderRef = db.collection("orders").doc(orderId);
-      const orderDoc = await orderRef.get();
-
-      if (!orderDoc.exists) {
-        console.error("Orden no encontrada:", orderId);
-        return res.status(404).send("Orden no encontrada");
-      }
-
-      const order = orderDoc.data();
-      await orderRef.update({
-        paymentStatus,
-        updatedAt: new Date().toISOString(),
-      });
-
-      if (paymentStatus === "approved" && !order.stockDecremented) {
-        console.log("Pago aprobado. Actualizando stock para orden:", orderId);
-        await db.runTransaction(async (transaction) => {
-          for (const item of order.items) {
-            const productRef = db.collection("products").doc(item.productId);
-            const productDoc = await transaction.get(productRef);
-            if (!productDoc.exists)
-              throw new Error(`Producto ${item.productId} no existe.`);
-
-            // Get the size stock field path
-            const size = item.selectedSize.toUpperCase();
-            const fieldPath = size;
-
-            // Get current stock value
-            const productData = productDoc.data();
-            if (!productData || typeof productData !== "object") {
-              throw new Error(
-                `Error al obtener datos del producto ${item.title}`
-              );
-            }
-
-            const currentStock = productData[size];
-            if (currentStock === undefined) {
-              throw new Error(
-                `El producto ${item.title} no tiene stock configurado para el tamaño ${size}`
-              );
-            }
-
-            if (currentStock < item.quantity) {
-              throw new Error(
-                `Stock insuficiente para ${item.title} talle ${size}. Stock disponible: ${currentStock}`
-              );
-            }
-
-            // Update the stock for the specific size
-            transaction.update(productRef, {
-              [fieldPath]: currentStock - item.quantity,
-            });
-            console.log(
-              `Stock actualizado para ${item.title} talle ${size}: ${
-                currentStock - item.quantity
-              }`
-            );
-          }
-          // Marcar la orden para no descontar el stock dos veces
-          transaction.update(orderRef, { stockDecremented: true });
-        });
-        console.log("Stock actualizado para orden:", orderId);
-      }
+    // Determinar paymentId soportando distintos formatos de notificación de MP
+    let paymentId;
+    if (type === "payment" && data?.id) {
+      paymentId = data.id;
+    } else if (req.query && req.query.type === "payment" && req.query["data.id"]) {
+      paymentId = req.query["data.id"]; // algunos envíos usan data.id en query
+    } else if (req.query && req.query.topic === "payment" && req.query.id) {
+      paymentId = req.query.id; // formato clásico: ?topic=payment&id=123
     }
+
+    if (!paymentId) {
+      console.warn("Webhook sin paymentId reconocible. body:", req.body, "query:", req.query);
+      return res.status(200).send("OK (sin paymentId)");
+    }
+
+    // Obtener info del pago y actualizar la orden
+    const paymentInfo = await payment.get({ id: paymentId });
+    const orderId = paymentInfo.external_reference;
+    const paymentStatus = paymentInfo.status;
+
+    if (!orderId) {
+      console.error("No se encontró external_reference en el pago:", paymentId);
+      return res.status(200).send("OK (sin external_reference)");
+    }
+
+    const orderRef = db.collection("orders").doc(orderId);
+    const orderDoc = await orderRef.get();
+
+    if (!orderDoc.exists) {
+      console.error("Orden no encontrada:", orderId);
+      return res.status(404).send("Orden no encontrada");
+    }
+
+    const order = orderDoc.data();
+    await orderRef.update({
+      paymentStatus,
+      updatedAt: new Date().toISOString(),
+    });
+
+    if (paymentStatus === "approved" && !order.stockDecremented) {
+      console.log("Pago aprobado. Actualizando stock para orden:", orderId);
+      await db.runTransaction(async (transaction) => {
+        for (const item of order.items) {
+          const productRef = db.collection("products").doc(item.productId);
+          const productDoc = await transaction.get(productRef);
+          if (!productDoc.exists) throw new Error(`Producto ${item.productId} no existe.`);
+
+          const size = item.selectedSize.toUpperCase();
+          const productData = productDoc.data();
+          if (!productData || typeof productData !== "object") {
+            throw new Error(`Error al obtener datos del producto ${item.title}`);
+          }
+
+          const currentStock = productData[size];
+          if (currentStock === undefined) {
+            throw new Error(`El producto ${item.title} no tiene stock configurado para el tamaño ${size}`);
+          }
+
+          if (currentStock < item.quantity) {
+            throw new Error(`Stock insuficiente para ${item.title} talle ${size}. Stock disponible: ${currentStock}`);
+          }
+
+          transaction.update(productRef, { [size]: currentStock - item.quantity });
+          console.log(`Stock actualizado para ${item.title} talle ${size}: ${currentStock - item.quantity}`);
+        }
+        transaction.update(orderRef, { stockDecremented: true });
+      });
+      console.log("Stock actualizado para orden:", orderId);
+    }
+
     res.status(200).send("OK");
   } catch (error) {
     console.error("Error en webhook:", error);
@@ -251,4 +256,3 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
 });
-

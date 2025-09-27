@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "be-real-matiasgunsett"
-  }
+    "default": "be-real-matiasgunsett",
+    "sendprod.": "be-real-matiasgunsett"
+  },
+  "targets": {},
+  "etags": {}
 }
