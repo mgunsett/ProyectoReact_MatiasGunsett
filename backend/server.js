@@ -253,6 +253,59 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
         transaction.update(orderRef, { stockDecremented: true });
       });
       console.log("Stock actualizado (idempotente) para orden:", orderId);
+      
+      // Encolar emails en Firestore para la extensión 'Trigger Email from Firestore'
+      try {
+        const latestOrderSnap = await orderRef.get();
+        const latestOrder = latestOrderSnap.data() || {};
+        if (!latestOrder.emailSent) {
+          const buyerEmail = latestOrder?.buyer?.email;
+          const adminEmail = process.env.ADMIN_EMAIL || "brealclothes@gmail.com";
+          const orderNumber = latestOrder.orderNumber || orderId;
+
+          const itemsLines = (latestOrder.items || [])
+            .map((it) => `${it.title} - Talle ${String(it.selectedSize || '').toUpperCase()} x${it.quantity}  $${Number(it.price||0).toFixed(2)}`)
+            .join("\n");
+
+          const subjectClient = `Tu compra fue aprobada - ${orderNumber}`;
+          const textClient = `Gracias por tu compra!\n\nOrden: ${orderNumber}\nTotal: $${Number(latestOrder.total||0).toFixed(2)}\n\nItems:\n${itemsLines}`;
+
+          const subjectAdmin = `Nueva venta aprobada - ${orderNumber}`;
+          const textAdmin = `Nueva venta aprobada.\n\nOrden: ${orderNumber}\nCliente: ${latestOrder?.buyer?.name || ''} <${buyerEmail || ''}>\nTotal: $${Number(latestOrder.total||0).toFixed(2)}\n\nItems:\n${itemsLines}`;
+
+          const mailCol = db.collection("mail");
+          const writes = [];
+          if (buyerEmail) {
+            writes.push(mailCol.add({
+              to: buyerEmail,
+              message: {
+                subject: subjectClient,
+                text: textClient,
+              },
+            }));
+          }
+          if (adminEmail) {
+            writes.push(mailCol.add({
+              to: adminEmail,
+              message: {
+                subject: subjectAdmin,
+                text: textAdmin,
+              },
+            }));
+          }
+          if (writes.length > 0) {
+            await Promise.all(writes);
+            await orderRef.update({ emailSent: true, updatedAt: new Date().toISOString() });
+            console.log("Emails encolados en 'mail' y emailSent=true para orden:", orderId);
+          } else {
+            console.log("No hay destinatarios para encolar emails en 'mail' para orden:", orderId);
+          }
+        } else {
+          console.log("Orden ya tenía emailSent=true. No se encolan emails en 'mail':", orderId);
+        }
+      } catch (mailErr) {
+        console.warn("No se pudo encolar emails en 'mail' para la orden:", orderId, mailErr?.message || mailErr);
+      }
     }
 
     res.status(200).send("OK");
