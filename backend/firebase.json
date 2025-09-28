@@ -5,18 +5,16 @@
   "storage": {
     "rules": "storage.rules"
   },
-  "functions":
-    {
-      "source": "functions",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "*.local"
-      ]
-    },
-
+  "functions": {
+    "source": "functions",
+    "ignore": [
+      "node_modules",
+      ".git",
+      "firebase-debug.log",
+      "firebase-debug.*.log",
+      "*.local"
+    ]
+  },
   "emulators": {
     "functions": {
       "port": 5001,
@@ -39,5 +37,8 @@
       "port": 4000
     },
     "singleProjectMode": true
+  },
+  "extensions": {
+    "firestore-send-email": "firebase/firestore-send-email@0.2.4"
   }
 }
