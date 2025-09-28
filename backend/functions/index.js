@@ -7,6 +7,9 @@
 */
 
 const functions = require('firebase-functions');
+
+ 
+
 const admin = require('firebase-admin');
 const sgMail = require('@sendgrid/mail');
 
@@ -22,9 +25,22 @@ const db = admin.firestore();
 // Config de SendGrid desde functions:config
 // Comandos de ejemplo:
 // firebase functions:config:set sendgrid.key="SG.xxxx" emails.from="BeReal Clothes <no-reply@berealclothes.com>" emails.admin="admin@tu-dominio.com"
-const SENDGRID_KEY = functions.config().sendgrid && functions.config().sendgrid.key;
+const SENDGRID_KEY = (functions.config().sendgrid && functions.config().sendgrid.key) || process.env.SENDGRID_API_KEY;
 const EMAIL_FROM = (functions.config().emails && functions.config().emails.from) || 'no-reply@berealclothes.com';
 const EMAIL_ADMIN = (functions.config().emails && functions.config().emails.admin) || '';
+
+// Normaliza el campo from para SendGrid a { email, name }
+function parseFrom(fromStr) {
+  if (!fromStr) return { email: 'no-reply@berealclothes.com' };
+  // Soporta "Nombre <email@dominio>" o solo email
+  const match = fromStr.match(/^(.*)<\s*([^>]+)\s*>\s*$/);
+  if (match) {
+    const name = match[1].trim().replace(/^"|"$/g, '');
+    const email = match[2].trim();
+    return name ? { email, name } : { email };
+  }
+  return { email: fromStr.trim() };
+}
 
 if (SENDGRID_KEY) {
   sgMail.setApiKey(SENDGRID_KEY);
@@ -107,6 +123,8 @@ exports.onOrderApprovedSendEmails = functions.firestore
     const beforeStatus = before.paymentStatus;
     const afterStatus = after.paymentStatus;
 
+    console.log('[functions] Trigger orders onUpdate', { orderId, beforeStatus, afterStatus });
+
     if (beforeStatus === afterStatus) {
       // No hubo cambio en el estado de pago
       return null;
@@ -124,7 +142,7 @@ exports.onOrderApprovedSendEmails = functions.firestore
     }
 
     if (!SENDGRID_KEY) {
-      console.error('[functions] SENDGRID_KEY no configurado. Abortando envío de emails.');
+      console.error('[functions] SENDGRID_KEY no configurado (functions:config o env). Abortando envío de emails.');
       return null;
     }
 
@@ -147,7 +165,7 @@ exports.onOrderApprovedSendEmails = functions.firestore
       if (buyerEmail) {
         messages.push({
           to: buyerEmail,
-          from: EMAIL_FROM,
+          from: parseFrom(EMAIL_FROM),
           subject: `Tu compra fue aprobada - ${orderNumber || orderId}`,
           html: buildEmailHtml({ orderId, orderNumber, buyer, items, total, createdAt, forAdmin: false }),
         });
@@ -157,9 +175,10 @@ exports.onOrderApprovedSendEmails = functions.firestore
       if (EMAIL_ADMIN) {
         messages.push({
           to: EMAIL_ADMIN,
-          from: EMAIL_FROM,
+          from: parseFrom(EMAIL_FROM),
           subject: `Nueva venta aprobada - ${orderNumber || orderId}`,
           html: buildEmailHtml({ orderId, orderNumber, buyer, items, total, createdAt, forAdmin: true }),
+          replyTo: buyerEmail ? { email: buyerEmail } : undefined,
         });
       }
 
@@ -169,14 +188,30 @@ exports.onOrderApprovedSendEmails = functions.firestore
       }
 
       // Enviar emails (uno por mensaje para manejo de errores sencillo)
+      let sentCount = 0;
       for (const msg of messages) {
-        await sgMail.send(msg);
+        try {
+          console.log('[functions] Enviando email', { to: msg.to, subject: msg.subject });
+          await sgMail.send(msg);
+          sentCount++;
+        } catch (sendErr) {
+          const body = sendErr?.response?.body;
+          console.error('[functions] Error al enviar email a', msg.to, {
+            message: sendErr.message,
+            code: sendErr.code,
+            body: body ? JSON.stringify(body) : undefined,
+          });
+          // continuamos con otros mensajes
+        }
       }
 
-      // Marcar la orden como emailSent=true
-      await change.after.ref.update({ emailSent: true, updatedAt: new Date().toISOString() });
-
-      console.log(`[functions] Emails enviados para orden ${orderId}`);
+      // Marcar la orden como emailSent=true solo si se envió al menos un correo
+      if (sentCount > 0) {
+        await change.after.ref.update({ emailSent: true, updatedAt: new Date().toISOString() });
+        console.log(`[functions] Emails enviados para orden ${orderId} (sentCount=${sentCount})`);
+      } else {
+        console.warn(`[functions] Ningún email se pudo enviar para orden ${orderId}. No se marca emailSent.`);
+      }
       return null;
     } catch (err) {
       console.error('[functions] Error enviando emails de orden aprobada:', err);

@@ -214,15 +214,24 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
       updatedAt: new Date().toISOString(),
     });
 
-    if (paymentStatus === "approved" && !order.stockDecremented) {
+    if (paymentStatus === "approved") {
       console.log("Pago aprobado. Actualizando stock para orden:", orderId);
       await db.runTransaction(async (transaction) => {
-        for (const item of order.items) {
+        // Leer la orden dentro de la transacción para garantizar idempotencia
+        const freshOrderDoc = await transaction.get(orderRef);
+        if (!freshOrderDoc.exists) throw new Error(`Orden ${orderId} no existe.`);
+        const freshOrder = freshOrderDoc.data();
+        if (freshOrder.stockDecremented) {
+          console.log("Orden ya tenía stockDecremented=true. Omitiendo actualización de stock:", orderId);
+          return;
+        }
+
+        for (const item of (freshOrder.items || [])) {
           const productRef = db.collection("products").doc(item.productId);
           const productDoc = await transaction.get(productRef);
           if (!productDoc.exists) throw new Error(`Producto ${item.productId} no existe.`);
 
-          const size = item.selectedSize.toUpperCase();
+          const size = (item.selectedSize || "").toString().toUpperCase();
           const productData = productDoc.data();
           if (!productData || typeof productData !== "object") {
             throw new Error(`Error al obtener datos del producto ${item.title}`);
@@ -240,9 +249,10 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
           transaction.update(productRef, { [size]: currentStock - item.quantity });
           console.log(`Stock actualizado para ${item.title} talle ${size}: ${currentStock - item.quantity}`);
         }
+        // Marcar la orden para no descontar el stock dos veces
         transaction.update(orderRef, { stockDecremented: true });
       });
-      console.log("Stock actualizado para orden:", orderId);
+      console.log("Stock actualizado (idempotente) para orden:", orderId);
     }
 
     res.status(200).send("OK");
