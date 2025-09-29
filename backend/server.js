@@ -260,42 +260,39 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
 
           const subjectClient = `Tu compra fue aprobada - ${orderNumber}`;
           const textClient = `
-          <div class="email-client">
-            <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" alt="Logo" style="width: 60px; height: 60px; margin-bottom: 20px;">
-            <h1>Gracias por tu compra!</h1>
-            <p>Hola ${buyerName || ''},</p>
-            <p>Tu compra fue aprobada.</p>
-            <p>Orden: ${orderNumber}</p>
-            <p>Total: $${Number(latestOrder.total||0).toFixed(2)}</p>
-            <p>Productos:</p>
-            <pre>${itemsLines}</pre>
-            <p>Nos contactaremos contigo para confirmar el envío.</p>
-            <div
-            style="
-            width: 100%;
-            height: 1px;
-            background-color: #ccc;
-            margin: 20px 0;
-            "></div>
-            <p
-            style="
-            font-size: 22px;
-            color: #333;
-            line-height: 1.4;
-            margin: 20px;
-            ">BeReal Family</p>
-            <p
-            style="
-            font-size: 22px;
-            color: #333;
-            line-height: 1.4;
-            margin: 20px;
-            ">https://berealclothes.netlify.app</p>
+          <div style="margin:20px; padding:20px; text-align:center;">
+            <div style="margin:20px; padding:20px; border:1px solid #ccc; font-family: Arial, sans-serif; font-size:16px; color:#333; line-height:1.4; text-align:center;">
+      
+              <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" 
+                  alt="Logo" 
+                  style="width:60px; height:60px; margin-bottom:20px; display:block; margin-left:auto; margin-right:auto;">
+              
+              <h1 style="font-size:22px; margin:10px 0; color:#333;">Gracias por tu compra!</h1>
+              
+              <p style="margin:8px 0;">Hola ${buyerName || ''},</p>
+              <p style="margin:8px 0;">Tu compra fue aprobada.</p>
+              <p style="margin:8px 0;">Orden: ${orderNumber}</p>
+              <p style="margin:8px 0;">Total: $${Number(latestOrder.total||0).toFixed(2)}</p>
+              
+              <p style="margin:12px 0; font-weight:bold;">Productos:</p>
+              <p style="margin:8px 0; white-space:pre-line;">${itemsLines}</p>
+              
+              <p style="margin:12px 0;">Nos contactaremos contigo para confirmar el envío.</p>
+              
+              <div style="width:100%; height:1px; background-color:#ccc; margin:20px 0;"></div>
+              
+              <p style="font-size:18px; margin:10px 0; color:#333;">BeReal Family</p>
+              <p style="font-size:16px; margin:10px 0; color:#333;">
+                <a href="https://berealclothes.netlify.app" style="color:#333; text-decoration:none;">
+                  https://berealclothes.netlify.app
+                </a>
+              </p>
+            </div>
           </div>`;
 
           const subjectAdmin = `Nueva venta aprobada - ${orderNumber}`;
           const textAdmin = `
-          <div class="email-admin">
+          <div
           style="
             font-family: 'bebas neue', sans-serif;
             font-size: 18px;
