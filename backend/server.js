@@ -260,22 +260,8 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
 
           const subjectClient = `Tu compra fue aprobada - ${orderNumber}`;
           const textClient = `
-          <div
-          style="
-            margin: 20px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-family: 'bebas neue', sans-serif;
-            font-size: 18px;
-            color: #333;
-            line-height: 1.4;
-            border: 1px solid #ccc;
-          "
-          >
-            <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
+          <div class="email-client">
+            <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" alt="Logo" style="width: 60px; height: 60px; margin-bottom: 20px;">
             <h1>Gracias por tu compra!</h1>
             <p>Hola ${buyerName || ''},</p>
             <p>Tu compra fue aprobada.</p>
@@ -309,17 +295,7 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
 
           const subjectAdmin = `Nueva venta aprobada - ${orderNumber}`;
           const textAdmin = `
-           <div
-          style="
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-          "
-          >
-          <div
+          <div class="email-admin">
           style="
             font-family: 'bebas neue', sans-serif;
             font-size: 18px;
