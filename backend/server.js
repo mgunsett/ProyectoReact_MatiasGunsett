@@ -261,7 +261,7 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
           const subjectClient = `Tu compra fue aprobada - ${orderNumber}`;
           const textClient = `
           <div style="margin:20px; padding:20px; text-align:center;">
-            <div style="margin:20px; padding:20px; border:1px solid #ccc; font-family: Arial, sans-serif; font-size:16px; color:#333; line-height:1.4; text-align:center;">
+            <div style="margin:20px; padding:20px; border:1px solid #ccc; font-family: bebas neue, sans-serif; font-size:18px; color:#333; line-height:1.4; text-align:center; width: 350px;">
       
               <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" 
                   alt="Logo" 
