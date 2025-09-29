@@ -263,11 +263,7 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
           <div
           style="
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
+            align-items: center;  
           "
           >
           <div
