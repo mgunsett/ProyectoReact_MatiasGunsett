@@ -262,26 +262,14 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
           const textClient = `
           <div
           style="
-            font-family: 'bebas neue', sans-serif;
-            font-size: 18px;
-            color: #333;
-            line-height: 1.4;
-            margin: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
           "
           >
-            <img src="https://berealclothes.netlify.app/logo.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
-            <h1>Gracias por tu compra!</h1>
-            <p>Hola ${buyerName || ''},</p>
-            <p>Tu compra fue aprobada.</p>
-            <p>Orden: ${orderNumber}</p>
-            <p>Total: $${Number(latestOrder.total||0).toFixed(2)}</p>
-            <p>Items:</p>
-            <pre>${itemsLines}</pre>
-            <p>Gracias por tu compra!</p>
-          </div>`;
-
-          const subjectAdmin = `Nueva venta aprobada - ${orderNumber}`;
-          const textAdmin = `
           <div
           style="
             font-family: 'bebas neue', sans-serif;
@@ -289,15 +277,86 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             color: #333;
             line-height: 1.4;
             margin: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
           "
           >
-            <img src="https://berealclothes.netlify.app/logo.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
+            <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
+            <h1>Gracias por tu compra!</h1>
+            <p>Hola ${buyerName || ''},</p>
+            <p>Tu compra fue aprobada.</p>
+            <p>Orden: ${orderNumber}</p>
+            <p>Total: $${Number(latestOrder.total||0).toFixed(2)}</p>
+            <p>Productos:</p>
+            <pre>${itemsLines}</pre>
+            <p>Nos contactaremos contigo para confirmar el envío.</p>
+            <div
+            style="
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            margin: 20px 0;
+            "></div>
+            <p
+            style="
+            font-family: 'bebas neue', sans-serif;
+            font-size: 22px;
+            color: #333;
+            line-height: 1.4;
+            margin: 20px;
+            ">BeReal Family</p>
+            <p
+            style="
+            font-family: 'bebas neue', sans-serif;
+            font-size: 22px;
+            color: #333;
+            line-height: 1.4;
+            margin: 20px;
+            ">https://berealclothes.netlify.app</p>
+          </div>
+          </div>`;
+
+          const subjectAdmin = `Nueva venta aprobada - ${orderNumber}`;
+          const textAdmin = `
+           <div
+          style="
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+          "
+          >
+          <div
+          style="
+            font-family: 'bebas neue', sans-serif;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.4;
+            margin: 20px;
+            border: 1px solid #ccc;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+          "
+          >
+            <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
             <h1>Nueva venta aprobada!</h1>
             <p>Orden: ${orderNumber}</p>
             <p>Cliente: ${buyerName || ''} <${buyerEmail || ''}></p>
             <p>Total: $${Number(latestOrder.total||0).toFixed(2)}</p>
-            <p>Items:</p>
+            <p>Productos:</p>
             <pre>${itemsLines}</pre>
+          </div>
           </div>`;
 
           const mailCol = db.collection("mail");
