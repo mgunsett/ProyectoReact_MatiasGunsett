@@ -68,5 +68,8 @@ node_modules/
 # dotenv environment variables file
 .env
 
+# firestore-send-email environment variables file
+extensions/firestore-send-email.env
+
 # dataconnect generated files
 .dataconnect

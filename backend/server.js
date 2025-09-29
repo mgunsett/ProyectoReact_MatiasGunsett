@@ -134,7 +134,6 @@ app.post("/create_preference", async (req, res) => {
             `El producto ${item.metadata?.productId} no tiene stock configurado para el tamaño ${size}`
           );
         }
-
         if (currentStock < item.quantity) {
           throw new Error(
             `No hay suficiente stock para el producto ${item.metadata?.productId} (Talle: ${size}). Stock disponible: ${currentStock}`
@@ -152,15 +151,9 @@ app.post("/create_preference", async (req, res) => {
       if (!preference.notification_url) {
         preference.notification_url = webhookUrl;
       }
-      console.log("notification_url de la preferencia:", preference.notification_url);
     } catch (e) {
       console.warn("No se pudo establecer notification_url en la preferencia:", e.message);
     }
-
-    console.log(
-      "Preference enviada a MercadoPago:",
-      JSON.stringify(preference, null, 2)
-    );
 
     const result = await preferenceObj.create({ body: preference });
     res.json({ id: result.id });
@@ -172,7 +165,6 @@ app.post("/create_preference", async (req, res) => {
 // Ruta para el webhook de MercadoPago
 app.post("/api/webhook/mercadopago", async (req, res) => {
   try {
-    console.log("Webhook recibido:", { body: req.body, query: req.query });
     const { type, data } = req.body || {};
 
     // Determinar paymentId soportando distintos formatos de notificación de MP
@@ -247,12 +239,10 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
           }
 
           transaction.update(productRef, { [size]: currentStock - item.quantity });
-          console.log(`Stock actualizado para ${item.title} talle ${size}: ${currentStock - item.quantity}`);
         }
         // Marcar la orden para no descontar el stock dos veces
         transaction.update(orderRef, { stockDecremented: true });
       });
-      console.log("Stock actualizado (idempotente) para orden:", orderId);
       
       // Encolar emails en Firestore para la extensión 'Trigger Email from Firestore'
       try {
@@ -260,6 +250,7 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
         const latestOrder = latestOrderSnap.data() || {};
         if (!latestOrder.emailSent) {
           const buyerEmail = latestOrder?.buyer?.email;
+          const buyerName = latestOrder?.buyer?.name;
           const adminEmail = process.env.ADMIN_EMAIL || "brealclothes@gmail.com";
           const orderNumber = latestOrder.orderNumber || orderId;
 
@@ -268,10 +259,46 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             .join("\n");
 
           const subjectClient = `Tu compra fue aprobada - ${orderNumber}`;
-          const textClient = `Gracias por tu compra!\n\nOrden: ${orderNumber}\nTotal: $${Number(latestOrder.total||0).toFixed(2)}\n\nItems:\n${itemsLines}`;
+          const textClient = `
+          <div
+          style="
+            font-family: 'bebas neue', sans-serif;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.4;
+            margin: 20px;
+          "
+          >
+            <img src="https://berealclothes.netlify.app/logo.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
+            <h1>Gracias por tu compra!</h1>
+            <p>Hola ${buyerName || ''},</p>
+            <p>Tu compra fue aprobada.</p>
+            <p>Orden: ${orderNumber}</p>
+            <p>Total: $${Number(latestOrder.total||0).toFixed(2)}</p>
+            <p>Items:</p>
+            <pre>${itemsLines}</pre>
+            <p>Gracias por tu compra!</p>
+          </div>`;
 
           const subjectAdmin = `Nueva venta aprobada - ${orderNumber}`;
-          const textAdmin = `Nueva venta aprobada.\n\nOrden: ${orderNumber}\nCliente: ${latestOrder?.buyer?.name || ''} <${buyerEmail || ''}>\nTotal: $${Number(latestOrder.total||0).toFixed(2)}\n\nItems:\n${itemsLines}`;
+          const textAdmin = `
+          <div
+          style="
+            font-family: 'bebas neue', sans-serif;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.4;
+            margin: 20px;
+          "
+          >
+            <img src="https://berealclothes.netlify.app/logo.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
+            <h1>Nueva venta aprobada!</h1>
+            <p>Orden: ${orderNumber}</p>
+            <p>Cliente: ${buyerName || ''} <${buyerEmail || ''}></p>
+            <p>Total: $${Number(latestOrder.total||0).toFixed(2)}</p>
+            <p>Items:</p>
+            <pre>${itemsLines}</pre>
+          </div>`;
 
           const mailCol = db.collection("mail");
           const writes = [];
@@ -280,7 +307,7 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
               to: buyerEmail,
               message: {
                 subject: subjectClient,
-                text: textClient,
+                html: textClient,
               },
             }));
           }
@@ -289,7 +316,7 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
               to: adminEmail,
               message: {
                 subject: subjectAdmin,
-                text: textAdmin,
+                html: textAdmin,
               },
             }));
           }
