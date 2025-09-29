@@ -6,7 +6,6 @@ export const PostPayment = () => {
     return (
         <Box
         paddingTop={16}
-        marginTop={-16}
         backgroundColor= {'white'}
         >
             <Box

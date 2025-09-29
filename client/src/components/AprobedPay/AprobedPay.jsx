@@ -7,15 +7,16 @@ import './AprobedPay.css'
 export const AprobedPay = () => {
   return (
     <Flex
+    className='aprobed-pay'
     textAlign="center" 
-    p={'110px'}  
-    mb={'32vh'}
+    p={{ base: '70px', sm: '110px' }}  
     direction={'column'}
     gap={12}
     alignItems={'center'}
     backgroundColor='white'
-    borderTop={'1px solid black'}
-    borderBottom={'1px solid black'}
+    border={'1px solid black'}
+    width={{ base: '85%', sm: '40%'}}
+    margin={'0 auto 53px auto'}
     >
       <Box>
         <CheckCircleIcon 

@@ -171,10 +171,10 @@ export const Navbar = () => {
                   alignItems={"center"} 
                   mt={3} 
                 >
-                  <Box color="white" mr={4}>
+                  <Box color="black" mr={4}>
                     {user.displayName}
                   </Box>
-                  <Icon boxSize={3} as={CloseIcon} onClick={logout} color={"white"} _hover={{ cursor: "pointer", color: "red.500" }} />
+                  <Icon boxSize={3} as={CloseIcon} onClick={logout} color={"black"} _hover={{ cursor: "pointer", color: "red.500" }} />
                 </Flex>
               )}
             </DrawerBody>

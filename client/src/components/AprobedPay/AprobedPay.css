@@ -1,7 +1,17 @@
-/*.aprobed-pay {
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(5px);
-        
+.aprobed-pay {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 0.5px solid rgba(9, 9, 9, 0.767);
+    box-shadow: 37px 35px 6px 3px rgba(0,0,0,0.78);
+    -webkit-box-shadow: 37px 35px 6px 3px rgba(0,0,0,0.78);
+    -moz-box-shadow: 37px 35px 6px 3px rgba(0,0,0,0.78);
 }
-*/
+
+@media screen and (max-width: 400px) {
+    .aprobed-pay {
+        box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    }
+    
+}
