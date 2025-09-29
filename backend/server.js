@@ -262,14 +262,6 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
           const textClient = `
           <div
           style="
-            padding: 20px;
-            align-items: center;  
-            display: flex;
-            justify-content: center;
-          "
-          >
-          <div
-          style="
             font-family: 'bebas neue', sans-serif;
             font-size: 18px;
             color: #333;
@@ -316,7 +308,6 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             line-height: 1.4;
             margin: 20px;
             ">https://berealclothes.netlify.app</p>
-          </div>
           </div>`;
 
           const subjectAdmin = `Nueva venta aprobada - ${orderNumber}`;
