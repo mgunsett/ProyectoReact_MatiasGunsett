@@ -265,8 +265,14 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             margin: 20px;
             padding: 20px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            font-family: 'bebas neue', sans-serif;
+            font-size: 18px;
+            color: #333;
+            line-height: 1.4;
+            border: 1px solid #ccc;
           "
           >
             <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
@@ -287,7 +293,6 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             "></div>
             <p
             style="
-            font-family: 'bebas neue', sans-serif;
             font-size: 22px;
             color: #333;
             line-height: 1.4;
@@ -295,7 +300,6 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             ">BeReal Family</p>
             <p
             style="
-            font-family: 'bebas neue', sans-serif;
             font-size: 22px;
             color: #333;
             line-height: 1.4;
