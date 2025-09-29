@@ -262,18 +262,11 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
           const textClient = `
           <div
           style="
-            font-family: 'bebas neue', sans-serif;
-            font-size: 18px;
-            color: #333;
-            line-height: 1.4;
             margin: 20px;
-            border: 1px solid #ccc;
             padding: 20px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
           "
           >
             <img src="https://berealclothes.netlify.app/assets/logo-BeReal-C1GTTP-A.png" alt="Logo" style="width: 100px; height: auto; margin-bottom: 20px;">
@@ -345,7 +338,6 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
             <p>Total: $${Number(latestOrder.total||0).toFixed(2)}</p>
             <p>Productos:</p>
             <pre>${itemsLines}</pre>
-          </div>
           </div>`;
 
           const mailCol = db.collection("mail");
