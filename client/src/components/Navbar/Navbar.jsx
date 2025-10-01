@@ -88,9 +88,14 @@ export const Navbar = () => {
               >
                 Productos <ChevronDownIcon />
               </MenuButton>
-              <MenuList backgroundColor={'black'} border={"1px solid white"}>
+              <MenuList 
+                backgroundColor={'transparent'} 
+                border={"1px solid white"}
+                backdropFilter={"blur(8px)"}
+                borderRadius={'none'}
+              >
                 {items.map((category) => (
-                  <MenuItem key={category.slug} backgroundColor={'black'}>
+                  <MenuItem key={category.slug} backgroundColor={'transparent'}>
                     <Link to={`/category/${category.slug}`} className="menuButton2">
                       {category.name}
                     </Link>
@@ -171,10 +176,10 @@ export const Navbar = () => {
                   alignItems={"center"} 
                   mt={3} 
                 >
-                  <Box color="black" mr={4}>
+                  <Box color="white" mr={4}>
                     {user.displayName}
                   </Box>
-                  <Icon boxSize={3} as={CloseIcon} onClick={logout} color={"black"} _hover={{ cursor: "pointer", color: "red.500" }} />
+                  <Icon boxSize={3} as={CloseIcon} onClick={logout} color={"white"} _hover={{ cursor: "pointer", color: "red.500" }} />
                 </Flex>
               )}
             </DrawerBody>
