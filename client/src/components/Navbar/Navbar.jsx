@@ -89,9 +89,10 @@ export const Navbar = () => {
                 Productos <ChevronDownIcon />
               </MenuButton>
               <MenuList 
-                backgroundColor={'transparent'} 
-                border={"1px solid white"}
-                backdropFilter={"blur(8px)"}
+                backgroundColor={'rgba(22, 22, 22, 0.66)'} 
+                border={'none'}
+                borderLeft={'1px solid white'}
+                backdropFilter={"blur(12px)"}
                 borderRadius={'none'}
               >
                 {items.map((category) => (

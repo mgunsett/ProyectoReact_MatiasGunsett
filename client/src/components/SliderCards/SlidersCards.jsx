@@ -19,7 +19,7 @@ export const SlidersCards = ({ products }) => {
 
   const containerRef = useRef(null); 
   const [scrollPosition, setScrollPosition] = useState(0);
-  const scrollAmount = 900;
+  const scrollAmount = 700;
   const animationRef = useRef(null);
 
   // Estados para drag/swipe
@@ -53,7 +53,7 @@ export const SlidersCards = ({ products }) => {
       const eased = easeInOutQuad(t);
       containerRef.current.scrollLeft = start + change * eased;
       if (t < 1) {
-        animationRef.current = requestAnimationFrame(step);
+        animationRef.current = requestAnimationFrame(step); 
       } else {
         animationRef.current = null;
       }
@@ -154,7 +154,11 @@ export const SlidersCards = ({ products }) => {
   };
 
   return (
-    <Box position="relative" display="flex" alignItems="center">
+    <Box 
+    position="relative" 
+    display="flex" 
+    alignItems="center" 
+    >
         <IconButton
           aria-label="Scroll Left"
           icon={<ChevronLeftIcon />}
@@ -170,7 +174,6 @@ export const SlidersCards = ({ products }) => {
 
         <Flex
           ref={containerRef}
-          className="cardsContainer"
           overflowX="hidden" // Oculta el overflow
           gap={2}
           padding={2}

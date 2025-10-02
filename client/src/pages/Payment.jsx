@@ -149,6 +149,36 @@ useEffect(() => {
   }
 }, [preferenceId, cartState]);
 
+// Bloqueo de flujo de pago para usuarios no autenticados
+if (!user) {
+  return (
+    <Box className="container-payment" marginTop={16}>
+      <Box className="header-payment">
+        <Text 
+          className="title"
+          fontFamily={"'bebas neue', sans-serif"}
+        >Realizar Pedido</Text>
+        <Icon
+          as={CloseIcon}
+          onClick={onBack}
+          color={"white"}
+          _hover={{ cursor: "pointer", color: "red.500" }}
+        />
+      </Box>
+      <Box mt={4} mb={6} p={4}>
+        <Alert status="warning" borderRadius="md">
+          <AlertIcon />
+          Debes iniciar sesión para continuar con el pago.
+        </Alert>
+      </Box>
+      <HStack spacing={4} justifyContent="center" mb={4}>
+        <Button colorScheme="blue" onClick={onBack}>Iniciar sesión</Button>
+        <Button colorScheme="whiteAlpha" onClick={onBack}>Ver más productos</Button>
+      </HStack>
+    </Box>
+  );
+}
+
 return (
   <Box className="container-payment" marginTop={16}>
     <Box className="header-payment">
@@ -220,11 +250,6 @@ return (
       {preferenceId ? ( 
         <Wallet
           initialization={{ preferenceId: preferenceId}}
-          onReady={() => console.log("Wallet está listo")}
-          onSubmit={(data) => console.log("Pago enviado", data)}
-          onApprove={(data) => {
-            console.log("Pago aprobado", data);
-          }}
           customization={{
             texts: { valueProp: "smart_option" },
           }}
@@ -252,6 +277,8 @@ return (
           border={'1px solid black'}
           _hover={{ bg: '#25D366' }}
           gap={2}
+          w={"260px"}
+          h={"50px"}
         >   
           <MdOutlineWhatsapp size={'22px'}/>
           Transferencia - 10%OFF
