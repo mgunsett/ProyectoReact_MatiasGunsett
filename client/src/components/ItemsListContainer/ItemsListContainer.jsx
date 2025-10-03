@@ -32,8 +32,3 @@ export const ItemsListContainer = ({ title, products }) => {
     </Flex>
   );
 };
-
-
- // Aplicar gradient al texto //
-      // bgGradient="linear(to-t, black, white)"
-      // bgClip="text"

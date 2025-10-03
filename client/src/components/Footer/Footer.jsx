@@ -20,7 +20,6 @@ export const Footer = () => {
             setIsAtPageEnd(reachedEnd);
         };
 
-        // Ejecutar al montar y al cambiar tamaño/scroll
         handleScroll();
         window.addEventListener('scroll', handleScroll, { passive: true });
         window.addEventListener('resize', handleScroll);

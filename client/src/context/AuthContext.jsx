@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      setUser(userCredential.user);
+      setUser(userCredential.user.displayName);
     } catch (error) {
       console.error("Error al iniciar sesión:", error);
       throw error;

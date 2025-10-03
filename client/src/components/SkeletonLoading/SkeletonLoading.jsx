@@ -9,10 +9,21 @@ export const SkeletonLoading = () => {
         padding='6'
         margin={5}
       />
-      <Flex gap={12} justifyContent={"center"}>
-        <Skeleton height="700px" width={"500px"} />
-        <Skeleton height="700px" width={"500px"} />
-        <Skeleton height="700px" width={"500px"} />
+      <Flex 
+        gap={12} 
+        justifyContent={"center"} 
+        flexDir={"column"}
+        ml={4}
+      >
+        <Skeleton height="60px" width={"600px"} />
+        <Flex gap={12} justifyContent={"center"}>
+          <Skeleton height="400px" width={"300px"} />
+          <Skeleton height="400px" width={"300px"} />
+          <Skeleton height="400px" width={"300px"} />
+          <Skeleton height="400px" width={"300px"} />
+          <Skeleton height="400px" width={"300px"} />
+          <Skeleton height="400px" width={"300px"} />
+        </Flex>
       </Flex>
     </Stack>
   );

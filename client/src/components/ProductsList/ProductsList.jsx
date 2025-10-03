@@ -17,7 +17,7 @@ export const ProductsList = ({ title, products }) => {
 
     function primeraMayuscula(string) {
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
-    } //Mejorar funcion repetida en /ItemListContainer...
+    }
 
     return (
     <Box 

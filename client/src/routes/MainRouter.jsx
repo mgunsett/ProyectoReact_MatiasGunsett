@@ -6,7 +6,6 @@ import { ScrollToTop } from "./ScrollToTop";
 
 export const MainRouter = () => {
 
-  //Parametro de URL: es un dato dinamico que se puede pasar a una ruta
   return (
     <BrowserRouter>
       <ScrollToTop />
@@ -24,12 +23,3 @@ export const MainRouter = () => {
     </BrowserRouter>
   );
 };
-
-//rafc iniciará un componente funcional con arrow function y export
-// rafce iniciará un componente funcional con arrow function y export default
-
-{/* // <Route path="/memo" element={<Memo />}/> */}
-{/* // <Route path="/events" element={<Events label="Events" />} /> */}
-
-  //!--- Otra forma de declarar un Evento 👇
-{/* <Route path="/events" element={<Events handleClick={() => alert('Click')} />} /> */}

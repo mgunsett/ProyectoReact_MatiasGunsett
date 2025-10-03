@@ -9,7 +9,6 @@ export const CartWidget = () => {
     const { cartState } = useContext(CartContext);
 
     const qtyTotalItems = cartState.reduce((acc, item) => acc + item.qtyItem, 0);
-    // .reduce permite sumar todos los elementos del array, recibe dos argumentos (acc, item) //
 
     return (
         <Flex justifyContent={'center'} alignItems={'center'}>

@@ -255,6 +255,16 @@ export const ItemDetailContainer = ({ product }) => {
             >
               ${product.price}
             </Text>
+            {(!product.prevprice) ? (
+              <Text
+              color={'black'}
+              fontWeight={300}
+              fontSize={{ base: "15px", sm: "20px", lg: "20px" }}
+              marginBottom={2}
+              >
+                -10% OFF pagando con Transferencia!
+              </Text>
+            ) : ( null) }
           </Box>
 
           <Stack
