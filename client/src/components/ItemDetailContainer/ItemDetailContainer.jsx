@@ -321,7 +321,7 @@ export const ItemDetailContainer = ({ product }) => {
               boxShadow: "lg",
             }}
             onClick={handleAgregarAlCarrito}
-            fontSize={{ base: "15px", sm: "20px" }}
+            fontSize={{ base: "12px", sm: "15px" }}
           >
             Agregar al carrito
           </Button>

@@ -225,7 +225,7 @@ export const Home = () => {
             margin={{ base: 'none', sm: '10px', md: '10px' }}
             color={'white'}
           >
-            "Somos una grupo de amigos que un día entre risas, asados y play decidimos emprender un camino juntos y en algo que nos apasionara a todos. Asi fue que nacio BeReal, construyendo paso a paso cada estilo, cada diseño y cada detalle para ser de nuestro trabajo la mejor experiencia para todos."
+            "BeReal nació de la amistad y la pasión por crear algo auténtico. Lo que comenzó como un sueño entre amigos hoy es una marca que refleja estilo, comunidad y una forma de vivir sin filtros. Cada prenda combina diseño, calidad y detalle, pensada para acompañarte en cada momento con autenticidad."
           </Text>
         </Flex>
         <Box

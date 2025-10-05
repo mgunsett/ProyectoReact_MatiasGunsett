@@ -85,9 +85,20 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  // Vaciar completamente el carrito (también limpia localStorage por el efecto de sincronización)
+  const clearCart = () => {
+    try {
+      setCartState([]);
+      // Opcional: remover la key para dejar el storage "limpio"
+      localStorage.removeItem('cart');
+    } catch (e) {
+      console.warn('No se pudo limpiar el carrito', e);
+    }
+  };
+
 //Context Hell: es un término que se utiliza para describir la situación en la qzue un componente necesita acceder a muchos contextos diferentes.
   return (
-    <CartContext.Provider value={{ cartState, addItem, removeItem, deleteItem }}>
+    <CartContext.Provider value={{ cartState, addItem, removeItem, deleteItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );

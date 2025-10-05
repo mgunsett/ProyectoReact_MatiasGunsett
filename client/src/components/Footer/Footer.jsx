@@ -9,7 +9,7 @@ import {
   } from '@chakra-ui/react';
 import logo_2 from '../../assets/logo_2.png';
 import { Link } from "react-router-dom";
-import { FaInstagram, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+import { FaInstagram, FaTwitter, FaWhatsapp, FaLinkedin } from 'react-icons/fa';
 
 export const Footer = () => {
     const [isAtPageEnd, setIsAtPageEnd] = useState(false);
@@ -31,7 +31,7 @@ export const Footer = () => {
     }, []);
 
     return (
-        <Box bg={'black'} color={'white'} padding={'30px'}>
+        <Box bg={'black'} color={'white'} padding={'30px'} >
             <Flex 
                 direction={{ base: 'column', md: 'row' }}
                 alignItems={{ base: 'center', md: 'center' }} 
@@ -43,20 +43,34 @@ export const Footer = () => {
                         <Image width={'70px'} height={'70px'} src={logo_2} alt="Logo principal" />
                     </Link>
                 </Box>
-                <Text textAlign={'center'}> 2024 BeReal. Todos los Derechos Reservados.</Text>
-                <Stack direction={'row'} spacing={6} mt={{ base: 4, md: 0 }}>
-                    <Button 
-                        label={'Twitter'} 
-                        boxSize={'35px'}
-                        _hover={{
-                            bg: 'linear-gradient(40deg, #1DA1F2, #1DA1F2, #1DA1F2, #1DA1F2, #1DA1F2, #1DA1F2)',
-                            color: 'white'
-                        }}
-                    >
-                        <Link to={'https://twitter.com/'} target='_blank'>
-                            <FaTwitter size={'20px'}/>
+                <Flex 
+                direction={'column'} 
+                alignItems={'center'} 
+
+                gap={2}
+                mt={{ base: 4, md:2 }}
+                >
+                    <Text textAlign={'center'}> 2021 BeReal Clothes. Todos los Derechos Reservados.</Text>
+                    <Flex direction={'row'} alignItems={'center'} gap={2}>
+                    <Text>
+                        Desarrollo Web -  
+                    </Text>
+                        <Link to={'https://www.linkedin.com/in/matiasgunsett/'} target='_blank'>
+                            <Flex 
+                            direction={'row'}
+                            alignItems={'center'}
+                            gap={2}
+                            _hover={{ 
+                                color: 'blue.600'
+                            }}
+                            >      
+                                Matías Gunsett  <FaLinkedin size={'20px'}/>
+                            </Flex>
                         </Link>
-                    </Button>
+                        
+                    </Flex>
+                </Flex>
+                <Stack direction={'row'} spacing={6} mt={{ base: 4, md: 0 }}>
                     <Button 
                         label={'Instagram'} 
                         _hover={{ 
