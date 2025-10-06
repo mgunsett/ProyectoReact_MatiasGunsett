@@ -17,6 +17,22 @@ import './SliderCards.css';
 
 export const SlidersCards = ({ products }) => {
 
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const containerRef = useRef(null); 
   const [scrollPosition, setScrollPosition] = useState(0);
   const scrollAmount = 700;
@@ -155,6 +171,7 @@ export const SlidersCards = ({ products }) => {
 
   return (
     <Box 
+    className={`scrollCards ${visible ? 'reveal--visible' : ''}`}
     position="relative" 
     display="flex" 
     alignItems="center" 

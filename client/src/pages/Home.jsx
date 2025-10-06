@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { ItemsListContainer, ItemDetailContainer} from "../components";
 import { useItemsCollection } from "../hooks";
 import {
@@ -25,6 +25,25 @@ export const Home = () => {
 
   //y aca le pasamos como parametro a la hooks que customizamos el nombre de la "Coleccion" //
   const { items, loading } = useItemsCollection("products");
+
+  const targetRef = useRef(null);  
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > targetRef.current.getBoundingClientRect().top) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      setVisible(false);
+    };
+  }, []);
    
 
   // Estado para mostrar un producto aleatorio ---------------------------//
@@ -53,6 +72,8 @@ export const Home = () => {
     { src: fotoMain6, alt: 'Imagen 4' },
   ];
   // --------------------------------------------------------------------- //
+
+
   return loading ? (
     <SkeletonLoading />
   ) : (
@@ -68,6 +89,8 @@ export const Home = () => {
         margin={'100px auto'}
       >
         <Img
+          ref={targetRef}
+          className={`scrollBanner ${visible ? 'reveal--visible' : ''}`}
           src={logoAngel}
           alt="Logo principal"
           width={{ base: '70px', sm: '100px' }}
@@ -75,6 +98,8 @@ export const Home = () => {
         />
         <Link to={`/category/sale`}>
         <Box
+          ref={targetRef}
+          className={`scrollBanner ${visible ? 'reveal--visible' : ''}`}
           transition='all 0.7s ease-in-out'
           _hover={{
             transform: { base: 'translateX(10px)', sm: 'translateX(20px)' },
@@ -102,6 +127,8 @@ export const Home = () => {
         </Box>
         </Link>
         <Img
+          ref={targetRef}
+          className={`scrollBanner ${visible ? 'reveal--visible' : ''}`}
           src={logoAngel}
           alt="Logo principal"
           width={{ base: '70px', sm: '100px' }}
