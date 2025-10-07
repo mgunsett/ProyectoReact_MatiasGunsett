@@ -7,12 +7,6 @@
     margin-top: -65px;
     height: 110vh;
 }
-@media screen and (max-width: 500px) {
-    .titleContainer {
-        background-image: url('../../assets/banner_dami2.jpg');
-        height: 85vh;
-    }
-}
 .title {
     opacity: 0;
     transform: translateY(-60px);
@@ -21,4 +15,19 @@
     opacity: 1;
     transform: translateY(0);
     transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+@media screen and (max-width: 500px) {
+    .titleContainer {
+        background-image: url('../../assets/banner_dami2.jpg');
+        height: 85vh;
+    }
+    .title {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .title.reveal--visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

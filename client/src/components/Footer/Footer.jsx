@@ -85,15 +85,16 @@ export const Footer = () => {
                         </Link>
                     </Button>
                     <Button 
-                        transition={'all 0.3s ease-in-out'}
+                        transition={'all 0.4s ease-in-out'}
                         label={'WhatsApp'} 
                         boxSize={isAtPageEnd ? '35px' : '45px'}
                         _hover={{ 
                             bg: 'linear-gradient(40deg, #25D366, #25D366, #25D366, #25D366, #25D366, #25D366)',
-                            color: 'white'
+                            color: 'white',
+                            transform: 'scale(1.1)',
                         }}
                         position={'fixed'}
-                        right={{base: isAtPageEnd ? '110px' : '28px', md: '30px'}}
+                        right={{base: isAtPageEnd ? '130px' : '28px', md: '30px'}}
                         bottom={{base: isAtPageEnd ? '31px' : '28px', md: '47px'}}
                         bg={isAtPageEnd ? undefined : '#25D366'}
                         color={isAtPageEnd ? undefined : 'white'}
