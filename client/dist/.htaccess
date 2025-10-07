@@ -1,0 +1,46 @@
+# ==========================================
+# 🔧 CONFIGURACIÓN PARA REACT + VITE EN HOSTINGER (APACHE)
+# ==========================================
+
+# Desactiva MultiViews para evitar conflictos de rutas
+Options -MultiViews
+
+# Habilita el motor de reescritura
+RewriteEngine On
+RewriteBase /
+
+# ==========================================
+# 🚀 REDIRECCIÓN PARA SINGLE PAGE APPLICATION (SPA)
+# ==========================================
+# Si el archivo o directorio solicitado no existe,
+# sirve index.html para permitir el enrutamiento por React Router
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [L]
+
+# ==========================================
+# ⚡ OPCIONAL: CACHE BÁSICO DE ASSETS (mejora de rendimiento)
+# ==========================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 1 hour"
+  ExpiresByType text/css "access plus 1 week"
+  ExpiresByType application/javascript "access plus 1 week"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/webp "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+  ExpiresByType font/woff2 "access plus 1 month"
+</IfModule>
+
+# ==========================================
+# 🛡️ SEGURIDAD BÁSICA (opcional)
+# ==========================================
+# Evita listar el contenido del directorio
+Options -Indexes
+
+# Bloquea archivos sensibles
+<FilesMatch "\.(env|json|md|gitignore|lock|config|yml|yaml)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
