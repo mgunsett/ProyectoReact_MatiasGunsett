@@ -114,9 +114,9 @@ const createPreferenceFast = async () => {
         email: user.email,
       },
       back_urls: {
-        success: `https://berealclothes.netlify.app/postpayment`,
-        failure: `https://berealclothes.netlify.app/checkout`,
-        pending: `https://berealclothes.netlify.app/checkout`,
+        success: `https://berealclothes.com/postpayment`,
+        failure: `https://berealclothes.com/checkout`,
+        pending: `https://berealclothes.com/checkout`,
       },
       external_reference: orderDoc.id,
       auto_return: 'approved',

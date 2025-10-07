@@ -53,7 +53,7 @@ app.use(bodyParser.json());
 app.use(compression());
 app.use(
   cors({
-    origin: ["https://berealclothes.netlify.app", "http://localhost:5173"],
+    origin: ["https://berealclothes.com", "http://localhost:5173"],
   })
 );
 
