@@ -1,13 +1,14 @@
 .navbar {
   background: transparent;
   transition: background 0.5s ease-in-out, backdrop-filter 0.5s ease-in-out;
+  color: #000000;
 }
 
 .navbar.scrolled {
   background: rgba(229, 223, 223, 0.578);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
-  color: rgba(0, 0, 0, 0.85);
+  color: #000000;
 }
 
 .menuButton2 {

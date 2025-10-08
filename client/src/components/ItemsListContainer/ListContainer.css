@@ -3,13 +3,12 @@
     background-attachment:fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position:center;
     margin-top: -65px;
     height: 110vh;
 }
 .title {
     opacity: 0;
-    transform: translateY(-60px);
+    transform: translateY(-10px);
 }
 .title.reveal--visible {
     opacity: 1;

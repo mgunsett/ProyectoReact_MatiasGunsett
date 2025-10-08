@@ -102,7 +102,7 @@ export const Footer = () => {
                         transform={isAtPageEnd ? 'scale(1.06)' : 'none'}
                         opacity={isAtPageEnd ? 0.95 : 1}
                     >
-                        <Link to={'https://wa.link/oyoj7s'} target='_blank'>
+                        <Link to={'https://wa.link/mcj7l7'} target='_blank'>
                             <FaWhatsapp size={isAtPageEnd ? '20px' : '25px'}/>
                         </Link>
                     </Button>

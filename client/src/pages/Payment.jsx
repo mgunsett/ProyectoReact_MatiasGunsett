@@ -268,7 +268,7 @@ return (
           Cargando <span className="loading-dots">...</span>
         </Button>   
       )}
-      <Link to='https://wa.link/oyoj7s' target='_blank'>
+      <Link to='https://wa.link/iivnjq' target='_blank'>
         <Button
           px={4}
           fontSize={{ base: 'sm', sm: 'md' }}

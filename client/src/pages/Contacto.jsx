@@ -86,7 +86,7 @@ export const Contacto = () => {
                   icon={<BsInstagram size="24px" />}
                 />
               </Link>
-              <Link to='https://wa.link/oyoj7s' target='_blank'>
+              <Link to='https://wa.link/mcj7l7' target='_blank'>
                 <IconButton
                   color='black'
                   aria-label="discord"

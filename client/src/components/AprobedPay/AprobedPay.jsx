@@ -46,7 +46,7 @@ export const AprobedPay = () => {
         </Text>
       </Box>
       <Flex  justifyContent="center" alignItems="center">
-        <Link to='https://wa.link/oyoj7s' target='_blank'>
+        <Link to='https://wa.link/7wtkzg' target='_blank'>
         <Button
         px={4}
         fontSize={{ base: 'sm', sm: 'md' }}

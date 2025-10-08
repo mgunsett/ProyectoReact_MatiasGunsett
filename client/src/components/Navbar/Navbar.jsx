@@ -80,7 +80,7 @@ export const Navbar = () => {
               </Link>
             </Box>
             <Menu
-            color={'black'}
+            color={'#000000'}
             _hover={{ cursor: "pointer", color: "white" }}
             >
               <MenuButton 
@@ -104,7 +104,7 @@ export const Navbar = () => {
                 ))}
               </MenuList>
             </Menu>
-            <Link to="/contacto" className="menuButton">
+            <Link to="/contacto" color={'#000000'}>
               Contacto
             </Link>
           </Box>

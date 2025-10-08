@@ -9,7 +9,7 @@ export const ItemsListContainer = ({ title, products }) => {
   
     useEffect(() => {
       const handleScroll = () => {
-        if (window.scrollY > 50) {
+        if (window.scrollY > 100) {
           setVisible(true);
         } else {
           setVisible(false);
@@ -28,12 +28,13 @@ export const ItemsListContainer = ({ title, products }) => {
 
 
   return (
-    <Flex  margin={'auto'} flexDirection={'column'} gap={'20px'} backgroundColor={'white'}>
-      <Box 
-      className='titleContainer'
-      position={'relative'}
-      > 
-      </Box>
+    <Flex  
+      margin={'auto'} 
+      flexDirection={'column'} 
+      gap={'20px'} 
+      backgroundColor={'white'}
+    >
+      <Box className='titleContainer'></Box>
       <Heading 
       className={`title ${visible ? 'reveal--visible' : ''}`}
       display={'flex'}
@@ -41,11 +42,11 @@ export const ItemsListContainer = ({ title, products }) => {
       color={'black'}
       lineHeight={1}
       fontWeight={400}
-      fontSize= {{ base: "80px", sm: "90px", md: '100px' , lg: "110px" }}
+      fontSize= {{ base: "90px", sm: "90px", md: '100px' , lg: "110px" }}
       fontFamily={'"Bebas Neue", system-ui'}
       justifyContent={'flex-start'}
       mb={'-30px'}
-      ml={'15px'}
+      ml={{base: '0', sm: '15px'}}
       >{primeraMayuscula(title)}</Heading>
 
       <SlidersCards products={products}/>
