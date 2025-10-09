@@ -175,6 +175,7 @@ export const SlidersCards = ({ products }) => {
     position="relative" 
     display="flex" 
     alignItems="center" 
+    overflowY="hidden"
     >
         <IconButton
           aria-label="Scroll Left"
@@ -191,7 +192,8 @@ export const SlidersCards = ({ products }) => {
 
         <Flex
           ref={containerRef}
-          overflowX="hidden" // Oculta el overflow
+          overflowX="hidden" // Oculta overflow horizontal del carrusel
+          overflowY="hidden" // Evita scroll vertical dentro del carrusel
           gap={2}
           padding={2}
           maxW="100%"
@@ -216,6 +218,7 @@ export const SlidersCards = ({ products }) => {
             height={{ base: "360px", sm: "380px" , md: "480px", lg: "500px" }}
             flex="0 0 auto"
             backgroundColor={'rgba(0, 0, 0, 0.87)'}
+            overflow="hidden" // Recorta el scale del Image en hover para que no genere scroll vertical
             >
               <CardBody
               p={{ base: "10px", sm: "1rem" , md: "1rem", lg: "1rem" }}
