@@ -285,8 +285,8 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
               
               <p style="font-size:18px; margin:10px 0; color:#333; font-family: Sedgwick Ave Display, cursive;">BeReal Family</p>
               <p style="font-size:10px; margin:2px 0; color:#333;">
-                <a href="https://berealclothes.netlify.app" style="color:#333; text-decoration:none;">
-                  https://berealclothes.netlify.app
+                <a href="https://berealclothes.com" style="color:#333; text-decoration:none;">
+                  https://berealclothes.com
                 </a>
               </p>
             </div>
@@ -314,8 +314,8 @@ app.post("/api/webhook/mercadopago", async (req, res) => {
               
               <p style="font-size:18px; margin:10px 0; color:#333; font-family: Sedgwick Ave Display, cursive;">BeReal Family</p>
               <p style="font-size:10px; margin:2px 0; color:#333;">
-                <a href="https://berealclothes.netlify.app" style="color:#333; text-decoration:none;">
-                  https://berealclothes.netlify.app
+                <a href="https://berealclothes.com" style="color:#333; text-decoration:none;">
+                  https://berealclothes.com
                 </a>
               </p>
             </div>
